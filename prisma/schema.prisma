@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Language {
+  ES
+  EN
+}
+
+enum SubscriberStatus {
+  ACTIVE
+  UNSUBSCRIBED
+}
+
+//
+// BLOG: long-form articles
+//
+model Article {
+  id          String    @id @default(uuid())
+  slug        String    @unique
+  title       String
+  description String?
+  content     String    // MD / MDX source
+  tags        String[]  @default([])
+  language    Language  @default(ES)
+  
+  published   Boolean   @default(false)
+  publishedAt DateTime?
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([language, published])
+  @@index([language, publishedAt])
+  @@index([updatedAt])
+}
+
+//
+// NEWSLETTER: short news items
+//
+model NewsItem {
+  id          String    @id @default(uuid())
+  slug        String    @unique
+  title       String
+  summary     String?   // short teaser (email preview)
+  content     String    // MD / MDX (short)
+  language    Language  @default(ES)
+
+  published   Boolean   @default(false)
+  publishedAt DateTime?
+
+  // email workflow helpers
+  emailSent   Boolean   @default(false)
+  emailSentAt DateTime?
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([language, published])
+  @@index([language, publishedAt])
+  @@index([emailSent, publishedAt])
+}
+
+//
+// SUBSCRIBERS
+//
+model Subscriber {
+  id             String            @id @default(uuid())
+  email          String            @unique
+  status         SubscriberStatus  @default(ACTIVE)
+
+  subscribedAt   DateTime          @default(now())
+  unsubscribedAt DateTime?
+
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  @@index([status])
+}
