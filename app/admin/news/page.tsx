@@ -25,6 +25,8 @@ async function togglePublish(id: string, published: boolean) {
     },
   })
   revalidatePath('/admin/news')
+  revalidatePath('/newsletter/es')
+  revalidatePath('/news')
 }
 
 async function deleteNews(id: string) {
@@ -32,6 +34,8 @@ async function deleteNews(id: string) {
 
   await prisma.newsItem.delete({ where: { id } })
   revalidatePath('/admin/news')
+  revalidatePath('/newsletter/es')
+  revalidatePath('/news')
 }
 
 export default async function AdminNewsPage() {
