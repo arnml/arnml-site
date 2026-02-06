@@ -3,6 +3,7 @@ import { Resend } from 'resend'
 import { marked } from 'marked'
 import { prisma } from '@/lib/prisma'
 import { NewsEmailTemplate } from '@/components/email/news-email-template'
+import { emailRenderer } from '@/lib/email-renderer'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -69,7 +70,8 @@ export async function POST(
           day: 'numeric',
         })
 
-    const htmlContent = await marked(newsItem.content)
+    const sanitized = newsItem.content.replaceAll(/:contentReference\[.*?\]\{.*?\}/g, '')
+    const htmlContent = await marked(sanitized, { renderer: emailRenderer })
 
     for (const subscriber of subscribers) {
       const unsubscribeUrl = `${baseUrl}/api/unsubscribe/${subscriber.id}`
@@ -80,6 +82,7 @@ export async function POST(
         subject: newsItem.title,
         react: NewsEmailTemplate({
           title: newsItem.title,
+          summary: newsItem.summary ?? '',
           date,
           content: htmlContent,
           unsubscribeUrl,

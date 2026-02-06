@@ -22,6 +22,7 @@
     "@radix-ui/react-slot": "^1.2.4",
     "@react-email/components": "^1.0.7",
     "@react-email/render": "^2.0.2",
+    "@tailwindcss/typography": "^0.5.19",
     "@types/mdx": "^2.0.13",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
