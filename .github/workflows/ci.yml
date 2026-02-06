@@ -1,17 +1,13 @@
-name: Migrate Production DB
+name: CI
 
 on:
-  push:
+  pull_request:
     branches: [main]
+  workflow_call:
 
 jobs:
   ci:
-    uses: ./.github/workflows/ci.yml
-
-  migrate:
-    needs: ci
     runs-on: ubuntu-latest
-    environment: production
 
     steps:
       - name: Checkout
@@ -33,10 +29,9 @@ jobs:
 
       - name: Generate Prisma Client
         run: pnpm prisma generate
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
-      - name: Apply migrations (prod)
-        run: pnpm prisma migrate deploy
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      - name: Lint
+        run: pnpm lint
+
+      - name: Test
+        run: pnpm test

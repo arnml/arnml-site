@@ -80,6 +80,9 @@ model Subscriber {
   email          String            @unique
   status         SubscriberStatus  @default(ACTIVE)
 
+  emailConfirmed   Boolean   @default(false)
+  emailConfirmedAt DateTime?
+
   subscribedAt   DateTime          @default(now())
   unsubscribedAt DateTime?
 

@@ -1,0 +1,80 @@
+.page {
+  background-color: #000000;
+  color: #e7eaf0;
+  min-height: 100vh;
+}
+
+.hero {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.hero > div {
+  position: relative;
+  z-index: 1;
+}
+
+.mobileFrame {
+  max-width: 420px;
+}
+
+.codeWindow {
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(14, 18, 26, 0.80);
+  backdrop-filter: blur(12px);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.windowBar {
+  display: flex;
+  align-items: center;
+  padding: 14px 18px;
+  background: rgba(10, 13, 20, 0.6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.windowDots {
+  display: flex;
+  gap: 8px;
+}
+
+.windowDots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.35);
+}
+
+.windowDots span:nth-child(1) {
+  background: #ff5f56;
+  box-shadow: 0 0 8px rgba(255, 95, 86, 0.35);
+}
+
+.windowDots span:nth-child(2) {
+  background: #ffbd2e;
+  box-shadow: 0 0 8px rgba(255, 189, 46, 0.35);
+}
+
+.windowDots span:nth-child(3) {
+  background: #27c93f;
+  box-shadow: 0 0 8px rgba(39, 201, 63, 0.35);
+}
+
+.windowBody {
+  padding: 40px 32px 48px;
+  position: relative;
+}
+
+@media (max-width: 640px) {
+  .windowBody {
+    padding: 32px 24px 40px;
+  }
+}
