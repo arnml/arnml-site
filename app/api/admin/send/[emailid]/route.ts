@@ -80,6 +80,10 @@ export async function POST(
         from: 'Arnold Moya <news@arnoldmoya.com>',
         to: [subscriber.email],
         subject: newsItem.title,
+        headers: {
+          'List-Unsubscribe': `<${unsubscribeUrl}>`,
+          'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
+        },
         react: NewsEmailTemplate({
           title: newsItem.title,
           summary: newsItem.summary ?? '',

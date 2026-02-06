@@ -1,4 +1,5 @@
 import { notFound, redirect } from 'next/navigation'
+import { revalidatePath } from 'next/cache'
 import { prisma } from '@/lib/prisma'
 import { NewsForm } from '@/components/news-form'
 import { randomDigits, slugify } from '@/lib/slug'
@@ -6,9 +7,9 @@ import { parseNewsInput } from '@/lib/validation/news'
 
 export default async function EditNewsPage({
   params,
-}: {
+}: Readonly<{
   params: Promise<{ id: string }>
-}) {
+}>) {
   const { id } = await params
 
   const news = await prisma.newsItem.findUnique({
@@ -53,10 +54,12 @@ export default async function EditNewsPage({
       data: {
         ...parsed,
         slug,
-        language: parsed.language as 'ES' | 'EN',
+        language: parsed.language,
       },
     })
 
+    revalidatePath('/newsletter/es')
+    revalidatePath('/news')
     redirect('/admin/news')
   }
 
