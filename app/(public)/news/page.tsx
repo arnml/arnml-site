@@ -8,11 +8,11 @@ export const metadata = {
 
 export default async function NewsPage({
   searchParams,
-}: {
+}: Readonly<{
   searchParams: Promise<{ lang?: string; page?: string }>
-}) {
+}>) {
   const { lang = 'ES', page = '1' } = await searchParams
-  const currentPage = parseInt(page)
+  const currentPage = Number.parseInt(page)
   const itemsPerPage = 20
 
   const newsItems = await prisma.newsItem.findMany({

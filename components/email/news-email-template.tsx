@@ -13,6 +13,7 @@ import {
 
 interface NewsEmailTemplateProps {
   title: string
+  summary: string
   date: string
   content: string
   unsubscribeUrl: string
@@ -20,6 +21,7 @@ interface NewsEmailTemplateProps {
 
 export function NewsEmailTemplate({
   title,
+  summary,
   date,
   content,
   unsubscribeUrl,
@@ -31,17 +33,7 @@ export function NewsEmailTemplate({
           fontFamily="Inter"
           fallbackFontFamily={['Helvetica', 'Arial', 'sans-serif']}
           webFont={{
-            url: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap',
-            format: 'woff2',
-          }}
-          fontWeight={400}
-          fontStyle="normal"
-        />
-        <Font
-          fontFamily="JetBrains Mono"
-          fallbackFontFamily="monospace"
-          webFont={{
-            url: 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap',
+            url: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
             format: 'woff2',
           }}
           fontWeight={400}
@@ -50,7 +42,7 @@ export function NewsEmailTemplate({
       </Head>
       <Body
         style={{
-          backgroundColor: '#000000',
+          backgroundColor: '#f4f4f5',
           fontFamily: "'Inter', Helvetica, Arial, sans-serif",
           margin: 0,
           padding: 0,
@@ -59,154 +51,141 @@ export function NewsEmailTemplate({
         <Container
           style={{
             maxWidth: '600px',
-            margin: '40px auto',
-            padding: '24px',
+            margin: '0 auto',
           }}
         >
+          {/* Header */}
           <Section
             style={{
-              borderRadius: '20px',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              backgroundColor: '#0e121a',
-              boxShadow:
-                '0 30px 80px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.06)',
-              overflow: 'hidden',
+              backgroundColor: '#18181b',
+              padding: '28px 32px',
+              textAlign: 'center' as const,
             }}
           >
-            <Section
+            <Text
               style={{
-                backgroundColor: 'rgba(10, 13, 20, 0.9)',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-                padding: '14px 18px',
+                fontSize: '20px',
+                fontWeight: 700,
+                color: '#ffffff',
+                margin: 0,
+                letterSpacing: '-0.02em',
               }}
             >
+              Arnold Moya
+            </Text>
+            <Text
+              style={{
+                fontSize: '12px',
+                color: '#a1a1aa',
+                margin: '4px 0 0',
+                letterSpacing: '0.05em',
+                textTransform: 'uppercase' as const,
+              }}
+            >
+              Newsletter
+            </Text>
+          </Section>
+
+          {/* Date bar */}
+          <Section
+            style={{
+              backgroundColor: '#ffffff',
+              padding: '14px 32px',
+              borderBottom: '1px solid #e4e4e7',
+            }}
+          >
+            <Text
+              style={{
+                fontSize: '12px',
+                color: '#71717a',
+                margin: 0,
+                textAlign: 'right' as const,
+              }}
+            >
+              {date}
+            </Text>
+          </Section>
+
+          {/* Title + Summary */}
+          <Section
+            style={{
+              backgroundColor: '#ffffff',
+              padding: '32px 32px 28px',
+            }}
+          >
+            <Heading
+              as="h1"
+              style={{
+                fontSize: '24px',
+                fontWeight: 700,
+                color: '#18181b',
+                lineHeight: '1.3',
+                margin: 0,
+              }}
+            >
+              {title}
+            </Heading>
+            {summary && (
               <Text
                 style={{
-                  margin: 0,
-                  fontSize: '0',
-                  lineHeight: 0,
+                  fontSize: '16px',
+                  lineHeight: '1.6',
+                  color: '#52525b',
+                  margin: '16px 0 0',
                 }}
               >
-                <span
-                  style={{
-                    display: 'inline-block',
-                    width: '10px',
-                    height: '10px',
-                    borderRadius: '999px',
-                    backgroundColor: '#ff5f56',
-                    boxShadow: '0 0 8px rgba(255, 95, 86, 0.35)',
-                    marginRight: '8px',
-                  }}
-                />
-                <span
-                  style={{
-                    display: 'inline-block',
-                    width: '10px',
-                    height: '10px',
-                    borderRadius: '999px',
-                    backgroundColor: '#ffbd2e',
-                    boxShadow: '0 0 8px rgba(255, 189, 46, 0.35)',
-                    marginRight: '8px',
-                  }}
-                />
-                <span
-                  style={{
-                    display: 'inline-block',
-                    width: '10px',
-                    height: '10px',
-                    borderRadius: '999px',
-                    backgroundColor: '#27c93f',
-                    boxShadow: '0 0 8px rgba(39, 201, 63, 0.35)',
-                  }}
-                />
+                {summary}
               </Text>
-            </Section>
+            )}
+          </Section>
 
-            <Section style={{ padding: '32px 32px 12px' }}>
-              <Text
-                style={{
-                  fontFamily: "'JetBrains Mono', 'Courier New', monospace",
-                  fontSize: '12px',
-                  fontWeight: 600,
-                  color: '#9ca3af',
-                  letterSpacing: '0.35em',
-                  textTransform: 'uppercase',
-                  margin: 0,
-                }}
-              >
-                Últimas noticias
-              </Text>
-              <Text
-                style={{
-                  fontFamily: "'JetBrains Mono', 'Courier New', monospace",
-                  fontSize: '12px',
-                  fontWeight: 400,
-                  color: '#a1a1aa',
-                  letterSpacing: '0.05em',
-                  textTransform: 'uppercase',
-                  margin: '12px 0 0',
-                }}
-              >
-                {date}
-              </Text>
-              <Heading
-                as="h1"
-                style={{
-                  fontFamily: "'JetBrains Mono', 'Courier New', monospace",
-                  fontSize: '26px',
-                  fontWeight: 700,
-                  color: '#f8fafc',
-                  lineHeight: '1.3',
-                  margin: '14px 0 0',
-                }}
-              >
-                {title}
-              </Heading>
-            </Section>
+          <Section style={{ backgroundColor: '#ffffff', padding: '0 32px' }}>
+            <Hr style={{ borderColor: '#e4e4e7', margin: 0 }} />
+          </Section>
 
-            <Section style={{ padding: '0 32px' }}>
-              <Hr style={{ borderColor: 'rgba(255, 255, 255, 0.08)', margin: 0 }} />
-            </Section>
+          {/* Content */}
+          <Section style={{ backgroundColor: '#ffffff', padding: '24px 32px 32px' }}>
+            <div
+              style={{
+                fontSize: '15px',
+                lineHeight: '1.7',
+                color: '#3f3f46',
+              }}
+              dangerouslySetInnerHTML={{ __html: content }}
+            />
+          </Section>
 
-            <Section style={{ padding: '20px 32px 0' }}>
-              <div
-                style={{
-                  fontSize: '15px',
-                  lineHeight: '1.7',
-                  color: '#e2e8f0',
-                }}
-                dangerouslySetInnerHTML={{ __html: content }}
-              />
-            </Section>
-
-            <Section style={{ padding: '28px 32px 0' }}>
-              <Hr style={{ borderColor: 'rgba(255, 255, 255, 0.08)', margin: 0 }} />
-            </Section>
-
-            <Section style={{ padding: '18px 32px 32px' }}>
-              <Text
-                style={{
-                  fontSize: '12px',
-                  lineHeight: '1.5',
-                  color: '#9ca3af',
-                  margin: 0,
-                }}
-              >
-                Recibiste este correo porque estás suscrito al boletín de
-                arnoldmoya.com
-              </Text>
-              <Link
-                href={unsubscribeUrl}
-                style={{
-                  fontSize: '12px',
-                  color: '#cbd5f5',
-                  marginTop: '8px',
-                  display: 'inline-block',
-                }}
-              >
-                Cancelar suscripción
-              </Link>
-            </Section>
+          {/* Footer */}
+          <Section
+            style={{
+              backgroundColor: '#fafafa',
+              borderTop: '1px solid #e4e4e7',
+              padding: '24px 32px',
+              textAlign: 'center' as const,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: '12px',
+                lineHeight: '1.5',
+                color: '#a1a1aa',
+                margin: 0,
+              }}
+            >
+              Recibiste este correo porque est&aacute;s suscrito al bolet&iacute;n de arnoldmoya.com
+            </Text>
+            <Link
+              href={unsubscribeUrl}
+              style={{
+                fontSize: '12px',
+                color: '#71717a',
+                textDecoration: 'underline',
+                marginTop: '8px',
+                display: 'inline-block',
+              }}
+            >
+              Cancelar suscripci&oacute;n
+            </Link>
           </Section>
         </Container>
       </Body>

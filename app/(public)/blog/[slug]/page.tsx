@@ -34,11 +34,16 @@ export async function generateStaticParams() {
   }))
 }
 
+/** Strip ChatGPT citation artifacts that break MDX compilation */
+function sanitizeMDX(source: string) {
+  return source.replaceAll(/:contentReference\[.*?\]\{.*?\}/g, '')
+}
+
 export default async function BlogPostPage({
   params,
-}: {
+}: Readonly<{
   params: Promise<{ slug: string }>
-}) {
+}>) {
   const { slug } = await params
 
   const article = await prisma.article.findUnique({
@@ -77,7 +82,7 @@ export default async function BlogPostPage({
         </header>
 
         <div className="prose prose-neutral dark:prose-invert max-w-none">
-          <MDXRemote source={article.content} />
+          <MDXRemote source={sanitizeMDX(article.content)} />
         </div>
       </div>
     </article>
