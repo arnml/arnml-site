@@ -2,6 +2,8 @@ import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { MDXRemote } from 'next-mdx-remote-client/rsc'
 import type { Metadata } from 'next'
+import styles from './page.module.css'
+import { HomeSubscribeForm } from '@/components/home-subscribe-form'
 
 export async function generateMetadata({
   params,
@@ -11,14 +13,56 @@ export async function generateMetadata({
   const { slug } = await params
   const newsItem = await prisma.newsItem.findUnique({
     where: { slug },
-    select: { title: true, summary: true },
+    select: { title: true, summary: true, publishedAt: true, language: true },
   })
 
   if (!newsItem) return { title: 'Not Found' }
 
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://arnoldmoya.com'
+  const pageUrl = `${baseUrl}/news/${slug}`
+  const titlePattern = `${newsItem.title} - Newsletter IA, Software, Startups`
+
   return {
-    title: newsItem.title,
-    description: newsItem.summary || undefined,
+    title: titlePattern,
+    description:
+      newsItem.summary ||
+      'Análisis de tendencias en inteligencia artificial, software y startups para developers.',
+    keywords: [
+      'inteligencia artificial',
+      'IA',
+      'startups',
+      'software development',
+      'AI trends',
+      'developers',
+    ],
+    authors: [{ name: 'Arnold Moya' }],
+    creator: 'Arnold Moya',
+    publisher: 'Arnold Moya',
+
+    // OpenGraph
+    openGraph: {
+      title: newsItem.title,
+      description: newsItem.summary || undefined,
+      url: pageUrl,
+      siteName: 'Arnold Moya - Newsletter',
+      locale: newsItem.language === 'EN' ? 'en_US' : 'es_ES',
+      type: 'article',
+      publishedTime: newsItem.publishedAt?.toISOString(),
+      authors: ['Arnold Moya'],
+    },
+
+    // Twitter Card
+    twitter: {
+      card: 'summary_large_image',
+      title: newsItem.title,
+      description: newsItem.summary || undefined,
+      creator: '@arnoldmoya',
+    },
+
+    // Canonical URL
+    alternates: {
+      canonical: pageUrl,
+    },
   }
 }
 
@@ -53,29 +97,90 @@ export default async function NewsDetailPage({
     notFound()
   }
 
+  // Generate Article Schema
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://arnoldmoya.com'
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'NewsArticle',
+    headline: newsItem.title,
+    description: newsItem.summary || undefined,
+    datePublished: newsItem.publishedAt?.toISOString(),
+    dateModified: newsItem.updatedAt.toISOString(),
+    author: {
+      '@type': 'Person',
+      name: 'Arnold Moya',
+      url: baseUrl,
+    },
+    publisher: {
+      '@type': 'Person',
+      name: 'Arnold Moya',
+      url: baseUrl,
+    },
+    inLanguage: newsItem.language === 'EN' ? 'en-US' : 'es-ES',
+    url: `${baseUrl}/news/${slug}`,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${baseUrl}/news/${slug}`,
+    },
+  }
+
   return (
-    <article className="px-6 py-12">
-      <div className="mx-auto max-w-2xl">
-        <header className="mb-8">
-          <h1 className="mb-4 text-4xl font-bold">{newsItem.title}</h1>
-          {newsItem.summary && (
-            <p className="mb-4 text-xl text-neutral-600 dark:text-neutral-400">
-              {newsItem.summary}
-            </p>
-          )}
-          <div className="text-sm text-neutral-500">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <article className={styles.article}>
+        <div className={styles.container}>
+        {/* Header */}
+        <header className={styles.header}>
+          <h1 className={styles.headerTitle}>Arnold Moya</h1>
+          <p className={styles.headerSubtitle}>Newsletter</p>
+        </header>
+
+        {/* Date Bar */}
+        <div className={styles.dateBar}>
+          <p className={styles.dateText}>
             {newsItem.publishedAt?.toLocaleDateString('en-US', {
               year: 'numeric',
               month: 'long',
               day: 'numeric',
             })}
-          </div>
-        </header>
+          </p>
+        </div>
 
-        <div className="prose prose-neutral dark:prose-invert max-w-none">
-          <MDXRemote source={sanitizeMDX(newsItem.content)} />
+        {/* Title + Summary */}
+        <div className={styles.titleSection}>
+          <h1 className={styles.title}>{newsItem.title}</h1>
+          {newsItem.summary && (
+            <p className={styles.summary}>{newsItem.summary}</p>
+          )}
+        </div>
+
+        {/* Subscribe Button After Summary */}
+        <div className={styles.subscribeButtonArea}>
+          <p className={styles.footerText}>
+            Suscríbete a mi boletín para recibir más contenido como este
+          </p>
+          <HomeSubscribeForm buttonText="Suscríbete gratis" />
+        </div>
+
+        {/* Content */}
+        <div className={styles.content}>
+          <div className="prose prose-neutral dark:prose-invert max-w-none">
+            <MDXRemote source={sanitizeMDX(newsItem.content)} />
+          </div>
+        </div>
+
+        {/* Footer Subscribe */}
+        <div className={styles.footerSubscribe}>
+          <p className={styles.footerText}>
+            Suscríbete a mi boletín para recibir más contenido como este
+          </p>
+          <HomeSubscribeForm buttonText="Suscríbete gratis" />
         </div>
       </div>
     </article>
+    </>
   )
 }

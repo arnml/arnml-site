@@ -25,6 +25,7 @@ DATABASE_URL=postgresql://user:password@localhost:5432/arnml
 SESSION_SECRET=at-least-32-characters-long-secret-here
 ADMIN_PASSWORD=your-admin-password
 NODE_ENV=development
+NEXT_PUBLIC_SITE_URL="https://arnoldmoya.com"
 ```
 
 3. Set up the database and generate the Prisma client:

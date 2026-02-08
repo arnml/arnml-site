@@ -2,7 +2,11 @@
 
 import { FormEvent, useState } from 'react'
 
-export function HomeSubscribeForm() {
+interface HomeSubscribeFormProps {
+  readonly buttonText?: string
+}
+
+export function HomeSubscribeForm({ buttonText = 'Suscribirme' }: Readonly<HomeSubscribeFormProps>) {
   const [email, setEmail] = useState('')
   const [pending, setPending] = useState(false)
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
@@ -37,7 +41,7 @@ export function HomeSubscribeForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       <div className="flex flex-col gap-3">
         <input
           type="email"
@@ -53,7 +57,7 @@ export function HomeSubscribeForm() {
           disabled={pending}
           className="inline-flex items-center justify-center rounded-full border border-neutral-600/70 bg-neutral-950 px-6 py-2.5 text-sm font-semibold text-neutral-100 transition hover:border-neutral-400 hover:text-white disabled:opacity-50"
         >
-          {pending ? 'Enviando...' : 'Suscribirme'}
+          {pending ? 'Enviando...' : buttonText}
         </button>
       </div>
       {message && (

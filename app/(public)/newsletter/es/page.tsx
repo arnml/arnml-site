@@ -176,7 +176,7 @@ export default async function NewsletterES() {
               <p className="mt-5 max-w-2xl text-lg font-medium text-neutral-300">
                 Sin spam, solo contenido relevante. Cancela cuando quieras.
               </p>
-              <HomeSubscribeForm />
+              <HomeSubscribeForm buttonText="Suscríbete gratis" />
             </div>
           </div>
         </div>
