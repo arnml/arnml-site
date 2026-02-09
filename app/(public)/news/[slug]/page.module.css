@@ -167,6 +167,23 @@
 
   .content {
     background-color: #1a1a1a;
+    color: #fafafa;
+  }
+
+  .content :is(h1, h2, h3, h4, h5, h6) {
+    color: #fafafa;
+  }
+
+  .content :is(p, li, blockquote) {
+    color: #e0e0e0;
+  }
+
+  .content a {
+    color: #60a5fa;
+  }
+
+  .content a:hover {
+    color: #93c5fd;
   }
 
   .subscribeButtonArea {

@@ -82,6 +82,15 @@ function sanitizeMDX(source: string) {
   return source.replaceAll(/:contentReference\[.*?\]\{.*?\}/g, '')
 }
 
+/** Custom MDX components to preserve link URLs exactly */
+const mdxComponents = {
+  a: ({ href, children, ...props }: { href?: string; children?: React.ReactNode; [key: string]: unknown }) => (
+    <a href={href || '#'} target="_blank" rel="noopener noreferrer" {...props}>
+      {children}
+    </a>
+  ),
+}
+
 export default async function NewsDetailPage({
   params,
 }: Readonly<{
@@ -168,7 +177,7 @@ export default async function NewsDetailPage({
         {/* Content */}
         <div className={styles.content}>
           <div className="prose prose-neutral dark:prose-invert max-w-none">
-            <MDXRemote source={sanitizeMDX(newsItem.content)} />
+            <MDXRemote source={sanitizeMDX(newsItem.content)} components={mdxComponents} />
           </div>
         </div>
 
