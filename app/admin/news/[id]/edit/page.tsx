@@ -60,6 +60,10 @@ export default async function EditNewsPage({
 
     revalidatePath('/newsletter/es')
     revalidatePath('/news')
+    revalidatePath(`/news/${slug}`)
+    if (currentNews.slug !== slug) {
+      revalidatePath(`/news/${currentNews.slug}`)
+    }
     redirect('/admin/news')
   }
 
