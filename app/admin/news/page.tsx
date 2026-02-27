@@ -40,7 +40,7 @@ async function deleteNews(id: string) {
 
 export default async function AdminNewsPage() {
   const newsItems = await prisma.newsItem.findMany({
-    orderBy: { updatedAt: 'desc' },
+    orderBy: { createdAt: 'desc' },
     select: {
       id: true,
       slug: true,
@@ -49,6 +49,7 @@ export default async function AdminNewsPage() {
       published: true,
       publishedAt: true,
       emailSent: true,
+      createdAt: true,
     },
   })
 
@@ -69,6 +70,7 @@ export default async function AdminNewsPage() {
                 <TableHead>Title</TableHead>
                 <TableHead>Language</TableHead>
                 <TableHead>Status</TableHead>
+                <TableHead>Created</TableHead>
                 <TableHead>Published</TableHead>
                 <TableHead>Email</TableHead>
                 <TableHead>Actions</TableHead>
@@ -83,6 +85,9 @@ export default async function AdminNewsPage() {
                     <Badge variant={news.published ? 'default' : 'secondary'}>
                       {news.published ? 'Published' : 'Draft'}
                     </Badge>
+                  </TableCell>
+                  <TableCell>
+                    {news.createdAt.toLocaleDateString()}
                   </TableCell>
                   <TableCell>
                     {news.publishedAt?.toLocaleDateString() || '—'}
