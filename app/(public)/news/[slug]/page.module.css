@@ -178,6 +178,19 @@
     color: #e0e0e0;
   }
 
+  .content strong {
+    color: #fafafa;
+  }
+
+  .content em {
+    color: #e0e0e0;
+  }
+
+  .content code {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+  }
+
   .content a {
     color: #60a5fa;
   }
