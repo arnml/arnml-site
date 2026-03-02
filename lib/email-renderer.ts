@@ -52,3 +52,6 @@ emailRenderer.listitem = function ({ tokens }) {
 
 emailRenderer.codespan = ({ text }) =>
   `<code style="background:#f4f4f5;padding:2px 6px;border-radius:4px;font-size:13px;color:#7c3aed;">${text}</code>`
+
+emailRenderer.image = ({ href, text }) =>
+  `<img src="${href}" alt="${text}" style="max-width:100%;height:auto;display:block;border:0;margin:16px 0;" />`
