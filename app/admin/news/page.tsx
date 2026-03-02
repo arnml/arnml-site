@@ -104,6 +104,12 @@ export default async function AdminNewsPage() {
                       </Button>
                     </Link>
 
+                    <Link href={`/admin/news/${news.id}/preview`}>
+                      <Button variant="outline" size="sm">
+                        Preview
+                      </Button>
+                    </Link>
+
                     <form
                       action={async () => {
                         'use server'

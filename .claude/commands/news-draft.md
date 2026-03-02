@@ -41,25 +41,20 @@ Generate three clearly labeled sections:
 
 ## Output format
 
-Output TITLE and SUMMARY as plain text. Wrap the CONTENT in a markdown code block (triple backticks with `markdown` language tag) so the user can copy the raw markdown easily.
+After generating the content, **save it as a markdown file** in `docs/drafts/` using the title as the filename (lowercase, spaces replaced with hyphens, no special characters). For example, a title "Google lanza Project Genie" becomes `docs/drafts/google-lanza-project-genie.md`.
 
-Example:
+The file should contain the full draft: title as `#` heading, summary as bold text, and the full markdown content below.
 
-TITLE: Google lanza Project Genie
+Then confirm to the user the file was saved and show the TITLE and SUMMARY as plain text so they have a quick preview.
 
-SUMMARY: Querida comunidad. Hoy despertamos con muchas novedades sobre IA generativa y nuevas herramientas que van a cambiar la forma en que trabajamos.
-
-CONTENT:
+Example file structure:
 ```markdown
-## 🚀 Lo último en Inteligencia Artificial
+# Google lanza Project Genie
 
-### 🌐 Google lanza **Project Genie**
-Descubre mundos interactivos generados por IA a partir de texto o imágenes con *Project Genie*. Explora entornos que se crean en tiempo real sin necesidad de programación.
-🔗 [Más detalles](https://blog.google/example)
+**SUMMARY:** Querida comunidad. Hoy despertamos con muchas novedades sobre IA generativa y nuevas herramientas que van a cambiar la forma en que trabajamos.
 
 ---
 
-### 📊 OpenAI potencia datos con un agente interno
-OpenAI ha desarrollado un agente interno que permite navegar y analizar grandes volúmenes de datos de forma conversacional.
-🔗 [Más detalles](https://openai.com/example)
+## 🚀 Lo último en Inteligencia Artificial
+...
 ```
