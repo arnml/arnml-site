@@ -8,12 +8,18 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Archivo | Arnold Moya',
-  description: 'Todas las entregas del boletín de Arnold Moya — AI y tech en español.',
+  description: 'Todas las entregas del boletín de Arnold Moya — AI y tech en español, inglés y portugués.',
   authors: [{ name: 'Arnold Moya' }],
   // Don't index the archive list — it changes daily and creates stale snapshots.
   // Individual /news/[slug] pages are the canonical indexed content.
   robots: { index: false, follow: true },
 }
+
+const tabs: { lang: string; label: string; value: Language; locale: string; empty: string }[] = [
+  { lang: '',    label: 'Español',   value: Language.ES, locale: 'es-ES', empty: 'Próximamente...' },
+  { lang: 'en',  label: 'English',   value: Language.EN, locale: 'en-US', empty: 'Coming soon...' },
+  { lang: 'pt',  label: 'Português', value: Language.PT, locale: 'pt-BR', empty: 'Em breve...' },
+]
 
 export default async function NewsArchive({
   searchParams,
@@ -21,16 +27,14 @@ export default async function NewsArchive({
   searchParams: Promise<{ lang?: string }>
 }) {
   const { lang } = await searchParams
-  const language = lang?.toUpperCase() === 'EN' ? Language.EN : Language.ES
+  const normalized = lang?.toLowerCase()
+  const activeTab = tabs.find((t) => t.lang === normalized) ?? tabs[0]
 
   const newsItems = await prisma.newsItem.findMany({
-    where: { published: true, language },
+    where: { published: true, language: activeTab.value },
     orderBy: { publishedAt: 'desc' },
     select: { slug: true, title: true, summary: true, publishedAt: true },
   })
-
-  const locale = language === Language.ES ? 'es-ES' : 'en-US'
-  const emptyText = language === Language.ES ? 'Próximamente...' : 'Coming soon...'
 
   return (
     <div className="bg-black min-h-screen">
@@ -41,9 +45,7 @@ export default async function NewsArchive({
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="text-xs uppercase tracking-[0.35em] text-neutral-400">Archivo</p>
-                <h1
-                  className={`${display.className} mt-3 text-3xl font-semibold text-neutral-100`}
-                >
+                <h1 className={`${display.className} mt-3 text-3xl font-semibold text-neutral-100`}>
                   Todas las entregas
                 </h1>
               </div>
@@ -57,26 +59,19 @@ export default async function NewsArchive({
 
             {/* Language tabs */}
             <div className="mt-6 flex gap-2">
-              <Link
-                href="/news"
-                className={`rounded-full px-4 py-1.5 text-xs font-medium transition border ${
-                  language === Language.ES
-                    ? 'bg-white/10 text-neutral-100 border-white/20'
-                    : 'text-neutral-500 border-transparent hover:text-neutral-300'
-                }`}
-              >
-                Español
-              </Link>
-              <Link
-                href="/news?lang=en"
-                className={`rounded-full px-4 py-1.5 text-xs font-medium transition border ${
-                  language === Language.EN
-                    ? 'bg-white/10 text-neutral-100 border-white/20'
-                    : 'text-neutral-500 border-transparent hover:text-neutral-300'
-                }`}
-              >
-                English
-              </Link>
+              {tabs.map((tab) => (
+                <Link
+                  key={tab.lang}
+                  href={tab.lang ? `/news?lang=${tab.lang}` : '/news'}
+                  className={`rounded-full px-4 py-1.5 text-xs font-medium transition border ${
+                    activeTab.value === tab.value
+                      ? 'bg-white/10 text-neutral-100 border-white/20'
+                      : 'text-neutral-500 border-transparent hover:text-neutral-300'
+                  }`}
+                >
+                  {tab.label}
+                </Link>
+              ))}
             </div>
 
             {newsItems.length > 0 ? (
@@ -94,7 +89,7 @@ export default async function NewsArchive({
                       )}
                       {item.publishedAt && (
                         <p className="mt-1.5 text-xs text-neutral-600">
-                          {new Date(item.publishedAt).toLocaleDateString(locale, {
+                          {new Date(item.publishedAt).toLocaleDateString(activeTab.locale, {
                             year: 'numeric',
                             month: 'long',
                             day: 'numeric',
@@ -106,7 +101,7 @@ export default async function NewsArchive({
                 ))}
               </ul>
             ) : (
-              <p className="mt-8 text-sm text-neutral-600">{emptyText}</p>
+              <p className="mt-8 text-sm text-neutral-600">{activeTab.empty}</p>
             )}
           </GlassWindow>
         </div>

@@ -159,6 +159,7 @@ export function ArticleForm({ article, onSubmit, isLoading }: Readonly<ArticleFo
         >
           <option value="ES">Español</option>
           <option value="EN">English</option>
+          <option value="PT">Português</option>
         </select>
       </div>
 

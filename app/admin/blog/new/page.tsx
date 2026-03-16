@@ -37,7 +37,7 @@ export default function NewArticlePage() {
       data: {
         ...parsed,
         slug,
-        language: parsed.language as 'ES' | 'EN',
+        language: parsed.language as 'ES' | 'EN' | 'PT',
       },
     })
 

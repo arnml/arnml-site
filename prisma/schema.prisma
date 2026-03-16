@@ -16,6 +16,7 @@ datasource db {
 enum Language {
   ES
   EN
+  PT
 }
 
 enum SubscriberStatus {

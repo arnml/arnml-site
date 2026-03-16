@@ -54,7 +54,7 @@ export default async function EditArticlePage({
       data: {
         ...parsed,
         slug,
-        language: parsed.language as 'ES' | 'EN',
+        language: parsed.language as 'ES' | 'EN' | 'PT',
       },
     })
 

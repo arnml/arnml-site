@@ -13,7 +13,49 @@ const getNewsItem = cache((slug: string) =>
   prisma.newsItem.findUnique({ where: { slug, published: true } })
 )
 
-const isES = (language: string) => language !== 'EN'
+type Lang = 'ES' | 'EN' | 'PT'
+
+const langConfig: Record<Lang, {
+  locale: string
+  inLanguage: string
+  ogLocale: string
+  titleSuffix: string
+  fallbackDescription: string
+  keywords: string[]
+  subscribeText: string
+  subscribeButton: string
+}> = {
+  ES: {
+    locale: 'es-ES',
+    inLanguage: 'es-ES',
+    ogLocale: 'es_ES',
+    titleSuffix: 'Newsletter de IA, Software y Startups',
+    fallbackDescription: 'Análisis de tendencias en inteligencia artificial, software y startups para developers.',
+    keywords: ['inteligencia artificial', 'IA', 'startups', 'desarrollo de software', 'AI trends', 'developers', 'Arnold Moya', 'newsletter tecnología'],
+    subscribeText: 'Suscríbete a mi boletín para recibir más contenido como este',
+    subscribeButton: 'Suscríbete gratis',
+  },
+  EN: {
+    locale: 'en-US',
+    inLanguage: 'en-US',
+    ogLocale: 'en_US',
+    titleSuffix: 'AI, Software & Startups Newsletter',
+    fallbackDescription: 'Analysis of trends in artificial intelligence, software and startups for developers.',
+    keywords: ['artificial intelligence', 'AI', 'startups', 'software development', 'AI trends', 'developers', 'Arnold Moya', 'tech newsletter'],
+    subscribeText: 'Subscribe to my newsletter for more content like this',
+    subscribeButton: 'Subscribe for free',
+  },
+  PT: {
+    locale: 'pt-BR',
+    inLanguage: 'pt-BR',
+    ogLocale: 'pt_BR',
+    titleSuffix: 'Newsletter de IA, Software e Startups',
+    fallbackDescription: 'Análise de tendências em inteligência artificial, software e startups para desenvolvedores.',
+    keywords: ['inteligência artificial', 'IA', 'startups', 'desenvolvimento de software', 'AI trends', 'desenvolvedores', 'Arnold Moya', 'newsletter tecnologia'],
+    subscribeText: 'Inscreva-se na minha newsletter para receber mais conteúdo como este',
+    subscribeButton: 'Inscrever-se gratuitamente',
+  },
+}
 
 export async function generateMetadata({
   params,
@@ -26,20 +68,13 @@ export async function generateMetadata({
   if (!newsItem) return { title: 'Not Found' }
 
   const pageUrl = `${baseUrl}/news/${slug}`
-  const es = isES(newsItem.language)
-  const titleSuffix = es
-    ? 'Newsletter de IA, Software y Startups'
-    : 'AI, Software & Startups Newsletter'
-  const fallbackDescription = es
-    ? 'Análisis de tendencias en inteligencia artificial, software y startups para developers.'
-    : 'Analysis of trends in artificial intelligence, software and startups for developers.'
+  const lang = (newsItem.language as Lang) ?? 'ES'
+  const c = langConfig[lang]
 
   return {
-    title: `${newsItem.title} — ${titleSuffix}`,
-    description: newsItem.summary || fallbackDescription,
-    keywords: es
-      ? ['inteligencia artificial', 'IA', 'startups', 'desarrollo de software', 'AI trends', 'developers', 'Arnold Moya', 'newsletter tecnología']
-      : ['artificial intelligence', 'AI', 'startups', 'software development', 'AI trends', 'developers', 'Arnold Moya', 'tech newsletter'],
+    title: `${newsItem.title} — ${c.titleSuffix}`,
+    description: newsItem.summary || c.fallbackDescription,
+    keywords: c.keywords,
     authors: [{ name: 'Arnold Moya' }],
     creator: 'Arnold Moya',
     publisher: 'Arnold Moya',
@@ -50,7 +85,7 @@ export async function generateMetadata({
       description: newsItem.summary || undefined,
       url: pageUrl,
       siteName: 'Arnold Moya — Newsletter',
-      locale: es ? 'es_ES' : 'en_US',
+      locale: c.ogLocale,
       type: 'article',
       publishedTime: newsItem.publishedAt?.toISOString(),
       authors: ['Arnold Moya'],
@@ -100,7 +135,8 @@ export default async function NewsDetailPage({
   if (!newsItem) notFound()
 
   const pageUrl = `${baseUrl}/news/${slug}`
-  const es = isES(newsItem.language)
+  const lang = (newsItem.language as Lang) ?? 'ES'
+  const c = langConfig[lang]
 
   const articleSchema = {
     '@context': 'https://schema.org',
@@ -111,7 +147,7 @@ export default async function NewsDetailPage({
     ...(newsItem.summary && { abstract: newsItem.summary }),
     datePublished: newsItem.publishedAt?.toISOString(),
     dateModified: newsItem.updatedAt.toISOString(),
-    inLanguage: es ? 'es-ES' : 'en-US',
+    inLanguage: c.inLanguage,
     url: pageUrl,
     isAccessibleForFree: true,
     // speakable targets for featured snippets and voice search
@@ -162,7 +198,7 @@ export default async function NewsDetailPage({
             <p className={styles.dateText}>
               {newsItem.publishedAt && (
                 <time dateTime={newsItem.publishedAt.toISOString()}>
-                  {newsItem.publishedAt.toLocaleDateString(es ? 'es-ES' : 'en-US', {
+                  {newsItem.publishedAt.toLocaleDateString(c.locale, {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric',
@@ -182,10 +218,8 @@ export default async function NewsDetailPage({
 
           {/* Subscribe prompt after summary */}
           <div className={styles.subscribeButtonArea}>
-            <p className={styles.footerText}>
-              Suscríbete a mi boletín para recibir más contenido como este
-            </p>
-            <HomeSubscribeForm buttonText="Suscríbete gratis" />
+            <p className={styles.footerText}>{c.subscribeText}</p>
+            <HomeSubscribeForm buttonText={c.subscribeButton} />
           </div>
 
           {/* Content */}
@@ -197,10 +231,8 @@ export default async function NewsDetailPage({
 
           {/* Footer subscribe */}
           <div className={styles.footerSubscribe}>
-            <p className={styles.footerText}>
-              Suscríbete a mi boletín para recibir más contenido como este
-            </p>
-            <HomeSubscribeForm buttonText="Suscríbete gratis" />
+            <p className={styles.footerText}>{c.subscribeText}</p>
+            <HomeSubscribeForm buttonText={c.subscribeButton} />
           </div>
         </div>
       </article>
