@@ -8,9 +8,11 @@ Turn a source input into a short video idea that:
 
 - grabs attention immediately
 - stays faithful to the real meaning of the source
-- sounds smart, funny, and occasionally sarcastic
+- sounds like a sharp tech creator, not a newsletter paragraph
+- feels confident, current, and easy to repeat after one watch
 - questions hype without sounding cynical or anti-learning
 - nudges the audience toward research, coding practice, and better system design thinking
+- teaches through reframing, not through overexplaining
 - ends with a question that invites reflection
 
 ## Inputs this skill should handle
@@ -51,6 +53,8 @@ Follow this order every time.
    - Each hook must be distinct.
    - Hooks should be short enough to say naturally in the first 2 to 4 seconds.
    - Hooks must create curiosity, tension, irony, or recognition.
+   - Prefer clean, high-authority framing over punchlines that feel forced.
+   - Good hook structure: what people think, what is actually true, and why it matters.
    - Do not make claims stronger than the source supports.
 
 5. **Write the final script**
@@ -58,7 +62,10 @@ Follow this order every time.
    - Write only spoken lines, not stage directions.
    - Keep the pacing tight and conversational.
    - Make it sound natural for someone filming themselves casually.
-   - Include one memorable funny line or light sarcastic turn.
+   - Start from the thesis fast. Do not warm up slowly.
+   - Use short declarative sentences and clean transitions.
+   - Include one memorable framing line the audience could repeat.
+   - Use humor lightly. The script should feel sharp, not performative.
    - Include one concrete learning-oriented takeaway.
    - End with a reflection question.
 
@@ -66,18 +73,23 @@ Follow this order every time.
    - faithful in meaning
    - not overloaded with jargon
    - not too corporate or polished
+   - not drifting into essay mode
    - not too exaggerated to become misleading
    - fast to say in one take
+   - built around one clear thesis line
 
 ## Tone rules
 
 **Use this voice:**
 
 - smart
-- funny
-- sometimes sarcastic
+- socially fluent
+- concise
+- confident without pretending certainty
+- lightly witty
 - skeptical of hype
 - pro-learning, pro-building, pro-research
+- strong on pattern recognition and reframing
 
 **Avoid this voice:**
 
@@ -87,6 +99,9 @@ Follow this order every time.
 - fake certainty
 - edgy for the sake of being edgy
 - overexplaining like a tutorial transcript
+- sounding like a LinkedIn post with line breaks
+- trying too hard to be a comedian
+- filler phrases that delay the point
 
 ## Fidelity rules
 
@@ -97,10 +112,13 @@ Preserve the source meaning. You may lightly exaggerate the framing of the hook 
 Prefer ideas like these:
 
 - "everyone is hyping X, but the real lesson is Y"
+- "everyone is looking at X, but the moat is actually Y"
 - "this sounds impressive until you think about the system design"
 - "cool demo, but what happens in production"
 - "the model is not magic; the engineering is the point"
 - "this is useful if you actually build with it"
+- "the boring part is where the advantage is"
+- "cheaper compute means more reps, and more reps compound"
 
 Good closing question patterns:
 
@@ -134,9 +152,9 @@ Always use this exact structure unless the user explicitly requests another form
 Use this rhythm unless the topic clearly needs a different one:
 
 1. open with a sharp hook
-2. name the trend, claim, or article point
-3. puncture the hype or reframe it
-4. give one useful coding, research, or system design takeaway
+2. say what everyone thinks the story is
+3. replace it with the real story
+4. explain why that matters in one concrete takeaway
 5. end with a reflection question
 
 ## Compression rules
@@ -174,10 +192,13 @@ Save to `docs/reels/<title-as-slug>.md` with this structure:
 
 ```
 # Title
+**source:** <original URL or article link if available>
 **content:** ...
 ---
 **description:** ...
 ```
+
+Always include the source link when the input contains a URL or when a canonical article URL is found during web search.
 
 Confirm the save and show TITLE + CONTENT + DESCRIPTION as a quick preview.
 
@@ -185,16 +206,19 @@ Confirm the save and show TITLE + CONTENT + DESCRIPTION as a quick preview.
 
 **Voice summary**
 
-The creator sounds like someone who actually builds and reads technical material, but refuses to worship every new launch.
+The creator sounds like someone who actually builds and reads technical material, but refuses to worship every new launch. The delivery is creator-native: crisp, slightly provocative, easy to say, and easy to remember.
 
 **Keep:**
 
 - quick pattern recognition
+- clean authority
 - dry humor
 - mild sarcasm
 - practical skepticism
 - respect for real engineering work
 - curiosity and reflection
+- one memorable thesis line
+- "what people think vs what is actually true" framing
 
 **Avoid:**
 
@@ -203,18 +227,24 @@ The creator sounds like someone who actually builds and reads technical material
 - making everything negative
 - turning every script into a rant
 - abstract thought leadership language
+- long setup before the point
+- stacking too many caveats in the first half
+- dense paragraphs that sound written, not spoken
 
 **What "smart and funny" sounds like:**
 
 - "People are calling this revolutionary. Translation: someone shipped a nice demo."
 - "The model is cool. The evals are the adult supervision."
 - "This is either a workflow breakthrough or a very expensive autocomplete habit."
+- "Everyone is watching the benchmark. The moat is probably somewhere more boring."
+- "It is not just about better models. It is about who gets more reps."
 
 **What "against hype but encouraging" sounds like:**
 
 - criticize shallow claims, not learning itself
 - redirect attention toward research, benchmarks, architecture, code quality, tradeoffs, and deployment reality
 - make viewers feel invited to think, not shamed for being interested
+- sound like you are clarifying the story, not scolding the audience
 
 **Helpful contrast patterns:**
 
@@ -223,6 +253,8 @@ The creator sounds like someone who actually builds and reads technical material
 - model magic vs engineering reality
 - launch thread vs long-term maintenance
 - novelty vs actual leverage
+- visible product vs invisible moat
+- best model today vs fastest improvement tomorrow
 
 ## Spoken delivery guidelines
 
@@ -233,3 +265,7 @@ Write for casual self-recording:
 - avoid nested clauses
 - avoid numbers unless they matter
 - make every sentence easy to say in one breath
+- front-load the point
+- prefer strong verbs over adjectives
+- if a line sounds good on paper but awkward out loud, rewrite it
+- let the script sound like a creator talking to camera, not reading notes
