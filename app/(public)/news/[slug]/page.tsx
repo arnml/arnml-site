@@ -5,7 +5,7 @@ import { baseUrl } from '@/lib/constants'
 import { MDXRemote } from 'next-mdx-remote-client/rsc'
 import type { Metadata } from 'next'
 import styles from './page.module.css'
-import { HomeSubscribeForm } from '@/components/home-subscribe-form'
+import { HomeSubscribeForm, type FormMessages } from '@/components/home-subscribe-form'
 
 // React.cache deduplicates this query within a single request —
 // generateMetadata and the page component share the same DB call.
@@ -24,6 +24,7 @@ const langConfig: Record<Lang, {
   keywords: string[]
   subscribeText: string
   subscribeButton: string
+  formMessages: Required<FormMessages>
 }> = {
   ES: {
     locale: 'es-ES',
@@ -34,6 +35,13 @@ const langConfig: Record<Lang, {
     keywords: ['inteligencia artificial', 'IA', 'startups', 'desarrollo de software', 'AI trends', 'developers', 'Arnold Moya', 'newsletter tecnología'],
     subscribeText: 'Suscríbete a mi boletín para recibir más contenido como este',
     subscribeButton: 'Suscríbete gratis',
+    formMessages: {
+      placeholder: 'tu@email.com',
+      loading: 'Enviando...',
+      success: '¡Gracias! Revisa tu correo para confirmar tu suscripción.',
+      errorDefault: 'No se pudo suscribir. Intenta de nuevo.',
+      errorConnection: 'Error de conexión. Intenta de nuevo.',
+    },
   },
   EN: {
     locale: 'en-US',
@@ -44,6 +52,13 @@ const langConfig: Record<Lang, {
     keywords: ['artificial intelligence', 'AI', 'startups', 'software development', 'AI trends', 'developers', 'Arnold Moya', 'tech newsletter'],
     subscribeText: 'Subscribe to my newsletter for more content like this',
     subscribeButton: 'Subscribe for free',
+    formMessages: {
+      placeholder: 'you@email.com',
+      loading: 'Sending...',
+      success: 'Thanks! Check your email to confirm your subscription.',
+      errorDefault: 'Could not subscribe. Please try again.',
+      errorConnection: 'Connection error. Please try again.',
+    },
   },
   PT: {
     locale: 'pt-BR',
@@ -54,6 +69,13 @@ const langConfig: Record<Lang, {
     keywords: ['inteligência artificial', 'IA', 'startups', 'desenvolvimento de software', 'AI trends', 'desenvolvedores', 'Arnold Moya', 'newsletter tecnologia'],
     subscribeText: 'Inscreva-se na minha newsletter para receber mais conteúdo como este',
     subscribeButton: 'Inscrever-se gratuitamente',
+    formMessages: {
+      placeholder: 'voce@email.com',
+      loading: 'Enviando...',
+      success: 'Obrigado! Verifique seu e-mail para confirmar a inscrição.',
+      errorDefault: 'Não foi possível se inscrever. Tente novamente.',
+      errorConnection: 'Erro de conexão. Tente novamente.',
+    },
   },
 }
 
@@ -219,7 +241,7 @@ export default async function NewsDetailPage({
           {/* Subscribe prompt after summary */}
           <div className={styles.subscribeButtonArea}>
             <p className={styles.footerText}>{c.subscribeText}</p>
-            <HomeSubscribeForm buttonText={c.subscribeButton} />
+            <HomeSubscribeForm buttonText={c.subscribeButton} messages={c.formMessages} />
           </div>
 
           {/* Content */}
@@ -232,7 +254,7 @@ export default async function NewsDetailPage({
           {/* Footer subscribe */}
           <div className={styles.footerSubscribe}>
             <p className={styles.footerText}>{c.subscribeText}</p>
-            <HomeSubscribeForm buttonText={c.subscribeButton} />
+            <HomeSubscribeForm buttonText={c.subscribeButton} messages={c.formMessages} />
           </div>
         </div>
       </article>
