@@ -139,6 +139,7 @@ export function NewsForm({ news, onSubmit, isLoading }: Readonly<NewsFormProps>)
         >
           <option value="ES">Español</option>
           <option value="EN">English</option>
+          <option value="PT">Português</option>
         </select>
       </div>
 

@@ -13,7 +13,7 @@ export const articleCreateSchema = z.object({
   description: z.string().optional(),
   content: z.string().min(1, 'Content is required'),
   tags: z.array(z.string()).default([]),
-  language: z.enum(['ES', 'EN']).default('ES'),
+  language: z.enum(['ES', 'EN', 'PT']).default('ES'),
 })
 
 export const articleUpdateSchema = articleCreateSchema.partial()
@@ -26,7 +26,7 @@ export const newsCreateSchema = z.object({
   title: z.string().min(1, 'Title is required').max(200, 'Title must be less than 200 characters'),
   summary: z.string().optional(),
   content: z.string().min(1, 'Content is required'),
-  language: z.enum(['ES', 'EN']).default('ES'),
+  language: z.enum(['ES', 'EN', 'PT']).default('ES'),
 })
 
 export const newsUpdateSchema = newsCreateSchema.partial()

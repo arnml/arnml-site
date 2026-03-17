@@ -5,7 +5,7 @@ export const newsInputSchema = z.object({
   title: z.string().trim().min(1, 'Title is required'),
   summary: z.string().trim().optional(),
   content: z.string().trim().min(1, 'Content is required'),
-  language: z.enum(['ES', 'EN']),
+  language: z.enum(['ES', 'EN', 'PT']),
 })
 
 export function parseNewsInput(input: unknown) {

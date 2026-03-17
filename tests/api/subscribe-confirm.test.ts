@@ -38,7 +38,7 @@ vi.mock('@/lib/email-renderer', () => ({
 }))
 
 const { prisma } = await import('@/lib/prisma')
-const { Resend } = await import('resend')
+await import('resend')
 
 function createRequest() {
   return new NextRequest('http://localhost/api/subscribe/confirm/abc-123', {

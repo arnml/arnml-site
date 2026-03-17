@@ -1,135 +1,120 @@
 import type { Metadata } from 'next'
 import styles from './page.module.css'
-import { JetBrains_Mono, Inter } from 'next/font/google'
+import { display } from '@/lib/fonts'
 import { ParticleBackground } from '@/components/particle-background'
+import { GlassWindow } from '@/components/glass-window'
 import { HomeSubscribeForm } from '@/components/home-subscribe-form'
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 
-const display = JetBrains_Mono({
-  subsets: ['latin'],
-  weight: ['400', '600', '700'],
-})
-
-const body = Inter({
-  subsets: ['latin'],
-  weight: ['400', '500', '600'],
-})
-
 export const metadata: Metadata = {
-  title: 'Arnold Moya | Boletín',
+  title: 'Arnold Moya | Boletín de AI & Tech',
   description:
-    'Boletín / Newsletter de Arnold Moya - Mantente informado con las últimas novedades en desarrollo web, tecnología y más. Suscríbete para recibir contenido exclusivo directamente en tu correo electrónico.',
-  keywords: ['newsletter', 'desarrollo web', 'tecnología', 'Arnold Moya', 'boletín'],
+    'Boletín semanal de Arnold Moya — Lo más relevante en AI y tech, curado a mano, en español. Suscríbete gratis.',
+  keywords: ['newsletter', 'AI', 'inteligencia artificial', 'tech', 'Arnold Moya', 'boletín'],
   authors: [{ name: 'Arnold Moya' }],
   creator: 'Arnold Moya',
   openGraph: {
-    title: 'Arnold Moya | Boletín',
-    description:
-      'Mantente informado con las últimas novedades en desarrollo web y tecnología.',
+    title: 'Arnold Moya | Boletín de AI & Tech',
+    description: 'Lo más relevante en AI y tech, curado a mano, en español.',
     siteName: 'Arnold Moya',
     locale: 'es_ES',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Arnold Moya | Boletín',
-    description:
-      'Mantente informado con las últimas novedades en desarrollo web y tecnología.',
+    title: 'Arnold Moya | Boletín de AI & Tech',
+    description: 'Lo más relevante en AI y tech, curado a mano, en español.',
   },
 }
+
+const valueProps = [
+  'Seleccionado a mano cada semana',
+  'Gratis, siempre',
+  'Sin spam — cancela cuando quieras',
+]
 
 export default async function NewsletterES() {
   const newsItems = await prisma.newsItem.findMany({
     where: { published: true },
     orderBy: { publishedAt: 'desc' },
-    take: 3,
-    select: {
-      slug: true,
-      title: true,
-      summary: true,
-      publishedAt: true,
-    },
+    take: 5,
+    select: { slug: true, title: true, publishedAt: true },
   })
 
   return (
-    <div className={`${styles.page} ${body.className}`}>
+    <div className={styles.page}>
       <ParticleBackground />
+
+      {/* Hero — traditional landing page above the fold */}
       <section className={`${styles.hero} min-h-screen w-full px-6 py-20`}>
-        <div className={`${styles.mobileFrame} mx-auto flex w-full flex-col justify-center`}>
-          <div className={styles.codeWindow}>
-            <div className={styles.windowBar}>
-              <div className={styles.windowDots}>
-                <span />
-                <span />
-                <span />
-              </div>
+        <div className="relative z-10 mx-auto w-full max-w-[520px] flex flex-col justify-center">
+          <GlassWindow>
+            <p className="text-xs uppercase tracking-[0.35em] text-neutral-400">
+              Boletín semanal
+            </p>
+            <h1
+              className={`${display.className} mt-5 text-4xl font-semibold leading-tight text-neutral-100`}
+            >
+              Lo más relevante en AI y tech, cada semana.
+            </h1>
+            <p className="mt-4 text-base text-neutral-300 leading-relaxed">
+              Curado a mano, en español, directo al punto. Sin ruido, sin hype vacío.
+            </p>
+
+            <ul className="mt-6 flex flex-col gap-2">
+              {valueProps.map((item) => (
+                <li key={item} className="flex items-center gap-2.5 text-sm text-neutral-400">
+                  <span className="text-[#27c93f] text-xs font-bold">✓</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-8">
+              <HomeSubscribeForm buttonText="Suscribirme gratis" />
             </div>
-            <div className={styles.windowBody}>
-              <p className="text-xs uppercase tracking-[0.35em] text-neutral-400">
-                Suscríbete a mi boletín
-              </p>
-              <h1
-                className={`${display.className} mt-6 text-4xl font-semibold leading-tight text-neutral-100`}
-              >
-                Lo más relevante en AI y tech, directo a tu inbox.
-              </h1>
-              <h2 className="mt-5 max-w-2xl text-lg font-medium text-neutral-300">
-                Las novedades clave en software, AI y startups seleccionadas a mano.
-              </h2>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <a
-                  href="#suscribirse"
-                  className="inline-flex items-center justify-center rounded-full border border-neutral-600/70 bg-neutral-950 px-6 py-2 text-sm font-semibold text-neutral-100 transition hover:border-neutral-400 hover:text-white"
-                >
-                  Suscribirme gratis
-                </a>
+
+            {newsItems.length > 0 && (
+              <p className="mt-5 text-center text-xs text-neutral-600">
                 <a
                   href="#noticias"
-                  className="inline-flex items-center justify-center rounded-full border border-neutral-600/60 bg-neutral-200/10 px-6 py-2 text-sm font-medium text-neutral-100 transition hover:bg-neutral-200/20 hover:border-neutral-400"
+                  className="text-neutral-500 hover:text-neutral-300 transition"
                 >
-                  Explorar archivo
+                  Ver últimas entregas ↓
                 </a>
-              </div>
-            </div>
-          </div>
+              </p>
+            )}
+          </GlassWindow>
         </div>
       </section>
 
-      <section
-        id="noticias"
-        className={`${styles.hero} min-h-screen w-full px-6 py-20`}
-      >
-        <div className={`${styles.mobileFrame} mx-auto flex w-full flex-col justify-center`}>
-          <div className={styles.codeWindow}>
-            <div className={styles.windowBar}>
-              <div className={styles.windowDots}>
-                <span />
-                <span />
-                <span />
-              </div>
-            </div>
-            <div className={styles.windowBody}>
+      {/* Latest news — nosnippet + nofollow so Google doesn't index this rotating list */}
+      {newsItems.length > 0 && (
+        <section id="noticias" className="relative z-10 w-full px-6 pb-24">
+          <div className="mx-auto w-full max-w-[520px]">
+            <GlassWindow bodyClassName="px-8 py-8 sm:px-8">
               <p className="text-xs uppercase tracking-[0.35em] text-neutral-400">
-                Últimas noticias
+                Últimas entregas
               </p>
-              <ul className="mt-8 flex flex-col gap-4">
+              {/* data-nosnippet: prevents Google from using this list in search snippets */}
+              <ul
+                data-nosnippet
+                className="mt-6 flex flex-col divide-y divide-white/[0.06]"
+              >
                 {newsItems.map((item) => (
-                  <li key={item.slug}>
+                  <li key={item.slug} className="py-4 first:pt-0 last:pb-0">
+                    {/* rel="nofollow": don't follow these rotating links from the landing page */}
                     <Link
                       href={`/news/${item.slug}`}
+                      rel="nofollow"
                       className="group block"
                     >
-                      <h3 className="text-lg font-medium text-neutral-100 transition group-hover:text-white">
+                      <p className="text-sm font-medium text-neutral-200 transition group-hover:text-white leading-snug">
                         {item.title}
-                      </h3>
-                      {item.summary && (
-                        <p className="mt-1 text-sm text-neutral-400 line-clamp-2">
-                          {item.summary}
-                        </p>
-                      )}
+                      </p>
                       {item.publishedAt && (
-                        <p className="mt-2 text-xs text-neutral-500">
+                        <p className="mt-1 text-xs text-neutral-600">
                           {new Date(item.publishedAt).toLocaleDateString('es-ES', {
                             year: 'numeric',
                             month: 'long',
@@ -141,46 +126,18 @@ export default async function NewsletterES() {
                   </li>
                 ))}
               </ul>
-              {newsItems.length === 0 && (
-                <p className="mt-6 text-neutral-400">
-                  Próximamente...
-                </p>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section
-        id="suscribirse"
-        className={`${styles.hero} min-h-screen w-full px-6 py-20`}
-      >
-        <div className={`${styles.mobileFrame} mx-auto flex w-full flex-col justify-center`}>
-          <div className={styles.codeWindow}>
-            <div className={styles.windowBar}>
-              <div className={styles.windowDots}>
-                <span />
-                <span />
-                <span />
+              <div className="mt-6 pt-4 border-t border-white/[0.06]">
+                <Link
+                  href="/news"
+                  className="text-xs text-neutral-500 hover:text-neutral-300 transition"
+                >
+                  Ver todo el archivo →
+                </Link>
               </div>
-            </div>
-            <div className={styles.windowBody}>
-              <p className="text-xs uppercase tracking-[0.35em] text-neutral-400">
-                Únete al boletín
-              </p>
-              <h2
-                className={`${display.className} mt-6 text-4xl font-semibold leading-tight text-neutral-100`}
-              >
-                Recibe las novedades en tu correo.
-              </h2>
-              <p className="mt-5 max-w-2xl text-lg font-medium text-neutral-300">
-                Sin spam, solo contenido relevante. Cancela cuando quieras.
-              </p>
-              <HomeSubscribeForm buttonText="Suscríbete gratis" />
-            </div>
+            </GlassWindow>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </div>
   )
 }

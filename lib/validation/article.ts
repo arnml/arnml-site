@@ -6,7 +6,7 @@ export const articleInputSchema = z.object({
   description: z.string().trim().optional(),
   content: z.string().trim().min(1, 'Content is required'),
   tags: z.array(z.string().trim()).default([]),
-  language: z.enum(['ES', 'EN']),
+  language: z.enum(['ES', 'EN', 'PT']),
 })
 
 export function parseArticleInput(input: unknown) {
