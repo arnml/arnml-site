@@ -44,30 +44,30 @@ export default async function SubscribersPage({
       <div className="flex gap-4">
         <a
           href="/admin/subscribers"
-          className={`px-4 py-2 rounded text-sm font-medium ${
+          className={`px-4 py-2 rounded text-sm font-medium transition ${
             !status || status === 'all'
-              ? 'bg-neutral-900 text-white dark:bg-white dark:text-black'
-              : 'bg-neutral-200 dark:bg-neutral-800'
+              ? 'bg-foreground text-background'
+              : 'bg-muted text-muted-foreground hover:text-foreground'
           }`}
         >
           All ({totalActive + totalUnsubscribed})
         </a>
         <a
           href="?status=ACTIVE"
-          className={`px-4 py-2 rounded text-sm font-medium ${
+          className={`px-4 py-2 rounded text-sm font-medium transition ${
             status === 'ACTIVE'
-              ? 'bg-neutral-900 text-white dark:bg-white dark:text-black'
-              : 'bg-neutral-200 dark:bg-neutral-800'
+              ? 'bg-foreground text-background'
+              : 'bg-muted text-muted-foreground hover:text-foreground'
           }`}
         >
           Active ({totalActive})
         </a>
         <a
           href="?status=UNSUBSCRIBED"
-          className={`px-4 py-2 rounded text-sm font-medium ${
+          className={`px-4 py-2 rounded text-sm font-medium transition ${
             status === 'UNSUBSCRIBED'
-              ? 'bg-neutral-900 text-white dark:bg-white dark:text-black'
-              : 'bg-neutral-200 dark:bg-neutral-800'
+              ? 'bg-foreground text-background'
+              : 'bg-muted text-muted-foreground hover:text-foreground'
           }`}
         >
           Unsubscribed ({totalUnsubscribed})
@@ -75,7 +75,7 @@ export default async function SubscribersPage({
       </div>
 
       {subscribers.length > 0 ? (
-        <div className="rounded border border-neutral-200 dark:border-neutral-800">
+        <div className="rounded border border-border">
           <Table>
             <TableHeader>
               <TableRow>
@@ -118,7 +118,7 @@ export default async function SubscribersPage({
           </Table>
         </div>
       ) : (
-        <p className="text-neutral-600 dark:text-neutral-400">No subscribers found.</p>
+        <p className="text-muted-foreground">No subscribers found.</p>
       )}
     </div>
   )

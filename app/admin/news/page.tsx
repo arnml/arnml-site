@@ -63,7 +63,7 @@ export default async function AdminNewsPage() {
       </div>
 
       {newsItems.length > 0 ? (
-        <div className="rounded border border-neutral-200 dark:border-neutral-800">
+        <div className="rounded border border-border">
           <Table>
             <TableHeader>
               <TableRow>
@@ -148,7 +148,7 @@ export default async function AdminNewsPage() {
           </Table>
         </div>
       ) : (
-        <p className="text-neutral-600 dark:text-neutral-400">No news items yet.</p>
+        <p className="text-muted-foreground">No news items yet.</p>
       )}
     </div>
   )
