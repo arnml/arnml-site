@@ -6,6 +6,7 @@ import { MDXRemote } from 'next-mdx-remote-client/rsc'
 import type { Metadata } from 'next'
 import styles from './page.module.css'
 import { HomeSubscribeForm, type FormMessages } from '@/components/home-subscribe-form'
+import { ThemeToggle } from '@/components/theme-toggle'
 
 // React.cache deduplicates this query within a single request —
 // generateMetadata and the page component share the same DB call.
@@ -211,8 +212,15 @@ export default async function NewsDetailPage({
         <div className={styles.container}>
           {/* Header — p not h1 to keep a single h1 per page */}
           <header className={styles.header}>
-            <p className={styles.headerTitle}>Arnold Moya</p>
-            <p className={styles.headerSubtitle}>Newsletter</p>
+            <div className={styles.headerContent}>
+              <div className={styles.headerTitleWrapper}>
+                <p className={styles.headerTitle}>Arnold Moya</p>
+                <p className={styles.headerSubtitle}>Newsletter</p>
+              </div>
+              <div className={styles.themeToggleWrapper}>
+                <ThemeToggle />
+              </div>
+            </div>
           </header>
 
           {/* Date Bar */}

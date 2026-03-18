@@ -1,35 +1,29 @@
 'use client'
 
-import { useSyncExternalStore } from 'react'
+import { useTheme } from 'next-themes'
 import { Sun, Moon } from 'lucide-react'
-
-function subscribe(cb: () => void) {
-  const observer = new MutationObserver(cb)
-  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
-  return () => observer.disconnect()
-}
-
-const getTheme = () =>
-  document.documentElement.classList.contains('dark') ? ('dark' as const) : ('light' as const)
-
-const getServerSnapshot = () => 'dark' as const
+import { useEffect, useState } from 'react'
 
 export function ThemeToggle() {
-  const theme = useSyncExternalStore(subscribe, getTheme, getServerSnapshot)
+  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
 
-  function toggle() {
-    const next = theme === 'dark' ? 'light' : 'dark'
-    document.documentElement.classList.toggle('dark', next === 'dark')
-    localStorage.setItem('theme', next)
-  }
+  // Avoid hydration mismatch
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) return null
+
+  const isDark = theme === 'dark'
 
   return (
     <button
-      onClick={toggle}
+      onClick={() => setTheme(isDark ? 'light' : 'dark')}
       className="rounded-lg px-3 py-2 text-sm text-sidebar-foreground/50 hover:bg-sidebar-accent hover:text-sidebar-foreground transition flex items-center gap-2 w-full text-left"
     >
-      {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
-      {theme === 'dark' ? 'Light mode' : 'Dark mode'}
+      {isDark ? <Sun size={14} /> : <Moon size={14} />}
+      {isDark ? 'Light mode' : 'Dark mode'}
     </button>
   )
 }
