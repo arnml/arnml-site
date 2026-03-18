@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
 import { MDXRemote } from 'next-mdx-remote-client/rsc'
+import remarkGfm from 'remark-gfm'
 import { Button } from '@/components/ui/button'
 import styles from '@/app/(public)/news/[slug]/page.module.css'
 import { HomeSubscribeForm } from '@/components/home-subscribe-form'
@@ -99,7 +100,7 @@ export default async function AdminNewsPreviewPage({
           {/* Content */}
           <div className={styles.content}>
             <div className="prose prose-neutral dark:prose-invert max-w-none">
-              <MDXRemote source={sanitizeMDX(newsItem.content)} components={mdxComponents} />
+              <MDXRemote source={sanitizeMDX(newsItem.content)} components={mdxComponents} options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }} />
             </div>
           </div>
 

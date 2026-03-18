@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { MDXRemote } from 'next-mdx-remote-client/rsc'
+import remarkGfm from 'remark-gfm'
 import { Badge } from '@/components/ui/badge'
 import type { Metadata } from 'next'
 
@@ -82,7 +83,7 @@ export default async function BlogPostPage({
         </header>
 
         <div className="prose prose-neutral dark:prose-invert max-w-none">
-          <MDXRemote source={sanitizeMDX(article.content)} />
+          <MDXRemote source={sanitizeMDX(article.content)} options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }} />
         </div>
       </div>
     </article>
