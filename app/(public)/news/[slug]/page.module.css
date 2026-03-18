@@ -11,7 +11,37 @@
 .header {
   background-color: #18181b;
   padding: 28px 32px;
+}
+
+.headerContent {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.headerTitleWrapper {
+  grid-column: 1 / -1;
   text-align: center;
+}
+
+.themeToggleWrapper {
+  grid-column: 3;
+  justify-self: end;
+  flex-shrink: 0;
+}
+
+.themeToggleWrapper button {
+  color: #d4d4d8 !important;
+  padding: 6px 12px !important;
+  font-size: 12px !important;
+}
+
+.themeToggleWrapper button:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
 }
 
 .headerTitle {
@@ -81,7 +111,7 @@
 }
 
 .subscribeButtonArea input::placeholder {
-  color: #a1a1aa !important;
+  color: #71717a !important;
 }
 
 .subscribeButtonArea input:focus {
@@ -116,7 +146,7 @@
 .footerText {
   font-size: 12px;
   line-height: 1.5;
-  color: #a1a1aa;
+  color: #52525b;
   margin: 0 0 16px 0;
 }
 
@@ -127,7 +157,7 @@
 }
 
 .footerSubscribe input::placeholder {
-  color: #a1a1aa !important;
+  color: #71717a !important;
 }
 
 .footerSubscribe input:focus {
@@ -145,117 +175,123 @@
   border-color: #52525b !important;
 }
 
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  .titleSection {
-    background-color: #1a1a1a;
-    border-bottom-color: #2a2a2a;
-  }
+/* Dark mode support - triggered by .dark class on document root */
+:global(html.dark) .titleSection {
+  background-color: #1a1a1a;
+  border-bottom-color: #2a2a2a;
+}
 
-  .title {
-    color: #fafafa;
-  }
+:global(html.dark) .title {
+  color: #fafafa;
+}
 
-  .summary {
-    color: #a0a0a0;
-  }
+:global(html.dark) .summary {
+  color: #a0a0a0;
+}
 
-  .dateBar {
-    background-color: #1a1a1a;
-    border-bottom-color: #2a2a2a;
-  }
+:global(html.dark) .dateBar {
+  background-color: #1a1a1a;
+  border-bottom-color: #2a2a2a;
+}
 
-  .content {
-    background-color: #1a1a1a;
-    color: #fafafa;
-  }
+:global(html.dark) .content {
+  background-color: #1a1a1a;
+  color: #fafafa;
+}
 
-  .content :is(h1, h2, h3, h4, h5, h6) {
-    color: #fafafa;
-  }
+:global(html.dark) .content :is(h1, h2, h3, h4, h5, h6) {
+  color: #fafafa;
+}
 
-  .content :is(p, li, blockquote) {
-    color: #e0e0e0;
-  }
+:global(html.dark) .content :is(p, li, blockquote) {
+  color: #e0e0e0;
+}
 
-  .content strong {
-    color: #fafafa;
-  }
+:global(html.dark) .content strong {
+  color: #fafafa;
+}
 
-  .content em {
-    color: #e0e0e0;
-  }
+:global(html.dark) .content em {
+  color: #e0e0e0;
+}
 
-  .content code {
-    background-color: #2d2d2d;
-    color: #e0e0e0;
-  }
+:global(html.dark) .content code {
+  background-color: #2d2d2d;
+  color: #e0e0e0;
+}
 
-  .content a {
-    color: #60a5fa;
-  }
+:global(html.dark) .content a {
+  color: #60a5fa;
+}
 
-  .content a:hover {
-    color: #93c5fd;
-  }
+:global(html.dark) .content a:hover {
+  color: #93c5fd;
+}
 
-  .subscribeButtonArea {
-    background-color: #0f0f0f;
-    border-bottom-color: #2a2a2a;
-  }
+:global(html.dark) .subscribeButtonArea {
+  background-color: #0f0f0f;
+  border-bottom-color: #2a2a2a;
+}
 
-  .subscribeButtonArea input {
-    background-color: #27272a !important;
-    color: #fafafa !important;
-    border-color: #3f3f46 !important;
-  }
+:global(html.dark) .subscribeButtonArea .footerText {
+  color: #a1a1aa;
+}
 
-  .subscribeButtonArea input::placeholder {
-    color: #71717a !important;
-  }
+:global(html.dark) .subscribeButtonArea input {
+  background-color: #27272a !important;
+  color: #fafafa !important;
+  border-color: #3f3f46 !important;
+}
 
-  .subscribeButtonArea input:focus {
-    border-color: #52525b !important;
-  }
+:global(html.dark) .subscribeButtonArea input::placeholder {
+  color: #71717a !important;
+}
 
-  .subscribeButtonArea button {
-    background-color: #fafafa !important;
-    color: #18181b !important;
-    border-color: #71717a !important;
-  }
+:global(html.dark) .subscribeButtonArea input:focus {
+  border-color: #52525b !important;
+}
 
-  .subscribeButtonArea button:hover {
-    background-color: #ffffff !important;
-    border-color: #a1a1aa !important;
-  }
+:global(html.dark) .subscribeButtonArea button {
+  background-color: #fafafa !important;
+  color: #18181b !important;
+  border-color: #71717a !important;
+}
 
-  .footerSubscribe {
-    background-color: #0f0f0f;
-    border-bottom-color: #2a2a2a;
-  }
+:global(html.dark) .subscribeButtonArea button:hover {
+  background-color: #ffffff !important;
+  border-color: #a1a1aa !important;
+}
 
-  .footerSubscribe input {
-    background-color: #27272a !important;
-    color: #fafafa !important;
-    border-color: #3f3f46 !important;
-  }
+:global(html.dark) .footerSubscribe {
+  background-color: #0f0f0f;
+  border-bottom-color: #2a2a2a;
+}
 
-  .footerSubscribe input::placeholder {
-    color: #71717a !important;
-  }
+:global(html.dark) .footerSubscribe .footerText {
+  color: #a1a1aa;
+}
 
-  .footerSubscribe input:focus {
-    border-color: #52525b !important;
-  }
+:global(html.dark) .footerSubscribe input {
+  background-color: #27272a !important;
+  color: #fafafa !important;
+  border-color: #3f3f46 !important;
+}
 
-  .footerSubscribe button {
-    background-color: #fafafa !important;
-    color: #18181b !important;
-    border-color: #71717a !important;
-  }
+:global(html.dark) .footerSubscribe input::placeholder {
+  color: #71717a !important;
+}
 
-  .footerSubscribe button:hover {
-    background-color: #ffffff !important;
-    border-color: #a1a1aa !important;
-  }
+:global(html.dark) .footerSubscribe input:focus {
+  border-color: #52525b !important;
+}
+
+:global(html.dark) .footerSubscribe button {
+  background-color: #fafafa !important;
+  color: #18181b !important;
+  border-color: #71717a !important;
+}
+
+:global(html.dark) .footerSubscribe button:hover {
+  background-color: #ffffff !important;
+  border-color: #a1a1aa !important;
 }
