@@ -55,3 +55,11 @@ emailRenderer.codespan = ({ text }) =>
 
 emailRenderer.image = ({ href, text }) =>
   `<img src="${href}" alt="${text}" style="max-width:100%;height:auto;display:block;border:0;margin:16px 0;" />`
+
+emailRenderer.table = function ({ header, rows }) {
+  const headerHtml = `<tr>${header.map((cell) => `<th style="padding:8px 12px;background:#f4f4f5;border:1px solid #e4e4e7;font-size:13px;font-weight:600;color:#18181b;text-align:left;">${this.parser.parseInline(cell.tokens)}</th>`).join('')}</tr>`
+  const bodyHtml = rows.map((row) =>
+    `<tr>${row.map((cell) => `<td style="padding:8px 12px;border:1px solid #e4e4e7;font-size:13px;color:#3f3f46;line-height:1.5;">${this.parser.parseInline(cell.tokens)}</td>`).join('')}</tr>`
+  ).join('')
+  return `<table style="width:100%;border-collapse:collapse;margin:16px 0;font-size:13px;"><thead>${headerHtml}</thead><tbody>${bodyHtml}</tbody></table>`
+}

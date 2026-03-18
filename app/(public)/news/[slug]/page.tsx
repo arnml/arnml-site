@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { baseUrl } from '@/lib/constants'
 import { MDXRemote } from 'next-mdx-remote-client/rsc'
+import remarkGfm from 'remark-gfm'
 import type { Metadata } from 'next'
 import styles from './page.module.css'
 import { HomeSubscribeForm, type FormMessages } from '@/components/home-subscribe-form'
@@ -255,7 +256,7 @@ export default async function NewsDetailPage({
           {/* Content */}
           <div className={styles.content}>
             <div className="prose prose-neutral dark:prose-invert max-w-none">
-              <MDXRemote source={sanitizeMDX(newsItem.content)} components={mdxComponents} />
+              <MDXRemote source={sanitizeMDX(newsItem.content)} components={mdxComponents} options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }} />
             </div>
           </div>
 
