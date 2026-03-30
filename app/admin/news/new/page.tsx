@@ -1,4 +1,5 @@
 import { redirect } from 'next/navigation'
+import { revalidatePath } from 'next/cache'
 import { prisma } from '@/lib/prisma'
 import { NewsForm } from '@/components/news-form'
 import { randomDigits, slugify } from '@/lib/slug'
@@ -41,6 +42,9 @@ export default function NewNewsPage() {
       },
     })
 
+    revalidatePath('/newsletter/es')
+    revalidatePath('/news')
+    revalidatePath(`/news/${slug}`)
     redirect('/admin/news')
   }
 
