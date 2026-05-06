@@ -1,5 +1,49 @@
 import type { Metadata } from 'next'
+import {
+  Cormorant_Garamond,
+  DM_Sans,
+  JetBrains_Mono,
+  Tenor_Sans,
+  Work_Sans,
+  Manrope,
+} from 'next/font/google'
 import './globals.css'
+
+const cormorantGaramond = Cormorant_Garamond({
+  variable: '--font-cormorant-garamond',
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+})
+
+const dmSans = DM_Sans({
+  variable: '--font-dm-sans',
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: '--font-jetbrains-mono',
+  subsets: ['latin'],
+  weight: ['400', '500'],
+})
+
+const tenorSans = Tenor_Sans({
+  variable: '--font-tenor-sans',
+  subsets: ['latin'],
+  weight: '400',
+})
+
+const workSans = Work_Sans({
+  variable: '--font-work-sans',
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+})
+
+const manrope = Manrope({
+  variable: '--font-manrope',
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+})
 
 export const metadata: Metadata = {
   title: 'Mayura SEO Report',
@@ -9,15 +53,10 @@ export const metadata: Metadata = {
 
 export default function MayuraLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Tenor+Sans&family=Work+Sans:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html
+      lang="es"
+      className={`${cormorantGaramond.variable} ${dmSans.variable} ${jetbrainsMono.variable} ${tenorSans.variable} ${workSans.variable} ${manrope.variable}`}
+    >
       <body>{children}</body>
     </html>
   )

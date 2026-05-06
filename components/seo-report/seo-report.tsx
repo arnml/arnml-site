@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useState, useMemo } from 'react'
 import { CATEGORIES, MONTHS } from '@/lib/seo-report-data'
 import { TASK_STATUS, BRAND_ASSETS, type TaskStatus } from '@/lib/seo-constants'
@@ -64,7 +65,7 @@ export function SeoReport() {
       {/* Partner strip */}
       <div className={styles.partnerStrip}>
         <div className={`${styles.partnerSide} ${styles.partnerAgency}`}>
-          <img src={BRAND_ASSETS.AUTOMATAS_LOGO.src} alt={BRAND_ASSETS.AUTOMATAS_LOGO.alt} />
+          <Image src={BRAND_ASSETS.AUTOMATAS_LOGO.src} alt={BRAND_ASSETS.AUTOMATAS_LOGO.alt} width={120} height={120} />
           <div className={styles.partnerMeta}>
             <span className={styles.partnerRole}>Agencia</span>
             <span className={styles.partnerName}>Automatas Perú</span>
@@ -81,7 +82,7 @@ export function SeoReport() {
             <span className={styles.partnerName}>Mayura Lounge</span>
           </div>
           <div className={styles.partnerClientLogo}>
-            <img src={BRAND_ASSETS.MAYURA_LOGO.src} alt={BRAND_ASSETS.MAYURA_LOGO.alt} />
+            <Image src={BRAND_ASSETS.MAYURA_LOGO.src} alt={BRAND_ASSETS.MAYURA_LOGO.alt} width={120} height={120} />
           </div>
         </div>
       </div>
@@ -141,7 +142,7 @@ export function SeoReport() {
         <div className={styles.footPartner}>
           <span className={styles.footPartnerTx}>Servicio SEO realizado por</span>
           <div className={styles.footPartnerLogo}>
-            <img src={BRAND_ASSETS.AUTOMATAS_LOGO.src} alt={BRAND_ASSETS.AUTOMATAS_LOGO.alt} />
+            <Image src={BRAND_ASSETS.AUTOMATAS_LOGO.src} alt={BRAND_ASSETS.AUTOMATAS_LOGO.alt} width={120} height={120} />
           </div>
           <span className={styles.footPartnerName}>Automatas Perú</span>
         </div>

@@ -23,9 +23,6 @@ export function MonthPanel({ month, state, setState }: MonthPanelProps) {
   const [activeCat, setActiveCat] = useState(CATEGORIES[0].id)
   const [expanded, setExpanded] = useState<Set<string>>(new Set())
 
-  if (month.locked) return <LockedMonth month={month} />
-
-  const tasks = month.tasks[activeCat] || []
   const taskState = state.tasks
 
   const cycleStatus = useCallback(
@@ -46,6 +43,10 @@ export function MonthPanel({ month, state, setState }: MonthPanelProps) {
     }
     return out
   }, [month, taskState])
+
+  if (month.locked) return <LockedMonth month={month} />
+
+  const tasks = month.tasks[activeCat] || []
 
   return (
     <article>
