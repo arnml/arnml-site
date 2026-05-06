@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 import { getMayuraSession } from '@/lib/mayura-session'
-import { SeoReport } from '@/components/seo-report/seo-report'
+import { SeoReport } from '@/components/mayura/seo-report'
 
 export const metadata = {
   title: 'Informe SEO | Mayura Lounge',
