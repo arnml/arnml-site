@@ -1,0 +1,34 @@
+/* Base styles for /mayura routes */
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #fdf8ef;
+  color: #1f1410;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: repeating-linear-gradient(0deg, transparent 0 39px, rgba(31, 20, 16, 0.012) 39px 40px),
+    repeating-linear-gradient(90deg, transparent 0 39px, rgba(31, 20, 16, 0.012) 39px 40px);
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
