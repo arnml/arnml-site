@@ -27,7 +27,6 @@ export const CATEGORIES: Category[] = [
   { id: 'wp', label: 'Técnico WordPress', short: 'WordPress' },
   { id: 'speed', label: 'Velocidad Móvil', short: 'Velocidad' },
   { id: 'gsc', label: 'Search Console', short: 'GSC' },
-  { id: 'ga', label: 'Google Analytics', short: 'GA4' },
 ]
 
 export const MONTHS: Month[] = [
@@ -183,29 +182,6 @@ export const MONTHS: Month[] = [
           detail:
             'Revisamos la sección "Acciones manuales" y "Problemas de seguridad" en GSC. Esperamos que esté limpia, pero hay que confirmarlo.',
           impact: 'Bajo',
-        },
-      ],
-      ga: [
-        {
-          id: 'ga-tracking',
-          title: 'Verificar que GA4 mide correctamente',
-          detail:
-            'Comprobamos que se registran los eventos clave: reserva enviada, click en teléfono, click en pedir online.',
-          impact: 'Alto',
-        },
-        {
-          id: 'ga-conversions',
-          title: 'Configurar conversiones',
-          detail:
-            'Marcamos como conversión: click en "Reservar", click en "Pedir Online" y llamadas telefónicas. Sin esto no podemos demostrar ROI del SEO.',
-          impact: 'Alto',
-        },
-        {
-          id: 'ga-internal',
-          title: 'Excluir tráfico interno del equipo',
-          detail:
-            'Configuramos un filtro por IP/parámetro para que las visitas internas no contaminen las métricas.',
-          impact: 'Medio',
         },
       ],
     },
