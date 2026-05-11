@@ -20,7 +20,7 @@ function getInitialTaskState(): Record<string, TaskStatus> {
   for (const category of CATEGORIES) {
     const taskList = month1.tasks[category.id] || []
     for (const task of taskList) {
-      tasks[task.id] = TASK_STATUS.DONE
+      tasks[task.id] = task.id === 'sp-cache' ? TASK_STATUS.DOING : TASK_STATUS.DONE
     }
   }
 
