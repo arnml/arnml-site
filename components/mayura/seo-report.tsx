@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { useState, useMemo } from 'react'
+import { useState } from 'react'
 import { CATEGORIES, MONTHS } from '@/lib/seo-report-data'
 import { TASK_STATUS, BRAND_ASSETS, type TaskStatus } from '@/lib/seo-constants'
 import styles from '@/app/mayura/seo-report.module.css'
@@ -15,12 +15,12 @@ interface SeoReportState {
 
 function getInitialTaskState(): Record<string, TaskStatus> {
   const tasks: Record<string, TaskStatus> = {}
-  const month1 = MONTHS[0]
 
-  for (const category of CATEGORIES) {
-    const taskList = month1.tasks[category.id] || []
-    for (const task of taskList) {
-      tasks[task.id] = task.id === 'sp-cache' ? TASK_STATUS.DOING : TASK_STATUS.DONE
+  for (const month of MONTHS.filter((m) => !m.locked)) {
+    for (const category of CATEGORIES) {
+      for (const task of month.tasks[category.id] || []) {
+        tasks[task.id] = TASK_STATUS.DONE
+      }
     }
   }
 
@@ -33,32 +33,7 @@ export function SeoReport() {
   }))
   const [activeMonth, setActiveMonth] = useState(1)
 
-  const month = useMemo(() => MONTHS.find((m) => m.n === activeMonth), [activeMonth])
-  const taskState = state.tasks
-
-  const progressMap = useMemo(() => {
-    const out: Record<number, { total: number; done: number; pct: number } | null> = {}
-
-    for (const m of MONTHS) {
-      if (m.locked) {
-        out[m.n] = null
-        continue
-      }
-
-      let total = 0
-      let done = 0
-
-      for (const c of CATEGORIES) {
-        const list = m.tasks[c.id] || []
-        total += list.length
-        done += list.filter((t) => taskState[t.id] === TASK_STATUS.DONE).length
-      }
-
-      out[m.n] = { total, done, pct: total ? Math.round((done / total) * 100) : 0 }
-    }
-
-    return out
-  }, [taskState])
+  const month = MONTHS.find((m) => m.n === activeMonth)
 
   return (
     <div className={styles.app}>
@@ -121,7 +96,6 @@ export function SeoReport() {
         months={MONTHS}
         active={activeMonth}
         onPick={setActiveMonth}
-        progressMap={progressMap}
       />
 
       {/* Main content */}
