@@ -123,32 +123,8 @@ export const MONTHS: Month[] = [
           metric: 'Render-blocking',
         },
         {
-          id: 'sp-images',
-          title: 'Comprimir y redimensionar imágenes para móvil',
-          detail:
-            'Convertimos a WebP/AVIF y servimos tamaños responsive. Ahorro estimado por PageSpeed.',
-          impact: 'Alto',
-          metric: '−1,3 MB',
-        },
-        {
-          id: 'sp-js',
-          title: 'Eliminar JavaScript no utilizado',
-          detail:
-            'Diferimos scripts de plugins que no se usan en cada página (chat, sliders, mapas). Ahorro estimado por PageSpeed.',
-          impact: 'Medio',
-          metric: '−240 KB',
-        },
-        {
-          id: 'sp-css',
-          title: 'Eliminar CSS no utilizado de Elementor',
-          detail:
-            'Activamos el módulo de "CSS optimizado" de Elementor + purga de selectores no usados.',
-          impact: 'Medio',
-          metric: '−87 KB',
-        },
-        {
           id: 'sp-lazy',
-          title: 'Activar lazy loading para todas las imágenes',
+          title: 'Revisar configuración',
           detail:
             'Hoy solo está activo en home. Lo extendemos a carta, blog y delivery, excluyendo solo el LCP de cada plantilla.',
           impact: 'Medio',
