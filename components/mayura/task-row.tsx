@@ -8,7 +8,6 @@ interface TaskRowProps {
   status: TaskStatus
   expanded: boolean
   onToggleExpand: () => void
-  onCycleStatus: () => void
 }
 
 const STATUS_CLASS_MAP: Record<TaskStatus, string> = {
@@ -23,26 +22,13 @@ const STATUS_GLYPH_MAP: Record<TaskStatus, React.ReactNode> = {
   [TASK_STATUS.DONE]: <span aria-hidden="true">✓</span>,
 }
 
-export function TaskRow({
-  task,
-  status,
-  expanded,
-  onToggleExpand,
-  onCycleStatus,
-}: TaskRowProps) {
+export function TaskRow({ task, status, expanded, onToggleExpand }: TaskRowProps) {
   return (
     <li className={`${styles.task} ${status === TASK_STATUS.DONE ? styles.isDone : ''}`}>
       <div className={styles.taskHead} onClick={onToggleExpand}>
-        <button
-          className={`${styles.check} ${STATUS_CLASS_MAP[status]}`}
-          onClick={(e) => {
-            e.stopPropagation()
-            onCycleStatus()
-          }}
-          aria-label={`Estado de ${task.title}`}
-        >
+        <div className={`${styles.check} ${STATUS_CLASS_MAP[status]}`} aria-hidden="true">
           {STATUS_GLYPH_MAP[status]}
-        </button>
+        </div>
         <div className={styles.taskMain}>
           <div className={styles.taskTitle}>{task.title}</div>
           <div className={styles.taskMeta}>

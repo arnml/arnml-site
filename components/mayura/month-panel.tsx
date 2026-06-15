@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useMemo, useCallback } from 'react'
+import { useState, useMemo } from 'react'
 import { CATEGORIES } from '@/lib/seo-report-data'
-import { TASK_STATUS, getNextStatus, type TaskStatus } from '@/lib/seo-constants'
+import { TASK_STATUS, type TaskStatus } from '@/lib/seo-constants'
 import type { Month } from '@/lib/seo-report-data'
 import styles from '@/app/mayura/seo-report.module.css'
 import { Ornament } from './ornament'
@@ -16,23 +16,13 @@ interface SeoReportState {
 interface MonthPanelProps {
   month: Month
   state: SeoReportState
-  setState: (state: SeoReportState) => void
 }
 
-export function MonthPanel({ month, state, setState }: MonthPanelProps) {
+export function MonthPanel({ month, state }: MonthPanelProps) {
   const [activeCat, setActiveCat] = useState(CATEGORIES[0].id)
   const [expanded, setExpanded] = useState<Set<string>>(new Set())
 
   const taskState = state.tasks
-
-  const cycleStatus = useCallback(
-    (id: string) => {
-      const cur = taskState[id] || TASK_STATUS.TODO
-      const next = getNextStatus(cur)
-      setState({ tasks: { ...taskState, [id]: next } })
-    },
-    [taskState, setState]
-  )
 
   const catCounts = useMemo(() => {
     const out: Record<string, { total: number; done: number }> = {}
@@ -108,7 +98,6 @@ export function MonthPanel({ month, state, setState }: MonthPanelProps) {
                 status={taskState[t.id] || TASK_STATUS.TODO}
                 expanded={expanded.has(t.id)}
                 onToggleExpand={handleToggle}
-                onCycleStatus={() => cycleStatus(t.id)}
               />
             )
           })}
