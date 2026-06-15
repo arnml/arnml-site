@@ -189,13 +189,110 @@ export const MONTHS: Month[] = [
   {
     n: 2,
     label: 'Mes 2',
-    title: 'Optimización on-page',
+    title: 'Plugins y optimización técnica',
     period: 'Junio 2026',
-    locked: true,
+    locked: false,
     summary:
-      'Trabajaremos las páginas con mayor potencial: carta, ubicaciones y delivery. Reescribimos titles, metas y H1 según las keywords reales detectadas en el mes 1.',
-    objective: 'Mejorar CTR y posición media de las páginas con tráfico existente.',
-    tasks: {},
+      'Actualizamos y configuramos correctamente los plugins clave del sitio: Elementor, WP Rocket, WPCode, Complianz y Restaurant Menu. Cerramos pendientes técnicos y de compliance.',
+    objective:
+      'Asegurar que todos los plugins están actualizados, configurados correctamente y sin conflictos entre sí.',
+    tasks: {
+      wp: [
+        {
+          id: 'wp2-complianz-setup',
+          title: 'Complianz: actualizar y llenar campos faltantes',
+          detail:
+            'Completar el asistente de Complianz con los datos faltantes: información de contacto, tipo de datos tratados, base legal y DPA. Sin esta información el plugin no genera el aviso legal correcto.',
+          impact: 'Alto',
+        },
+        {
+          id: 'wp2-complianz-banner',
+          title: 'Complianz: actualizar banner de cookies y consentimiento',
+          detail:
+            'Revisar y actualizar el diseño y el texto del banner de cookies y del banner de consentimiento según los requisitos del RGPD aplicables en España.',
+          impact: 'Alto',
+        },
+        {
+          id: 'wp2-fragmentos',
+          title: 'Fragmentos: limpiar cabecera por conflicto de horario',
+          detail:
+            'Un snippet activo en la cabecera entra en conflicto con otro sistema de gestión de horarios del sitio. Identificar y desactivar el fragmento que genera el conflicto.',
+          impact: 'Medio',
+        },
+        {
+          id: 'wp2-wpcode-update',
+          title: 'WPCode: actualizar plugin',
+          detail:
+            'Actualizar WPCode a la última versión para asegurar compatibilidad con WordPress y corregir posibles vulnerabilidades.',
+          impact: 'Medio',
+        },
+        {
+          id: 'wp2-wpcode-schedule',
+          title: 'WPCode: actualización de horario de apertura',
+          detail:
+            'Corregir el snippet de horario de apertura gestionado desde WPCode. Actualmente declara 1 AM – 4 AM; debe reflejar los horarios reales: 13:00–16:00 / 20:00–23:30.',
+          impact: 'Alto',
+        },
+        {
+          id: 'wp2-restaurant-menu',
+          title: 'Restaurant Menu: actualizar plugin',
+          detail:
+            'Actualizar el plugin Restaurant Menu a la última versión para asegurar compatibilidad con la versión actual de WordPress y Elementor.',
+          impact: 'Medio',
+        },
+        {
+          id: 'wp2-llm-txt',
+          title: 'Yoast: añadir llm.txt',
+          detail:
+            'Crear el archivo llm.txt en la raíz del sitio para declarar permisos de rastreo a los crawlers de inteligencia artificial (ChatGPT, Claude, Gemini, Perplexity). Definir qué secciones pueden indexar y cuáles no.',
+          impact: 'Bajo',
+        },
+      ],
+      speed: [
+        {
+          id: 'sp2-elementor-images',
+          title: 'Elementor: carga de imágenes optimizada',
+          detail:
+            'Activar la opción de carga de imágenes optimizada en el panel de rendimiento de Elementor para aplicar lazy loading nativo y tamaños responsive automáticamente.',
+          impact: 'Alto',
+        },
+        {
+          id: 'sp2-elementor-css-method',
+          title: 'Elementor: configurar método de impresión de CSS',
+          detail:
+            'Cambiar el método de impresión de CSS de Elementor a "externo" para que los estilos se carguen como archivo separado y puedan ser cacheados por el navegador.',
+          impact: 'Medio',
+        },
+        {
+          id: 'sp2-elementor-gutenberg',
+          title: 'Elementor: carga optimizada de Gutenberg',
+          detail:
+            'Activar la opción "Carga optimizada de Gutenberg" en Ajustes → Elementor → Características para evitar que Gutenberg cargue sus scripts y estilos en páginas construidas con Elementor.',
+          impact: 'Medio',
+        },
+        {
+          id: 'sp2-elementor-cache',
+          title: 'Elementor: activar caché de elementos',
+          detail:
+            'Activar la caché de widgets en el panel de rendimiento de Elementor para reducir el tiempo de renderizado en visitas recurrentes.',
+          impact: 'Medio',
+        },
+        {
+          id: 'sp2-elementor-compress',
+          title: 'Elementor: comprimir archivos',
+          detail:
+            'Activar la compresión de archivos en el panel de rendimiento de Elementor para minificar HTML, CSS y JS generados por el builder.',
+          impact: 'Medio',
+        },
+        {
+          id: 'sp2-wprocket-cache',
+          title: 'WP Rocket: actualización de caché',
+          detail:
+            'Vaciar y regenerar la caché de WP Rocket tras aplicar todos los cambios del mes. Verificar que las reglas de exclusión no afectan páginas críticas como checkout o área de reservas.',
+          impact: 'Alto',
+        },
+      ],
+    },
   },
   {
     n: 3,
