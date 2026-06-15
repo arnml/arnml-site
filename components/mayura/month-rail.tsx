@@ -5,14 +5,12 @@ interface MonthRailProps {
   months: Month[]
   active: number
   onPick: (n: number) => void
-  progressMap: Record<number, { total: number; done: number; pct: number } | null>
 }
 
-export function MonthRail({ months, active, onPick, progressMap }: MonthRailProps) {
+export function MonthRail({ months, active, onPick }: MonthRailProps) {
   return (
     <nav className={styles.rail} aria-label="Meses del informe">
       {months.map((m) => {
-        const prog = progressMap[m.n]
         const isActive = active === m.n
         return (
           <button
@@ -32,17 +30,6 @@ export function MonthRail({ months, active, onPick, progressMap }: MonthRailProp
                 {m.label} · {m.period}
               </div>
               <div className={styles.railTitle}>{m.title}</div>
-              {!m.locked && prog && (
-                <div className={styles.railProg}>
-                  <div
-                    className={styles.railProgBar}
-                    style={{ width: `${prog.pct}%` }}
-                  />
-                  <span className={styles.railProgTx}>
-                    {prog.done}/{prog.total}
-                  </span>
-                </div>
-              )}
               {m.locked && <div className={styles.railLockedTx}>Próximamente</div>}
             </div>
           </button>
