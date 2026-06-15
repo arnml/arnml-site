@@ -28,7 +28,7 @@ function getInitialTaskState(): Record<string, TaskStatus> {
 }
 
 export function SeoReport() {
-  const [state, setState] = useState<SeoReportState>(() => ({
+  const [state] = useState<SeoReportState>(() => ({
     tasks: getInitialTaskState(),
   }))
   const [activeMonth, setActiveMonth] = useState(1)
@@ -105,7 +105,6 @@ export function SeoReport() {
             key={activeMonth}
             month={month}
             state={state}
-            setState={setState}
           />
         )}
       </main>
