@@ -483,3 +483,128 @@
   font-variant-numeric: tabular-nums;
   color: rgba(255, 255, 255, 0.55);
 }
+
+/* ── MOBILE ────────────────────────────────────────────────── */
+
+@media (max-width: 600px) {
+  .root {
+    padding: 28px 16px 60px;
+  }
+
+  .docHeader {
+    margin-bottom: 24px;
+  }
+
+  .docTitle {
+    font-size: 20px;
+  }
+
+  /* Summary: drop side-by-side separators, go 2-column grid */
+  .summaryRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 8px;
+  }
+
+  .summaryItem {
+    padding: 0;
+    margin: 0;
+    border-right: none;
+  }
+
+  .summaryItem:last-child {
+    border-right: none;
+  }
+
+  .summaryVal {
+    font-size: 18px;
+  }
+
+  /* Legend */
+  .legend {
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  /* Phase header: tighten number and right side */
+  .phaseNum {
+    font-size: 18px;
+    padding: 10px 12px;
+  }
+
+  .phaseName {
+    font-size: 10.5px;
+  }
+
+  .phaseDeliver {
+    font-size: 10.5px;
+  }
+
+  .phaseRight {
+    padding: 8px 12px;
+    gap: 4px;
+  }
+
+  .phaseHoursVal {
+    font-size: 14px;
+  }
+
+  /* Table: hide row number and area tag — name + hours is enough */
+  .colN,
+  .colTag {
+    display: none;
+  }
+
+  .table th,
+  .table td {
+    padding: 9px 12px;
+  }
+
+  .featName {
+    font-size: 12.5px;
+  }
+
+  .featDesc {
+    font-size: 11px;
+  }
+
+  /* Maintenance: let it stack, align price to left */
+  .maintPriceBox {
+    align-items: flex-start;
+    width: 100%;
+    padding-top: 14px;
+    border-top: 1px solid #BBF7D0;
+  }
+
+  .maintPrice {
+    font-size: 22px;
+  }
+
+  /* Grand total: left-align right column when stacked */
+  .grandTotal {
+    gap: 10px;
+  }
+
+  .gtRight {
+    align-items: flex-start;
+  }
+
+  .gtHours {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 380px) {
+  .root {
+    padding: 20px 12px 48px;
+  }
+
+  .summaryVal {
+    font-size: 16px;
+  }
+
+  /* Deliver text is too long for very small screens — phase name suffices */
+  .phaseDeliver {
+    display: none;
+  }
+}
