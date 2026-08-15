@@ -40,11 +40,9 @@ export async function proxy(request: NextRequest) {
 
   // Get session from cookies
   const sessionCookie = request.cookies.get('arnml_admin_session')?.value
-  const mayuraSessionCookie = request.cookies.get('mayura_report_session')?.value
 
   // For proxy, we'll do a simple check - actual validation happens in getSession()
   const isAuthenticated = !!sessionCookie
-  const isMayuraAuthenticated = !!mayuraSessionCookie
 
   // Protect /admin routes
   if (request.nextUrl.pathname.startsWith('/admin')) {
@@ -60,19 +58,9 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  // Protect /mayura routes (except /mayura/login)
-  if (
-    request.nextUrl.pathname.startsWith('/mayura') &&
-    !request.nextUrl.pathname.startsWith('/mayura/login')
-  ) {
-    if (!isMayuraAuthenticated) {
-      return NextResponse.redirect(new URL('/mayura/login', request.url))
-    }
-  }
-
   return response
 }
 
 export const config = {
-  matcher: ['/admin/:path*', '/api/:path*', '/mayura/:path*'],
+  matcher: ['/admin/:path*', '/api/:path*'],
 }
