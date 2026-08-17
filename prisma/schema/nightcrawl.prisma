@@ -26,8 +26,8 @@ model NcParceiro {
   origem   String   @default("")
   notas    String   @default("")
   codigo   String   @default("")
-  desconto String   @default("")
-  comissao String   @default("")
+  desconto String   @default("5")
+  comissao String   @default("10")
   etapa    NcEtapa  @default(NOVO)
   proximo  DateTime @default(now())
 

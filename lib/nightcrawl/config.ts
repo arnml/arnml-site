@@ -12,3 +12,10 @@ export const EU_INFO = {
 }
 
 export type EuInfo = typeof EU_INFO
+
+export const DEFAULT_PARCEIRO = {
+  tipo: 'Casa de eventos',
+  origem: 'Agente IA',
+  desconto: '5',
+  comissao: '10',
+} as const

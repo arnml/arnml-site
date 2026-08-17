@@ -1,6 +1,6 @@
 'use client'
 
-import { ETAPAS, ORIGENS, TIPOS, type Etapa } from '@/lib/nightcrawl/types'
+import { ORIGENS, TIPOS } from '@/lib/nightcrawl/types'
 
 export interface PartnerFormState {
   id?: string
@@ -18,7 +18,6 @@ export interface PartnerFormState {
   proximo: string
   notas: string
   pedido: string
-  etapa: Etapa
 }
 
 interface PartnerFormDialogProps {
@@ -136,11 +135,11 @@ export function PartnerFormDialog({
           </div>
           <div className="nc-field">
             <label>Desconto %</label>
-            <input className="nc-input" value={form.desconto} onChange={(e) => onDescontoChange(e.target.value)} placeholder="15" />
+            <input className="nc-input" value={form.desconto} onChange={(e) => onDescontoChange(e.target.value)} placeholder="5" />
           </div>
           <div className="nc-field">
             <label>Comissão %</label>
-            <input className="nc-input" value={form.comissao} onChange={(e) => onFieldChange({ comissao: e.target.value })} placeholder="20" />
+            <input className="nc-input" value={form.comissao} onChange={(e) => onFieldChange({ comissao: e.target.value })} placeholder="10" />
           </div>
           <div className="nc-field">
             <label>Próximo follow-up</label>
@@ -149,14 +148,6 @@ export function PartnerFormDialog({
           <div className="nc-field" style={{ gridColumn: '1 / -1' }}>
             <label>Notas</label>
             <textarea className="nc-input" value={form.notas} onChange={(e) => onFieldChange({ notas: e.target.value })} style={{ minHeight: 70 }} />
-          </div>
-          <div className="nc-field">
-            <label>Etapa</label>
-            <select className="nc-input" value={form.etapa} onChange={(e) => onFieldChange({ etapa: e.target.value as Etapa })}>
-              {ETAPAS.map((o) => (
-                <option key={o} value={o}>{o}</option>
-              ))}
-            </select>
           </div>
         </div>
         <div className="nc-dialog-actions">

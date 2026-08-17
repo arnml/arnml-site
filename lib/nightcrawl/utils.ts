@@ -1,4 +1,4 @@
-import type { EuInfo } from './config'
+import { DEFAULT_PARCEIRO, type EuInfo } from './config'
 import type { Parceiro } from './types'
 
 export function n(v: string | number | undefined): number {
@@ -62,10 +62,10 @@ export function gerarCodigo(nome: string, desconto: string, existentes: string[]
     .filter(Boolean)
   const raiz = (base[0] || 'PARCEIRO').slice(0, 10)
   const usados = existentes.filter((c) => c !== idAtual).map((c) => c.toUpperCase())
-  let cod = raiz + (n(desconto) || 15)
+  let cod = raiz + (n(desconto) || Number(DEFAULT_PARCEIRO.desconto))
   let i = 2
   while (usados.includes(cod)) {
-    cod = raiz + (n(desconto) || 15) + i
+    cod = raiz + (n(desconto) || Number(DEFAULT_PARCEIRO.desconto)) + i
     i += 1
   }
   return cod
@@ -77,8 +77,8 @@ export function preencherModelo(texto: string, p: Parceiro, eu: EuInfo, crawlNam
     '{primeiro_nome}': (p.nome || '').split(' ')[0],
     '{arroba}': p.handle || '',
     '{codigo}': p.codigo || '',
-    '{desconto}': String(n(p.desconto) || 15),
-    '{comissao}': String(n(p.comissao) || 20),
+    '{desconto}': String(n(p.desconto) || Number(DEFAULT_PARCEIRO.desconto)),
+    '{comissao}': String(n(p.comissao) || Number(DEFAULT_PARCEIRO.comissao)),
     '{pedido}': p.pedido || 'o combinado',
     '{cidade}': p.cidade || 'São Paulo',
     '{meu_nome}': eu.nome || 'Eu',

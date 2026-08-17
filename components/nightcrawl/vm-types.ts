@@ -112,6 +112,7 @@ export interface TemplateRowVM {
   onNomeBlur: () => void
   onTextoChange: (v: string) => void
   onTextoBlur: () => void
+  salvar: () => void
   remover: () => void
 }
 

@@ -31,7 +31,6 @@ export async function createParceiro(input: unknown) {
   await prisma.ncParceiro.create({
     data: {
       ...data,
-      etapa: ETAPA_TO_DB[data.etapa as keyof typeof ETAPA_TO_DB],
       proximo: new Date(data.proximo),
     },
   })
@@ -39,12 +38,12 @@ export async function createParceiro(input: unknown) {
 }
 
 export async function updateParceiro(input: unknown) {
-  const { id, ...data } = updateParceiroSchema.parse(input)
+  const { id, etapa, ...data } = updateParceiroSchema.parse(input)
   await prisma.ncParceiro.update({
     where: { id },
     data: {
       ...data,
-      etapa: ETAPA_TO_DB[data.etapa as keyof typeof ETAPA_TO_DB],
+      ...(etapa ? { etapa: ETAPA_TO_DB[etapa as keyof typeof ETAPA_TO_DB] } : {}),
       proximo: new Date(data.proximo),
     },
   })
