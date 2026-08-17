@@ -18,7 +18,6 @@ export interface Parceiro {
   nome: string
   handle: string
   tipo: string
-  contato: string
   contatos: string[]
   cidade: string
   idioma: string
@@ -26,7 +25,6 @@ export interface Parceiro {
   pedido: string
   origem: string
   notas: string
-  responsavel: string
   codigo: string
   desconto: string
   comissao: string
@@ -61,7 +59,6 @@ export interface Site {
   nome: string
   url: string
   status: string
-  responsavel: string
   proximaAcao: string
 }
 
@@ -71,20 +68,12 @@ export interface Modelo {
   texto: string
 }
 
-export interface Eu {
-  nome: string
-  instagram: string
-  whatsapp: string
-  site: string
-}
-
 export interface Db {
   parceiros: Parceiro[]
   vendas: Venda[]
   clientes: Cliente[]
   sites: Site[]
   modelos: Modelo[]
-  eu: Eu
 }
 
 export type View =
@@ -182,8 +171,6 @@ export const STATUS_CLS: Record<string, string> = {
   'Precisa de avaliações': 'nc-tag-accent-2',
   Ativo: 'nc-tag-accent',
 }
-
-export const RESPONSAVEIS = ['Eu', 'Ana', 'Bruno']
 
 export const VARIAVEIS = [
   { k: '{nome}', d: 'Nome completo do parceiro' },

@@ -18,7 +18,6 @@ export interface PartnerFormState {
   proximo: string
   notas: string
   pedido: string
-  responsavel: string
   etapa: Etapa
 }
 
@@ -26,7 +25,6 @@ interface PartnerFormDialogProps {
   open: boolean
   title: string
   form: PartnerFormState
-  responsaveis: string[]
   onNomeChange: (v: string) => void
   onFieldChange: (patch: Partial<PartnerFormState>) => void
   onContatoChange: (i: number, v: string) => void
@@ -45,7 +43,6 @@ export function PartnerFormDialog({
   open,
   title,
   form,
-  responsaveis,
   onNomeChange,
   onFieldChange,
   onContatoChange,
@@ -152,14 +149,6 @@ export function PartnerFormDialog({
           <div className="nc-field" style={{ gridColumn: '1 / -1' }}>
             <label>Notas</label>
             <textarea className="nc-input" value={form.notas} onChange={(e) => onFieldChange({ notas: e.target.value })} style={{ minHeight: 70 }} />
-          </div>
-          <div className="nc-field">
-            <label>Responsável</label>
-            <select className="nc-input" value={form.responsavel} onChange={(e) => onFieldChange({ responsavel: e.target.value })}>
-              {responsaveis.map((o) => (
-                <option key={o} value={o}>{o}</option>
-              ))}
-            </select>
           </div>
           <div className="nc-field">
             <label>Etapa</label>

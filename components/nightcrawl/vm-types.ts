@@ -7,7 +7,6 @@ export interface PartnerRowVM {
   tipo: string
   contato: string
   cidade: string
-  responsavel: string
   etapa: Etapa
   etapaCls: string
   codigo: string
@@ -98,9 +97,9 @@ export interface SiteRowVM {
   urlTxt: string
   status: string
   statusCls: string
-  responsavel: string
   proximaAcao: string
   onAcaoChange: (v: string) => void
+  onAcaoBlur: () => void
   onStatusChange: (v: string) => void
   remover: () => void
 }
@@ -110,7 +109,9 @@ export interface TemplateRowVM {
   nome: string
   texto: string
   onNomeChange: (v: string) => void
+  onNomeBlur: () => void
   onTextoChange: (v: string) => void
+  onTextoBlur: () => void
   remover: () => void
 }
 

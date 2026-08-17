@@ -1,4 +1,5 @@
-import type { Eu, Parceiro } from './types'
+import type { EuInfo } from './config'
+import type { Parceiro } from './types'
 
 export function n(v: string | number | undefined): number {
   const x = Number(String(v ?? '').replace(',', '.'))
@@ -70,7 +71,7 @@ export function gerarCodigo(nome: string, desconto: string, existentes: string[]
   return cod
 }
 
-export function preencherModelo(texto: string, p: Parceiro, eu: Eu, crawlName: string): string {
+export function preencherModelo(texto: string, p: Parceiro, eu: EuInfo, crawlName: string): string {
   const mapa: Record<string, string> = {
     '{nome}': p.nome || '',
     '{primeiro_nome}': (p.nome || '').split(' ')[0],

@@ -7,18 +7,16 @@ interface SiteForm {
   nome: string
   url: string
   status: string
-  responsavel: string
 }
 
 interface PresenceViewProps {
   sForm: SiteForm
   onSFormChange: (patch: Partial<SiteForm>) => void
-  responsaveis: string[]
   onSalvar: () => void
   sites: SiteRowVM[]
 }
 
-export function PresenceView({ sForm, onSFormChange, responsaveis, onSalvar, sites }: PresenceViewProps) {
+export function PresenceView({ sForm, onSFormChange, onSalvar, sites }: PresenceViewProps) {
   return (
     <div>
       <h2 style={{ fontSize: 28, margin: '0 0 4px' }}>Presença nos sites</h2>
@@ -26,7 +24,7 @@ export function PresenceView({ sForm, onSFormChange, responsaveis, onSalvar, sit
         TripAdvisor, Reddit, fóruns, guias — onde precisamos aparecer e em que pé está.
       </p>
 
-      <div className="nc-formrow" style={{ display: 'grid', gridTemplateColumns: '1fr 1.4fr 1fr 1fr auto', gap: 12, alignItems: 'end', marginBottom: 34 }}>
+      <div className="nc-formrow" style={{ display: 'grid', gridTemplateColumns: '1fr 1.4fr 1fr auto', gap: 12, alignItems: 'end', marginBottom: 34 }}>
         <div className="nc-field">
           <label>Site</label>
           <input className="nc-input" value={sForm.nome} onChange={(e) => onSFormChange({ nome: e.target.value })} placeholder="TripAdvisor" />
@@ -39,14 +37,6 @@ export function PresenceView({ sForm, onSFormChange, responsaveis, onSalvar, sit
           <label>Situação</label>
           <select className="nc-input" value={sForm.status} onChange={(e) => onSFormChange({ status: e.target.value })}>
             {STATUS_SITE.map((o) => (
-              <option key={o} value={o}>{o}</option>
-            ))}
-          </select>
-        </div>
-        <div className="nc-field">
-          <label>Responsável</label>
-          <select className="nc-input" value={sForm.responsavel} onChange={(e) => onSFormChange({ responsavel: e.target.value })}>
-            {responsaveis.map((o) => (
               <option key={o} value={o}>{o}</option>
             ))}
           </select>
@@ -74,6 +64,7 @@ export function PresenceView({ sForm, onSFormChange, responsaveis, onSalvar, sit
               className="nc-input"
               value={s.proximaAcao}
               onChange={(e) => s.onAcaoChange(e.target.value)}
+              onBlur={s.onAcaoBlur}
               placeholder="Próxima ação — ex.: pedir 5 avaliações"
             />
           </div>
@@ -84,7 +75,6 @@ export function PresenceView({ sForm, onSFormChange, responsaveis, onSalvar, sit
               ))}
             </select>
           </div>
-          <div style={{ fontSize: 13, color: 'var(--nc-color-neutral-700)', width: 90, flex: 'none', paddingTop: 8 }}>{s.responsavel}</div>
           <button className="nc-btn nc-btn-ghost nc-btn-danger" onClick={s.remover} style={{ fontSize: 12, paddingTop: 8 }}>Excluir</button>
         </div>
       ))}

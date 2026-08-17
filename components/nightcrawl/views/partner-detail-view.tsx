@@ -29,7 +29,6 @@ interface PartnerDetailViewProps {
   nome: string
   handle: string
   cidade: string
-  responsavel: string
   etapas: EtapaChipVM[]
   onEditar: () => void
   onAbrirLog: () => void
@@ -45,11 +44,14 @@ interface PartnerDetailViewProps {
   semRegistros: boolean
   codigo: string
   onCodigoChange: (v: string) => void
+  onCodigoBlur: () => void
   onGerarCodigo: () => void
   desconto: string
   onDescontoChange: (v: string) => void
+  onDescontoBlur: () => void
   comissao: string
   onComissaoChange: (v: string) => void
+  onComissaoBlur: () => void
   avisoCodigo: string
   nVendas: number
   receitaTxt: string
@@ -63,7 +65,6 @@ export function PartnerDetailView({
   nome,
   handle,
   cidade,
-  responsavel,
   etapas,
   onEditar,
   onAbrirLog,
@@ -79,11 +80,14 @@ export function PartnerDetailView({
   semRegistros,
   codigo,
   onCodigoChange,
+  onCodigoBlur,
   onGerarCodigo,
   desconto,
   onDescontoChange,
+  onDescontoBlur,
   comissao,
   onComissaoChange,
+  onComissaoBlur,
   avisoCodigo,
   nVendas,
   receitaTxt,
@@ -99,7 +103,7 @@ export function PartnerDetailView({
           <div style={{ fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--nc-color-accent-700)' }}>{tipo}</div>
           <h2 className="nc-big" style={{ fontSize: 42, lineHeight: 1.05, margin: '6px 0 8px' }}>{nome}</h2>
           <div style={{ fontSize: 15, color: 'var(--nc-color-neutral-700)' }}>
-            {handle} · {cidade} · {responsavel}
+            {handle} · {cidade}
           </div>
         </div>
         <div style={{ display: 'flex', gap: 8, flex: 'none' }}>
@@ -164,6 +168,7 @@ export function PartnerDetailView({
                 className="nc-input"
                 value={codigo}
                 onChange={(e) => onCodigoChange(e.target.value)}
+                onBlur={onCodigoBlur}
                 style={{ fontFamily: 'var(--nc-font-heading)', fontWeight: 600, fontSize: 17, textTransform: 'uppercase' }}
               />
             </div>
@@ -172,11 +177,11 @@ export function PartnerDetailView({
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginTop: 12 }}>
             <div className="nc-field">
               <label>Desconto %</label>
-              <input className="nc-input" value={desconto} onChange={(e) => onDescontoChange(e.target.value)} placeholder="15" />
+              <input className="nc-input" value={desconto} onChange={(e) => onDescontoChange(e.target.value)} onBlur={onDescontoBlur} placeholder="15" />
             </div>
             <div className="nc-field">
               <label>Comissão %</label>
-              <input className="nc-input" value={comissao} onChange={(e) => onComissaoChange(e.target.value)} placeholder="20" />
+              <input className="nc-input" value={comissao} onChange={(e) => onComissaoChange(e.target.value)} onBlur={onComissaoBlur} placeholder="20" />
             </div>
           </div>
           <div style={{ fontSize: 13, color: 'var(--nc-color-neutral-700)', marginTop: 10 }}>{avisoCodigo}</div>

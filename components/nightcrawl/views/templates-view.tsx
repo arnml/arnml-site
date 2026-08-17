@@ -1,16 +1,14 @@
 'use client'
 
-import { VARIAVEIS, type Eu } from '@/lib/nightcrawl/types'
+import { VARIAVEIS } from '@/lib/nightcrawl/types'
 import type { TemplateRowVM } from '../vm-types'
 
 interface TemplatesViewProps {
   modelos: TemplateRowVM[]
   onNovoModelo: () => void
-  eu: Eu
-  onEuChange: (patch: Partial<Eu>) => void
 }
 
-export function TemplatesView({ modelos, onNovoModelo, eu, onEuChange }: TemplatesViewProps) {
+export function TemplatesView({ modelos, onNovoModelo }: TemplatesViewProps) {
   return (
     <div className="nc-stack" style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr', gap: 64, alignItems: 'start' }}>
       <div>
@@ -24,12 +22,14 @@ export function TemplatesView({ modelos, onNovoModelo, eu, onEuChange }: Templat
               className="nc-input"
               value={m.nome}
               onChange={(e) => m.onNomeChange(e.target.value)}
+              onBlur={m.onNomeBlur}
               style={{ maxWidth: 320, fontFamily: 'var(--nc-font-heading)', fontWeight: 600, fontSize: 17, marginBottom: 8 }}
             />
             <textarea
               className="nc-input"
               value={m.texto}
               onChange={(e) => m.onTextoChange(e.target.value)}
+              onBlur={m.onTextoBlur}
               style={{ minHeight: 170, fontSize: 14 }}
             />
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 6 }}>
@@ -47,25 +47,6 @@ export function TemplatesView({ modelos, onNovoModelo, eu, onEuChange }: Templat
             <span style={{ color: 'var(--nc-color-neutral-700)' }}>{v.d}</span>
           </div>
         ))}
-        <h3 style={{ fontSize: 22, margin: '34px 0 14px' }}>Nossos dados</h3>
-        <div style={{ display: 'grid', gap: 12 }}>
-          <div className="nc-field">
-            <label>Nome de quem escreve</label>
-            <input className="nc-input" value={eu.nome} onChange={(e) => onEuChange({ nome: e.target.value })} />
-          </div>
-          <div className="nc-field">
-            <label>Nosso Instagram</label>
-            <input className="nc-input" value={eu.instagram} onChange={(e) => onEuChange({ instagram: e.target.value })} />
-          </div>
-          <div className="nc-field">
-            <label>Nosso WhatsApp</label>
-            <input className="nc-input" value={eu.whatsapp} onChange={(e) => onEuChange({ whatsapp: e.target.value })} />
-          </div>
-          <div className="nc-field">
-            <label>Nosso site</label>
-            <input className="nc-input" value={eu.site} onChange={(e) => onEuChange({ site: e.target.value })} />
-          </div>
-        </div>
       </div>
     </div>
   )
