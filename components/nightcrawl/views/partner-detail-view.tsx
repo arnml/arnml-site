@@ -22,6 +22,7 @@ interface RegistroVM {
 interface FatoVM {
   k: string
   v: string
+  links?: string[]
 }
 
 interface PartnerDetailViewProps {
@@ -198,7 +199,16 @@ export function PartnerDetailView({
               <div style={{ width: 120, flex: 'none', fontSize: 12, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--nc-color-neutral-600)', paddingTop: 2 }}>
                 {f.k}
               </div>
-              <div style={{ flex: 1, minWidth: 0, wordBreak: 'break-word' }}>{f.v}</div>
+              <div style={{ flex: 1, minWidth: 0, wordBreak: 'break-word' }}>
+                {f.links?.length
+                  ? f.links.map((link, index) => (
+                      <span key={link}>
+                        {index > 0 ? ' · ' : null}
+                        <a href={externalHref(link)} target="_blank" rel="noreferrer">{link}</a>
+                      </span>
+                    ))
+                  : f.v}
+              </div>
             </div>
           ))}
           <button className="nc-btn nc-btn-ghost nc-btn-danger" onClick={onExcluir} style={{ marginTop: 28, paddingLeft: 0 }}>Excluir parceiro</button>
@@ -206,6 +216,11 @@ export function PartnerDetailView({
       </div>
     </div>
   )
+}
+
+function externalHref(link: string) {
+  if (link.startsWith('@')) return `https://instagram.com/${link.slice(1)}`
+  return /^https?:\/\//i.test(link) ? link : `https://${link}`
 }
 
 function MiniStat({ label, value, color }: { label: string; value: string; color?: string }) {

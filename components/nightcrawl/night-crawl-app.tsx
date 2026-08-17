@@ -517,7 +517,7 @@ export function NightCrawlApp({ db, crawlName, city, today, hojeTxt }: NightCraw
         { k: 'Contatos', v: selRaw.contatos.join('  ·  ') || '—' },
         { k: 'Próximo', v: rowSel.proximoTxt },
         { k: 'Origem', v: selRaw.origem || '—' },
-        { k: 'Links', v: selRaw.links.join('  ·  ') || '—' },
+        { k: 'Links', v: selRaw.links.join('  ·  ') || '—', links: selRaw.links },
         { k: 'Notas', v: selRaw.notas || '—' },
       ],
       onExcluir: () => {
