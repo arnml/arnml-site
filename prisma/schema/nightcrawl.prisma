@@ -1,0 +1,114 @@
+//
+// NIGHT CRAWL: partnership/CRM tool for a pub crawl business
+// Independent from the blog/newsletter models above — kept in its own file.
+//
+
+enum NcEtapa {
+  NOVO
+  CONTACTADO
+  RESPONDEU
+  NEGOCIANDO
+  FECHADO
+  NO_AR
+  PERDIDO
+}
+
+model NcParceiro {
+  id       String   @id @default(uuid())
+  nome     String   @default("")
+  handle   String   @default("")
+  tipo     String   @default("")
+  contatos String[] @default([])
+  cidade   String   @default("")
+  idioma   String   @default("PT")
+  links    String[] @default([])
+  pedido   String   @default("")
+  origem   String   @default("")
+  notas    String   @default("")
+  codigo   String   @default("")
+  desconto String   @default("")
+  comissao String   @default("")
+  etapa    NcEtapa  @default(NOVO)
+  proximo  DateTime @default(now())
+
+  registros NcRegistro[]
+  vendas    NcVenda[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([etapa])
+  @@index([proximo])
+  @@map("nightcrawl_parceiros")
+}
+
+model NcRegistro {
+  id         String     @id @default(uuid())
+  parceiroId String
+  parceiro   NcParceiro @relation(fields: [parceiroId], references: [id], onDelete: Cascade)
+  data       DateTime   @default(now())
+  tipo       String     @default("")
+  texto      String     @default("")
+
+  createdAt DateTime @default(now())
+
+  @@index([parceiroId])
+  @@map("nightcrawl_registros")
+}
+
+model NcVenda {
+  id         String      @id @default(uuid())
+  data       DateTime    @default(now())
+  parceiroId String?
+  parceiro   NcParceiro? @relation(fields: [parceiroId], references: [id], onDelete: SetNull)
+  cliente    String      @default("")
+  pessoas    Int         @default(0)
+  valor      Decimal     @default(0)
+  pago       Boolean     @default(false)
+
+  createdAt DateTime @default(now())
+
+  @@index([parceiroId])
+  @@index([data])
+  @@map("nightcrawl_vendas")
+}
+
+model NcCliente {
+  id      String   @id @default(uuid())
+  nome    String   @default("")
+  contato String   @default("")
+  pais    String   @default("")
+  tipo    String   @default("")
+  // "p:<parceiroId>" | "s:<siteId>" | "direto" — free text, no FK
+  origem  String   @default("")
+  data    DateTime @default(now())
+  notas   String   @default("")
+
+  createdAt DateTime @default(now())
+
+  @@map("nightcrawl_clientes")
+}
+
+model NcSite {
+  id          String @id @default(uuid())
+  nome        String @default("")
+  url         String @default("")
+  status      String @default("")
+  proximaAcao String @default("")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("nightcrawl_sites")
+}
+
+model NcModelo {
+  id    String @id @default(uuid())
+  nome  String @default("")
+  texto String @default("")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("nightcrawl_modelos")
+}
