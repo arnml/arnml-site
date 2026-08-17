@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { DEFAULT_PARCEIRO } from './config'
 import { ETAPAS } from './types'
 
 const etapaSchema = z.enum(ETAPAS as unknown as [string, ...string[]])
@@ -15,15 +16,12 @@ export const parceiroSchema = z.object({
   origem: z.string().default(''),
   notas: z.string().default(''),
   codigo: z.string().default(''),
-  desconto: z.string().default(''),
-  comissao: z.string().default(''),
-  etapa: etapaSchema,
+  desconto: z.string().default(DEFAULT_PARCEIRO.desconto),
+  comissao: z.string().default(DEFAULT_PARCEIRO.comissao),
   proximo: z.string(),
 })
 
-export const updateParceiroSchema = parceiroSchema.extend({
-  id: z.string().min(1),
-})
+export const updateParceiroSchema = parceiroSchema.extend({ id: z.string().min(1), etapa: etapaSchema.optional() })
 
 export const deleteParceiroSchema = z.object({ id: z.string().min(1) })
 

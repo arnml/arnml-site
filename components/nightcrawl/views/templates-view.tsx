@@ -32,7 +32,8 @@ export function TemplatesView({ modelos, onNovoModelo }: TemplatesViewProps) {
               onBlur={m.onTextoBlur}
               style={{ minHeight: 170, fontSize: 14 }}
             />
-            <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 6 }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8, marginTop: 8 }}>
+              <button className="nc-btn nc-btn-secondary" onClick={m.salvar} style={{ fontSize: 12 }}>Salvar modelo</button>
               <button className="nc-btn nc-btn-ghost nc-btn-danger" onClick={m.remover} style={{ fontSize: 12 }}>Excluir modelo</button>
             </div>
           </div>

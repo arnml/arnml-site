@@ -143,6 +143,7 @@ export const TIPOS_FESTA = [
 ]
 
 export const ORIGENS = [
+  'Agente IA',
   'Busca no Instagram',
   'Busca no TikTok',
   'Google / busca',

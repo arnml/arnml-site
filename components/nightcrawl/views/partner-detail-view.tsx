@@ -177,11 +177,11 @@ export function PartnerDetailView({
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginTop: 12 }}>
             <div className="nc-field">
               <label>Desconto %</label>
-              <input className="nc-input" value={desconto} onChange={(e) => onDescontoChange(e.target.value)} onBlur={onDescontoBlur} placeholder="15" />
+              <input className="nc-input" value={desconto} onChange={(e) => onDescontoChange(e.target.value)} onBlur={onDescontoBlur} placeholder="5" />
             </div>
             <div className="nc-field">
               <label>Comissão %</label>
-              <input className="nc-input" value={comissao} onChange={(e) => onComissaoChange(e.target.value)} onBlur={onComissaoBlur} placeholder="20" />
+              <input className="nc-input" value={comissao} onChange={(e) => onComissaoChange(e.target.value)} onBlur={onComissaoBlur} placeholder="10" />
             </div>
           </div>
           <div style={{ fontSize: 13, color: 'var(--nc-color-neutral-700)', marginTop: 10 }}>{avisoCodigo}</div>

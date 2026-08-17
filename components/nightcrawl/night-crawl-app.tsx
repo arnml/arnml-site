@@ -3,7 +3,7 @@
 import { useEffect, useState, useTransition } from 'react'
 import './nightcrawl.css'
 import { ETAPAS, STATUS_SITE, TIPOS_FESTA, type Db, type Etapa, type Parceiro, type View } from '@/lib/nightcrawl/types'
-import { EU_INFO } from '@/lib/nightcrawl/config'
+import { DEFAULT_PARCEIRO, EU_INFO } from '@/lib/nightcrawl/config'
 import { addDays, brl, fmtDate, gerarCodigo, n, preencherModelo, waLink } from '@/lib/nightcrawl/utils'
 import { codigoParceiro, derivePartner, nomeParceiro, origemTxt, siteStatusCls } from '@/lib/nightcrawl/view-models'
 import {
@@ -51,19 +51,18 @@ interface NightCrawlAppProps {
 function emptyForm(proximo: string): PartnerFormState {
   return {
     nome: '',
-    tipo: 'Instagram',
+    tipo: DEFAULT_PARCEIRO.tipo,
     cidade: 'São Paulo',
     idioma: 'PT',
     contatos: [''],
     links: [''],
-    origem: 'Busca no Instagram',
+    origem: DEFAULT_PARCEIRO.origem,
     codigo: '',
-    desconto: '15',
-    comissao: '20',
+    desconto: DEFAULT_PARCEIRO.desconto,
+    comissao: DEFAULT_PARCEIRO.comissao,
     proximo,
     notas: '',
     pedido: '',
-    etapa: 'Novo',
   }
 }
 
@@ -366,6 +365,15 @@ export function NightCrawlApp({ db, crawlName, city, today, hojeTxt }: NightCraw
       if (texto === undefined || texto === m.texto) return
       runAction(() => updateModelo({ id: m.id, texto }), 'Modelo atualizado', 'Não foi possível atualizar')
     },
+    salvar: () => {
+      const draft = modeloDrafts[m.id]
+      if (!draft) return
+      const updates: { nome?: string; texto?: string } = {}
+      if (draft.nome !== m.nome) updates.nome = draft.nome
+      if (draft.texto !== m.texto) updates.texto = draft.texto
+      if (!Object.keys(updates).length) return
+      runAction(() => updateModelo({ id: m.id, ...updates }), 'Modelo atualizado', 'Não foi possível atualizar')
+    },
     remover: () => runAction(() => deleteModelo({ id: m.id }), 'Modelo excluído', 'Não foi possível excluir'),
   }))
 
@@ -395,7 +403,6 @@ export function NightCrawlApp({ db, crawlName, city, today, hojeTxt }: NightCraw
       proximo: selRaw.proximo,
       notas: selRaw.notas,
       pedido: selRaw.pedido,
-      etapa: selRaw.etapa,
     })
     setModal('parceiro')
   }
@@ -508,7 +515,6 @@ export function NightCrawlApp({ db, crawlName, city, today, hojeTxt }: NightCraw
       comissaoTxt: rowSel.comissaoTxt,
       fatos: [
         { k: 'Contatos', v: selRaw.contatos.join('  ·  ') || '—' },
-        { k: 'O que pedem', v: selRaw.pedido || '—' },
         { k: 'Próximo', v: rowSel.proximoTxt },
         { k: 'Origem', v: selRaw.origem || '—' },
         { k: 'Links', v: selRaw.links.join('  ·  ') || '—' },
@@ -620,7 +626,6 @@ export function NightCrawlApp({ db, crawlName, city, today, hojeTxt }: NightCraw
       proximo: form.proximo,
       notas: form.notas,
       pedido: form.pedido,
-      etapa: form.etapa,
     }
     if (form.id) {
       runAction(() => updateParceiro({ ...payload, id: form.id }), 'Parceiro atualizado', 'Não foi possível atualizar')
