@@ -24,7 +24,10 @@ export async function generateMetadata({
     description: siteCopy[rawLocale].home.intro,
     alternates: {
       canonical: `/${rawLocale}`,
-      languages: Object.fromEntries(locales.map((item) => [item, `/${item}`])),
+      languages: {
+        ...Object.fromEntries(locales.map((item) => [item, `/${item}`])),
+        "x-default": "/en",
+      },
     },
   };
 }

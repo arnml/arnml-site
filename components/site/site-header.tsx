@@ -1,15 +1,20 @@
 import Link from "next/link";
-import { localeLabel, localePath, type Locale } from "@/lib/site/locales";
+import {
+  localeLabel,
+  localePath,
+  sectionPath,
+  type Locale,
+} from "@/lib/site/locales";
 import { siteCopy } from "@/lib/site/content";
 
 export function SiteHeader({ locale }: { locale: Locale }) {
   const copy = siteCopy[locale].nav;
   const links = [
-    [copy.writing, "/writing"],
-    [copy.work, "/work"],
-    [copy.about, "/about"],
-    [copy.consulting, "/consulting"],
-    [copy.contact, "/contact"],
+    [copy.writing, sectionPath(locale, "writing")],
+    [copy.work, sectionPath(locale, "work")],
+    [copy.about, sectionPath(locale, "about")],
+    [copy.consulting, sectionPath(locale, "consulting")],
+    [copy.contact, sectionPath(locale, "contact")],
   ] as const;
   return (
     <header className="site-shell">
@@ -22,7 +27,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             <Link
               key={path}
               className={index === 3 ? "site-keep" : undefined}
-              href={localePath(locale, path)}
+              href={path}
             >
               {label}
             </Link>

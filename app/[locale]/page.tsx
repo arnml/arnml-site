@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { posts } from "@/content/posts/ai-is-leverage";
+import { posts } from "@/content/posts";
 import { principles, siteCopy } from "@/lib/site/content";
-import { isLocale, localePath } from "@/lib/site/locales";
+import { isLocale, sectionPath } from "@/lib/site/locales";
 
 const studying = [
   "Agent architecture",
@@ -24,7 +24,7 @@ export default async function Home({
   if (!isLocale(rawLocale)) notFound();
   const locale = rawLocale;
   const copy = siteCopy[locale];
-  const post = posts[locale];
+  const writing = posts[locale];
   const work = copy.work.items;
   return (
     <>
@@ -42,13 +42,13 @@ export default async function Home({
           <div className="site-cta-row">
             <Link
               className="site-button primary"
-              href={localePath(locale, "/writing")}
+              href={sectionPath(locale, "writing")}
             >
               {copy.home.primary}
             </Link>
             <Link
               className="site-button secondary"
-              href={localePath(locale, "/consulting")}
+              href={sectionPath(locale, "consulting")}
             >
               {copy.home.secondary}
             </Link>
@@ -61,26 +61,18 @@ export default async function Home({
             <h2 className="site-section-title">Ideas worth arguing about.</h2>
           </div>
           <div className="site-articles">
-            {[post, post, post, post].map((item, index) => (
+            {writing.map((item) => (
               <Link
                 className="site-article"
-                href={localePath(locale, `/writing/${item.slug}`)}
-                key={`${item.slug}-${index}`}
+                href={sectionPath(locale, "writing", item.slug)}
+                key={item.slug}
               >
                 <div className="site-article-meta">
-                  <span>{item.tags[index % item.tags.length]}</span>
+                  <span>{item.tags[0]}</span>
                   <span>{item.date}</span>
                 </div>
                 <div>
-                  <div className="site-article-title">
-                    {index === 0
-                      ? item.title
-                      : [
-                          "Fast shipping is an engineering constraint, not an excuse.",
-                          "Optimize the work before optimizing the code.",
-                          "Your startup probably does not need microservices.",
-                        ][index - 1]}
-                  </div>
+                  <div className="site-article-title">{item.title}</div>
                   <div className="site-article-dek">{item.description}</div>
                 </div>
               </Link>
@@ -160,7 +152,7 @@ export default async function Home({
               <p>{copy.about.sections[0].body}</p>
               <Link
                 className="site-text-link"
-                href={localePath(locale, "/about")}
+                href={sectionPath(locale, "about")}
               >
                 {copy.nav.about} <span>→</span>
               </Link>
@@ -178,7 +170,7 @@ export default async function Home({
               <p>{copy.home.contactText}</p>
               <Link
                 className="site-button"
-                href={localePath(locale, "/contact")}
+                href={sectionPath(locale, "contact")}
               >
                 {copy.home.secondary}
               </Link>
