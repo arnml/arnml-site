@@ -83,10 +83,10 @@ const body: Record<Locale, ReactNode> = {
   ),
 };
 
-export const posts: Record<Locale, Post> = {
+export const post: Record<Locale, Post> = {
   en: {
-    slug: "ai-is-leverage-not-authority",
-    title: "AI Is Leverage, Not Authority",
+    slug: "most-ai-agents-should-not-be-agents",
+    title: "Most AI Agents Should Not Be Agents",
     description:
       "A practical boundary between useful probabilistic systems and workflows that need certainty.",
     date: "2026-08-19",
@@ -94,8 +94,8 @@ export const posts: Record<Locale, Post> = {
     body: body.en,
   },
   es: {
-    slug: "la-ia-es-palanca-no-autoridad",
-    title: "La IA es una palanca, no una autoridad",
+    slug: "la-mayoria-de-agentes-de-ia-no-deberian-ser-agentes",
+    title: "La mayoría de agentes de IA no deberían ser agentes",
     description:
       "Dónde los sistemas probabilísticos ayudan y dónde la certeza es el requisito real.",
     date: "2026-08-19",
@@ -103,8 +103,8 @@ export const posts: Record<Locale, Post> = {
     body: body.es,
   },
   pt: {
-    slug: "ia-e-alavanca-nao-autoridade",
-    title: "IA é alavanca, não autoridade",
+    slug: "a-maioria-dos-agentes-de-ia-nao-deveria-ser-agentes",
+    title: "A maioria dos agentes de IA não deveria ser agentes",
     description:
       "Onde sistemas probabilísticos ajudam e onde a certeza é o requisito real.",
     date: "2026-08-19",
