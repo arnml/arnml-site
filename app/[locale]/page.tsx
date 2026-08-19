@@ -1,20 +1,191 @@
-import Link from 'next/link'
-import { SectionHeading } from '@/components/site/section-heading'
-import { posts } from '@/content/posts/ai-is-leverage'
-import { principles, siteCopy } from '@/lib/site/content'
-import { isLocale, localePath } from '@/lib/site/locales'
-import { notFound } from 'next/navigation'
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { posts } from "@/content/posts/ai-is-leverage";
+import { principles, siteCopy } from "@/lib/site/content";
+import { isLocale, localePath } from "@/lib/site/locales";
 
-export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale: rawLocale } = await params
-  if (!isLocale(rawLocale)) notFound()
-  const locale = rawLocale
-  const copy = siteCopy[locale].home
-  const post = posts[locale]
-  return <>
-    <section className="mx-auto grid max-w-6xl gap-14 px-5 pb-24 pt-20 lg:grid-cols-[1.15fr_.85fr] lg:px-8 lg:pb-32 lg:pt-32"><div><p className="mb-6 font-mono text-xs uppercase tracking-[0.2em] text-blue-700 dark:text-blue-400">{copy.eyebrow}</p><h1 className="max-w-4xl text-5xl font-medium leading-[1.02] tracking-[-0.05em] text-zinc-950 sm:text-7xl dark:text-white">{copy.title}</h1><p className="mt-8 max-w-2xl text-xl leading-8 text-zinc-600 dark:text-zinc-400">{copy.intro}</p><div className="mt-10 flex flex-wrap gap-3"><Link href={localePath(locale, '/writing')} className="rounded-full bg-blue-700 px-5 py-3 text-sm font-medium text-white hover:bg-blue-800">{copy.primary} →</Link><Link href={localePath(locale, '/consulting')} className="rounded-full border border-zinc-300 px-5 py-3 text-sm font-medium hover:border-zinc-900 dark:border-zinc-700 dark:hover:border-zinc-300">{copy.secondary}</Link></div></div><div className="self-end border-l-2 border-blue-700 pl-6 text-sm leading-7 text-zinc-600 dark:text-zinc-400"><p className="font-mono text-xs uppercase tracking-widest text-zinc-400">North star</p><p className="mt-4 text-lg text-zinc-800 dark:text-zinc-200">Understand deeply. Build pragmatically. Measure reality. Reduce unnecessary complexity.</p></div></section>
-    <section className="border-y border-zinc-200 py-20 dark:border-zinc-800"><div className="mx-auto max-w-6xl px-5 lg:px-8"><SectionHeading title={copy.selected} /><Link href={localePath(locale, `/writing/${post.slug}`)} className="group grid gap-6 md:grid-cols-[1fr_1.3fr]"><div><p className="font-mono text-xs text-blue-700 dark:text-blue-400">{post.tags.join(' · ')}</p><h3 className="mt-3 text-3xl font-medium tracking-tight group-hover:text-blue-700 dark:group-hover:text-blue-400">{post.title}</h3></div><p className="max-w-xl text-lg leading-8 text-zinc-600 dark:text-zinc-400">{post.description}</p></Link></div></section>
-    <section className="mx-auto grid max-w-6xl gap-16 px-5 py-20 lg:grid-cols-2 lg:px-8"><div><SectionHeading title={copy.services} /><div className="grid gap-4">{siteCopy[locale].work.items.map((item, i) => <div key={item.title} className="border-t border-zinc-200 pt-4 dark:border-zinc-800"><p className="font-mono text-xs text-zinc-400">0{i + 1}</p><h3 className="mt-2 text-xl font-medium">{item.title}</h3><p className="mt-2 leading-7 text-zinc-600 dark:text-zinc-400">{item.body}</p></div>)}</div></div><div><SectionHeading title={copy.principles} /><ul className="space-y-4 text-xl leading-8 text-zinc-700 dark:text-zinc-300">{principles[locale].map((item) => <li key={item} className="border-b border-zinc-200 pb-4 dark:border-zinc-800">{item}</li>)}</ul></div></section>
-    <section className="bg-zinc-900 px-5 py-20 text-white dark:bg-zinc-800"><div className="mx-auto max-w-6xl lg:px-3"><h2 className="max-w-2xl text-4xl font-medium tracking-tight">{copy.contactTitle}</h2><p className="mt-4 text-lg text-zinc-300">{copy.contactText}</p><Link href={localePath(locale, '/contact')} className="mt-8 inline-block rounded-full bg-white px-5 py-3 text-sm font-medium text-zinc-900">{copy.secondary} →</Link></div></section>
-  </>
+const studying = [
+  "Agent architecture",
+  "Retrieval systems",
+  "Distributed systems",
+  "Performance engineering",
+  "Security",
+  "Algorithms",
+  "LLM evaluation",
+  "Automation economics",
+];
+
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale: rawLocale } = await params;
+  if (!isLocale(rawLocale)) notFound();
+  const locale = rawLocale;
+  const copy = siteCopy[locale];
+  const post = posts[locale];
+  const work = copy.work.items;
+  return (
+    <>
+      <div className="site-shell">
+        <section className="site-hero">
+          <div className="site-eyebrow">{copy.home.eyebrow}</div>
+          <h1>{copy.home.title}</h1>
+          <div className="site-hero-copy">
+            <p>{copy.home.intro}</p>
+            <div className="site-hero-note">
+              I work across architecture, AI, automation, performance, and the
+              decisions that connect technical systems to business reality.
+            </div>
+          </div>
+          <div className="site-cta-row">
+            <Link
+              className="site-button primary"
+              href={localePath(locale, "/writing")}
+            >
+              {copy.home.primary}
+            </Link>
+            <Link
+              className="site-button secondary"
+              href={localePath(locale, "/consulting")}
+            >
+              {copy.home.secondary}
+            </Link>
+          </div>
+        </section>
+
+        <section className="site-section" id="writing">
+          <div className="site-section-head">
+            <div className="site-section-label">{copy.home.selected}</div>
+            <h2 className="site-section-title">Ideas worth arguing about.</h2>
+          </div>
+          <div className="site-articles">
+            {[post, post, post, post].map((item, index) => (
+              <Link
+                className="site-article"
+                href={localePath(locale, `/writing/${item.slug}`)}
+                key={`${item.slug}-${index}`}
+              >
+                <div className="site-article-meta">
+                  <span>{item.tags[index % item.tags.length]}</span>
+                  <span>{item.date}</span>
+                </div>
+                <div>
+                  <div className="site-article-title">
+                    {index === 0
+                      ? item.title
+                      : [
+                          "Fast shipping is an engineering constraint, not an excuse.",
+                          "Optimize the work before optimizing the code.",
+                          "Your startup probably does not need microservices.",
+                        ][index - 1]}
+                  </div>
+                  <div className="site-article-dek">{item.description}</div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className="site-section" id="work">
+          <div className="site-section-head">
+            <div className="site-section-label">{copy.home.services}</div>
+            <h2 className="site-section-title">
+              Problems that do not fit neatly inside one job title.
+            </h2>
+          </div>
+          <div className="site-work-grid">
+            {work.concat(work.slice(0, 1)).map((item, index) => (
+              <div className="site-work-item" key={`${item.title}-${index}`}>
+                <div className="site-work-num">0{index + 1}</div>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="site-section">
+          <div className="site-section-head">
+            <div className="site-section-label">{copy.home.principles}</div>
+            <h2 className="site-section-title">
+              Engineering is mostly choosing which tradeoffs are acceptable.
+            </h2>
+          </div>
+          <div className="site-principles-wrap">
+            <div className="site-principles-intro">
+              The right answer depends on the problem, its constraints, and what
+              happens when the system is wrong.
+            </div>
+            <div className="site-principles">
+              {principles[locale].map((item, index) => (
+                <div className="site-principle" key={item}>
+                  <span>0{index + 1}</span>
+                  <div>{item}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="site-section">
+          <div className="site-research-strip">
+            <div className="site-section-label">Currently studying</div>
+            <div className="site-research-list">
+              {studying.map((item) => (
+                <span className="site-chip" key={item}>
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="site-section" id="about">
+          <div className="site-section-head">
+            <div className="site-section-label">{copy.nav.about}</div>
+            <h2 className="site-section-title">
+              I am more interested in understanding the system than defending a
+              tool.
+            </h2>
+          </div>
+          <div className="site-about-grid">
+            <p className="site-about-lead">
+              I build software, study systems, and spend a lot of time asking
+              why we build things the way we do.
+            </p>
+            <div className="site-about-copy">
+              <p>{copy.about.intro}</p>
+              <p>{copy.about.sections[0].body}</p>
+              <Link
+                className="site-text-link"
+                href={localePath(locale, "/about")}
+              >
+                {copy.nav.about} <span>→</span>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <section className="site-contact" id="consulting">
+          <div className="site-contact-card">
+            <div>
+              <div className="site-eyebrow">{copy.nav.consulting}</div>
+              <h2>{copy.home.contactTitle}</h2>
+            </div>
+            <div className="site-contact-side">
+              <p>{copy.home.contactText}</p>
+              <Link
+                className="site-button"
+                href={localePath(locale, "/contact")}
+              >
+                {copy.home.secondary}
+              </Link>
+            </div>
+          </div>
+        </section>
+      </div>
+    </>
+  );
 }

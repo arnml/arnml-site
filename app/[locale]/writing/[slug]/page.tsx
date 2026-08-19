@@ -1,7 +1,52 @@
-import { notFound } from 'next/navigation'
-import { posts } from '@/content/posts/ai-is-leverage'
-import { isLocale, locales } from '@/lib/site/locales'
+import { notFound } from "next/navigation";
+import { posts } from "@/content/posts/ai-is-leverage";
+import { isLocale, locales } from "@/lib/site/locales";
 
-export function generateStaticParams() { return locales.flatMap((locale) => [{ locale, slug: posts[locale].slug }]) }
-export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }) { const { locale, slug } = await params; const post = isLocale(locale) && posts[locale].slug === slug ? posts[locale] : null; return post ? { title: post.title, description: post.description, alternates: { canonical: `/${locale}/writing/${slug}` } } : {} }
-export default async function PostPage({ params }: { params: Promise<{ locale: string; slug: string }> }) { const { locale: rawLocale, slug } = await params; if (!isLocale(rawLocale) || posts[rawLocale].slug !== slug) notFound(); const post = posts[rawLocale]; return <article className="mx-auto max-w-3xl px-5 py-20 lg:py-28"><header className="border-b border-zinc-200 pb-10 dark:border-zinc-800"><p className="font-mono text-xs uppercase tracking-widest text-blue-700 dark:text-blue-400">{post.tags.join(' · ')}</p><h1 className="mt-5 text-5xl font-medium leading-tight tracking-[-0.04em] text-zinc-950 dark:text-white">{post.title}</h1><p className="mt-6 text-xl leading-8 text-zinc-600 dark:text-zinc-400">{post.description}</p><time className="mt-8 block font-mono text-xs text-zinc-500" dateTime={post.date}>{post.date}</time></header><div className="prose prose-zinc mt-12 max-w-none dark:prose-invert prose-headings:font-medium prose-a:text-blue-700 prose-blockquote:border-blue-700 prose-blockquote:font-normal">{post.body}</div><footer className="mt-16 border-t border-zinc-200 pt-8 text-sm leading-7 text-zinc-600 dark:border-zinc-800 dark:text-zinc-400">I’m Arnold Moya. I write about software architecture, AI, systems, performance, and the tradeoffs behind building technology that works in the real world.</footer></article> }
+export function generateStaticParams() {
+  return locales.flatMap((locale) => [{ locale, slug: posts[locale].slug }]);
+}
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}) {
+  const { locale, slug } = await params;
+  const post =
+    isLocale(locale) && posts[locale].slug === slug ? posts[locale] : null;
+  return post
+    ? {
+        title: post.title,
+        description: post.description,
+        alternates: { canonical: `/${locale}/writing/${slug}` },
+      }
+    : {};
+}
+export default async function PostPage({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}) {
+  const { locale: rawLocale, slug } = await params;
+  if (!isLocale(rawLocale) || posts[rawLocale].slug !== slug) notFound();
+  const post = posts[rawLocale];
+  return (
+    <article className="site-shell site-subpage">
+      <header className="site-writing-item">
+        <p className="site-date">{post.tags.join(" · ")}</p>
+        <div>
+          <h1 className="site-section-title">{post.title}</h1>
+          <p className="site-article-dek">{post.description}</p>
+          <time className="site-date" dateTime={post.date}>
+            {post.date}
+          </time>
+        </div>
+      </header>
+      <div className="site-prose">{post.body}</div>
+      <footer className="site-about-copy">
+        I’m Arnold Moya. I write about software architecture, AI, systems,
+        performance, and the tradeoffs behind building technology that works in
+        the real world.
+      </footer>
+    </article>
+  );
+}
