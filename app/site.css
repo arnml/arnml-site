@@ -7,6 +7,7 @@
   --site-accent: #1f4fd1;
   --site-max: 1120px;
   --site-pad: clamp(18px, 3vw, 42px);
+  --site-nav-height: clamp(4.125rem, 8vh, 4.875rem);
 
   min-height: 100vh;
   background: var(--site-bg);
@@ -32,7 +33,7 @@
   margin: 0 auto;
 }
 .site-nav {
-  height: 78px;
+  height: var(--site-nav-height);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -77,7 +78,7 @@
   color: var(--site-accent);
 }
 .site-hero {
-  min-height: calc(100svh - 78px);
+  min-height: calc(100svh - var(--site-nav-height));
   padding: clamp(48px, 8vh, 86px) 0;
   border-bottom: 1px solid var(--site-line);
   display: flex;
@@ -459,14 +460,18 @@
   font-style: italic;
 }
 @media (max-width: 860px) {
+  .site-page {
+    --site-nav-height: clamp(4rem, 9vh, 4.5rem);
+  }
+
   .site-nav {
-    height: 72px;
+    height: var(--site-nav-height);
   }
   .site-nav-right > a:not(.site-keep) {
     display: none;
   }
   .site-hero {
-    min-height: calc(100svh - 72px);
+    min-height: calc(100svh - var(--site-nav-height));
     padding: clamp(42px, 6vh, 62px) 0;
   }
   .site-hero-copy,
@@ -553,5 +558,26 @@
   .site-writing-item {
     grid-template-columns: 1fr;
     gap: 10px;
+  }
+}
+
+/* Wide, shallow screens: keep the hero and CTAs inside the first viewport. */
+@media (min-width: 861px) and (max-height: 820px) {
+  .site-hero {
+    min-height: auto;
+    padding: clamp(2rem, 5vh, 2.625rem) 0 clamp(2.5rem, 6vh, 3rem);
+  }
+
+  .site-hero h1 {
+    max-width: 860px;
+    font-size: clamp(3.375rem, 5.8vw, 4.875rem);
+  }
+
+  .site-hero-copy {
+    margin-top: clamp(1.5rem, 4vh, 2rem);
+  }
+
+  .site-hero-copy p {
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
   }
 }
