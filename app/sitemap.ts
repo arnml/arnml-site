@@ -1,55 +1,33 @@
-import { MetadataRoute } from 'next'
-import { prisma } from '@/lib/prisma'
-
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://arnoldmoya.com'
-
-  // Fetch all published news items
-  const newsItems = await prisma.newsItem.findMany({
-    where: { published: true },
-    select: { slug: true, updatedAt: true },
-  })
-
-  // Fetch all published blog articles
-  const blogArticles = await prisma.article.findMany({
-    where: { published: true },
-    select: { slug: true, updatedAt: true },
-  })
-
-  const newsUrls = newsItems.map((item) => ({
-    url: `${baseUrl}/news/${item.slug}`,
-    lastModified: item.updatedAt,
-    changeFrequency: 'weekly' as const,
-    priority: 0.8,
-  }))
-
-  const blogUrls = blogArticles.map((item) => ({
-    url: `${baseUrl}/blog/${item.slug}`,
-    lastModified: item.updatedAt,
-    changeFrequency: 'weekly' as const,
-    priority: 0.8,
-  }))
-
-  return [
+import { MetadataRoute } from "next";
+import { posts } from "@/content/posts";
+import { locales, sectionPath, type PublicSection } from "@/lib/site/locales";
+export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://arnoldmoya.com";
+  const pages: PublicSection[] = [
+    "about",
+    "work",
+    "consulting",
+    "contact",
+    "writing",
+  ];
+  return locales.flatMap((locale) => [
     {
-      url: baseUrl,
+      url: `${baseUrl}/${locale}`,
       lastModified: new Date(),
-      changeFrequency: 'daily' as const,
+      changeFrequency: "weekly" as const,
       priority: 1,
     },
-    {
-      url: `${baseUrl}/newsletter/es`,
+    ...pages.map((page) => ({
+      url: `${baseUrl}${sectionPath(locale, page)}`,
       lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
+      changeFrequency: "monthly" as const,
       priority: 0.7,
-    },
-    ...newsUrls,
-    ...blogUrls,
-  ]
+    })),
+    ...posts[locale].map((post) => ({
+      url: `${baseUrl}${sectionPath(locale, "writing", post.slug)}`,
+      lastModified: new Date(post.date),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+  ]);
 }

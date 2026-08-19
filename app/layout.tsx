@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import "./site.css";
 import { Providers } from "./theme-provider";
+import { mono, sans, serif } from "@/lib/fonts";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,8 +16,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Arnold Moya's site",
-  description: "Arnold Moya's personal site",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://arnoldmoya.com",
+  ),
+  title: "Arnold Moya — Software Architecture, AI & Technical Strategy",
+  description:
+    "Arnold Moya writes and works across software architecture, AI, automation, performance, and technical strategy.",
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
@@ -27,7 +34,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head />
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${sans.variable} ${mono.variable} ${serif.variable} antialiased`}
       >
         <Providers>{children}</Providers>
       </body>
