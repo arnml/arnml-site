@@ -131,7 +131,13 @@ export default async function PostPage({
         }}
       />
       <header className="site-writing-item">
-        <p className="site-date">{post.tags.join(" · ")}</p>
+        <div className="site-date-list">
+          {post.tags.map((tag) => (
+            <p className="site-date" key={tag}>
+              {tag}
+            </p>
+          ))}
+        </div>
         <div>
           <h1 className="site-section-title">{post.title}</h1>
           <p className="site-article-dek">{post.description}</p>
