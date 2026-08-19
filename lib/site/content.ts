@@ -18,6 +18,7 @@ export const siteCopy: Record<
       primary: string;
       secondary: string;
       selected: string;
+      selectedTitle: string;
       services: string;
       principles: string;
       contactTitle: string;
@@ -70,6 +71,7 @@ export const siteCopy: Record<
       primary: "Read my writing",
       secondary: "Work with me",
       selected: "Selected thinking",
+      selectedTitle: "Ideas worth arguing about.",
       services: "What I work on",
       principles: "Principles",
       contactTitle: "Have a difficult technical problem?",
@@ -164,6 +166,7 @@ export const siteCopy: Record<
       primary: "Leer lo que escribo",
       secondary: "Trabajar conmigo",
       selected: "Ideas seleccionadas",
+      selectedTitle: "Ideas que vale la pena discutir.",
       services: "En qué trabajo",
       principles: "Principios",
       contactTitle: "¿Tienes un problema técnico difícil?",
@@ -259,6 +262,7 @@ export const siteCopy: Record<
       primary: "Ler meus textos",
       secondary: "Trabalhar comigo",
       selected: "Ideias selecionadas",
+      selectedTitle: "Ideias que merecem discussão.",
       services: "No que trabalho",
       principles: "Princípios",
       contactTitle: "Você tem um problema técnico difícil?",

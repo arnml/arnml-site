@@ -56,7 +56,7 @@ export default async function Home({
         <section className="site-section" id="writing">
           <div className="site-section-head">
             <div className="site-section-label">{copy.home.selected}</div>
-            <h2 className="site-section-title">Ideas worth arguing about.</h2>
+            <h2 className="site-section-title">{copy.home.selectedTitle}</h2>
           </div>
           <div className="site-articles">
             {writing.map((item) => (
