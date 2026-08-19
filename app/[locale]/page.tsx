@@ -40,7 +40,7 @@ export default async function Home({
           <div className="site-cta-row">
             <Link
               className="site-button primary"
-              href={sectionPath(locale, "writing")}
+              href={sectionPath(locale, "writing", featuredWriting.slug)}
             >
               {copy.home.primary}
             </Link>
