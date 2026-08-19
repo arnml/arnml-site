@@ -14,8 +14,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Arnold Moya's site",
-  description: "Arnold Moya's personal site",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://arnoldmoya.com'),
+  title: "Arnold Moya — Software Architecture, AI & Technical Strategy",
+  description: "Arnold Moya writes and works across software architecture, AI, automation, performance, and technical strategy.",
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({

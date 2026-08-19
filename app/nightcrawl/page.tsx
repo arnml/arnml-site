@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { getNightCrawlDb } from '@/lib/nightcrawl/data'
 import { isoOf } from '@/lib/nightcrawl/utils'
 import { NightCrawlApp } from '@/components/nightcrawl/night-crawl-app'
+import { requireNightcrawlSession } from '@/lib/nightcrawl/session'
 
 export const dynamic = 'force-dynamic'
 
@@ -15,6 +16,7 @@ const CRAWL_NAME = 'Night Crawl — São Paulo'
 const CITY = 'São Paulo, Brasil'
 
 export default async function NightCrawlPage() {
+  await requireNightcrawlSession()
   const today = isoOf(new Date())
   const db = await getNightCrawlDb()
   const hojeTxt = new Date(today + 'T00:00:00').toLocaleDateString('pt-BR', {
