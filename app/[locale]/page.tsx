@@ -32,7 +32,13 @@ export default async function Home({
       <div className="site-shell">
         <section className="site-hero">
           <div className="site-eyebrow">{copy.home.eyebrow}</div>
-          <h1>{featuredWriting.title}</h1>
+          <h1>
+            <Link
+              href={sectionPath(locale, "writing", featuredWriting.slug)}
+            >
+              {featuredWriting.title}
+            </Link>
+          </h1>
           <div className="site-hero-copy">
             <p>{featuredWriting.description}</p>
             <div className="site-hero-note">{copy.home.heroNote}</div>

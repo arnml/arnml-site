@@ -93,6 +93,15 @@
   letter-spacing: -0.065em;
   font-weight: 600;
 }
+.site-hero h1 a {
+  transition: color 0.18s ease;
+}
+.site-hero h1 a:hover {
+  color: var(--site-accent);
+}
+.site-eyebrow {
+  margin-bottom: 1.5em;
+}
 .site-hero-copy {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
@@ -414,10 +423,19 @@
 }
 .site-writing-item p {
   max-width: 600px;
-  margin: 0;
+  margin: 1em 0 0;
   color: #565b62;
   font-size: 14px;
   line-height: 1.65;
+}
+.site-date-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.5em;
+}
+.site-date-list p {
+  margin: 0;
 }
 .site-contact-form {
   display: grid;
@@ -491,10 +509,25 @@
 }
 .site-page .site-prose {
   max-width: 720px;
-  margin: 0 auto;
+  margin: 2em auto 0;
   font-family: var(--font-site-serif), Georgia, serif;
   font-size: 20px;
   line-height: 1.65;
+}
+.site-page .site-prose p + p {
+  margin-top: 1em;
+}
+.site-page .site-prose ul {
+  margin: 1.5em 0;
+  padding: 1em 1.25em;
+  border-left: 0.2em solid var(--site-accent);
+  background: color-mix(in srgb, var(--site-accent) 6%, transparent);
+  font-family: var(--font-site-sans), system-ui, sans-serif;
+  font-size: 0.9em;
+  line-height: 1.5;
+}
+.site-page .site-prose li + li {
+  margin-top: 0.55em;
 }
 .site-page .site-prose h2 {
   font-family: var(--font-site-sans), system-ui, sans-serif;
@@ -508,6 +541,9 @@
   margin: 2em 0;
   padding-left: 24px;
   font-style: italic;
+}
+.site-page .site-about-copy {
+  margin-top: 3em;
 }
 @media (max-width: 860px) {
   .site-page {
