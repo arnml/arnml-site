@@ -14,6 +14,7 @@ export const siteCopy: Record<
       eyebrow: string;
       title: string;
       intro: string;
+      heroNote: string;
       primary: string;
       secondary: string;
       selected: string;
@@ -64,6 +65,8 @@ export const siteCopy: Record<
       title: "I solve difficult technology problems.",
       intro:
         "I build software, study systems, and help founders and teams make better technical decisions when the obvious answer is incomplete.",
+      heroNote:
+        "Use AI where probabilistic behavior creates leverage. Use deterministic systems where certainty is the feature.",
       primary: "Read my writing",
       secondary: "Work with me",
       selected: "Selected thinking",
@@ -156,6 +159,8 @@ export const siteCopy: Record<
       title: "Resuelvo problemas tecnológicos difíciles.",
       intro:
         "Construyo software, estudio sistemas y ayudo a fundadores y equipos a tomar mejores decisiones técnicas cuando la respuesta obvia no alcanza.",
+      heroNote:
+        "Usa IA donde el comportamiento probabilístico genere ventaja. Usa sistemas deterministas donde la certeza sea la característica.",
       primary: "Leer lo que escribo",
       secondary: "Trabajar conmigo",
       selected: "Ideas seleccionadas",
@@ -249,6 +254,8 @@ export const siteCopy: Record<
       title: "Resolvo problemas tecnológicos difíceis.",
       intro:
         "Construo software, estudo sistemas e ajudo fundadores e equipes a tomar decisões técnicas melhores quando a resposta óbvia não é suficiente.",
+      heroNote:
+        "Use IA onde o comportamento probabilístico cria alavancagem. Use sistemas determinísticos onde a certeza é o diferencial.",
       primary: "Ler meus textos",
       secondary: "Trabalhar comigo",
       selected: "Ideias selecionadas",

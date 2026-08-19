@@ -25,19 +25,17 @@ export default async function Home({
   const locale = rawLocale;
   const copy = siteCopy[locale];
   const writing = posts[locale];
+  const featuredWriting = writing[0];
   const work = copy.work.items;
   return (
     <>
       <div className="site-shell">
         <section className="site-hero">
           <div className="site-eyebrow">{copy.home.eyebrow}</div>
-          <h1>{copy.home.title}</h1>
+          <h1>{featuredWriting.title}</h1>
           <div className="site-hero-copy">
-            <p>{copy.home.intro}</p>
-            <div className="site-hero-note">
-              I work across architecture, AI, automation, performance, and the
-              decisions that connect technical systems to business reality.
-            </div>
+            <p>{featuredWriting.description}</p>
+            <div className="site-hero-note">{copy.home.heroNote}</div>
           </div>
           <div className="site-cta-row">
             <Link
