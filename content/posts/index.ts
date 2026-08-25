@@ -1,5 +1,6 @@
 import { post as agents } from "./ai-is-leverage";
 import { post as reliableAgents } from "./reliable-ai-agents";
+import { post as productiveConflict } from "./productive-conflict";
 import { post as shipping } from "./fast-shipping";
 import { post as optimization } from "./optimize-work";
 import { post as microservices } from "./microservices";
@@ -8,9 +9,9 @@ import type { Locale } from "@/lib/site/locales";
 import type { Post } from "./ai-is-leverage";
 
 export const posts: Record<Locale, Post[]> = {
-  en: [reliableAgents.en, softwareDifficulty.en, agents.en, shipping.en, optimization.en, microservices.en],
-  es: [reliableAgents.es, softwareDifficulty.es, agents.es, shipping.es, optimization.es, microservices.es],
-  pt: [reliableAgents.pt, softwareDifficulty.pt, agents.pt, shipping.pt, optimization.pt, microservices.pt],
+  en: [reliableAgents.en, productiveConflict.en, softwareDifficulty.en, agents.en, shipping.en, optimization.en, microservices.en],
+  es: [reliableAgents.es, productiveConflict.es, softwareDifficulty.es, agents.es, shipping.es, optimization.es, microservices.es],
+  pt: [reliableAgents.pt, productiveConflict.pt, softwareDifficulty.pt, agents.pt, shipping.pt, optimization.pt, microservices.pt],
 };
 
 export function findPost(locale: Locale, slug: string) {
