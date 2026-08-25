@@ -1,15 +1,6 @@
 import type { ReactNode } from "react";
 import type { Locale } from "@/lib/site/locales";
-
-export type Post = {
-  slug: string;
-  title: string;
-  description: string;
-  date: string;
-  tags: string[];
-  keywords?: string[];
-  body: ReactNode;
-};
+import type { Post } from "./ai-is-leverage";
 
 const AgentFlow = ({ label }: { label: string }) => (
   <figure className="site-article-diagram" aria-label={label}>

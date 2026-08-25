@@ -7,6 +7,7 @@ export type Post = {
   description: string;
   date: string;
   tags: string[];
+  keywords?: string[];
   body: ReactNode;
 };
 
