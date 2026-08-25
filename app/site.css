@@ -542,6 +542,88 @@
   padding-left: 24px;
   font-style: italic;
 }
+.site-page .site-prose .site-citation {
+  margin: 2em 0;
+  padding: 18px 20px;
+  border: 1px solid color-mix(in srgb, var(--site-accent) 28%, var(--site-line));
+  border-left: 4px solid var(--site-accent);
+  background: color-mix(in srgb, var(--site-accent) 5%, var(--site-paper));
+  font-family: var(--font-site-sans), system-ui, sans-serif;
+  font-size: 0.72em;
+  line-height: 1.6;
+  color: #454b55;
+}
+.site-page .site-prose .site-citation strong {
+  color: var(--site-ink);
+  font-size: 0.85em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.site-page .site-prose .site-citation a {
+  color: var(--site-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.site-article-diagram {
+  margin: 3em -5vw;
+  padding: 22px 0 4px;
+  border-top: 1px solid var(--site-line);
+  border-bottom: 1px solid var(--site-line);
+}
+.site-article-diagram svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  color: var(--site-ink);
+}
+.site-article-diagram rect {
+  fill: var(--site-paper);
+  stroke: var(--site-ink);
+  stroke-width: 1.5;
+}
+.site-article-diagram .agent-node-code rect {
+  fill: color-mix(in srgb, var(--site-accent) 8%, var(--site-paper));
+  stroke: var(--site-accent);
+}
+.site-article-diagram .agent-node-model rect {
+  fill: color-mix(in srgb, #db8a35 10%, var(--site-paper));
+  stroke: #b76a1e;
+}
+.site-article-diagram .agent-node-human rect {
+  fill: color-mix(in srgb, #4b766c 10%, var(--site-paper));
+  stroke: #4b766c;
+}
+.site-article-diagram text {
+  fill: currentColor;
+  font-family: var(--font-site-mono), monospace;
+  font-size: 12px;
+}
+.site-article-diagram .agent-node text:first-of-type {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+.site-article-diagram .agent-line {
+  stroke: var(--site-accent);
+  stroke-width: 2;
+  fill: none;
+}
+.site-article-diagram .agent-line-dashed {
+  stroke: var(--site-muted);
+  stroke-dasharray: 5 5;
+}
+.site-article-diagram .agent-caption {
+  fill: var(--site-muted);
+  font-size: 11px;
+}
+.site-article-diagram figcaption {
+  margin-top: 10px;
+  color: var(--site-muted);
+  font-family: var(--font-site-sans), system-ui, sans-serif;
+  font-size: 12px;
+  text-align: center;
+}
 .site-page .site-about-copy {
   margin-top: 3em;
 }
@@ -640,6 +722,14 @@
   }
   .site-subpage {
     padding: 68px 0 84px;
+  }
+  .site-article-diagram {
+    margin-left: -2px;
+    margin-right: -2px;
+    overflow-x: auto;
+  }
+  .site-article-diagram svg {
+    min-width: 620px;
   }
   .site-writing-item {
     grid-template-columns: 1fr;

@@ -46,7 +46,7 @@ export async function generateMetadata({
     ? {
         title: post.title,
         description: post.description,
-        keywords: post.tags,
+        keywords: post.keywords ?? post.tags,
         alternates: {
           canonical: url,
           languages: {
@@ -75,7 +75,7 @@ export async function generateMetadata({
           tags: post.tags,
         },
         twitter: {
-          card: "summary",
+          card: "summary_large_image",
           title: post.title,
           description: post.description,
         },
@@ -111,6 +111,8 @@ export default async function PostPage({
     datePublished: post.date,
     dateModified: post.date,
     inLanguage: languageTags[locale],
+    articleSection: post.tags[0],
+    keywords: (post.keywords ?? post.tags).join(", "),
     author: {
       "@type": "Person",
       name: "Arnold Moya",
@@ -120,7 +122,6 @@ export default async function PostPage({
       "@type": "Person",
       name: "Arnold Moya",
     },
-    keywords: post.tags.join(", "),
   };
   return (
     <article className="site-shell site-subpage">
