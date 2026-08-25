@@ -617,6 +617,35 @@
   fill: var(--site-muted);
   font-size: 11px;
 }
+.site-article-diagram .conflict-node rect {
+  fill: var(--site-paper);
+  stroke: var(--site-ink);
+}
+.site-article-diagram .conflict-node-muted rect {
+  fill: color-mix(in srgb, var(--site-muted) 8%, var(--site-paper));
+  stroke: var(--site-muted);
+}
+.site-article-diagram .conflict-node-heat rect {
+  fill: color-mix(in srgb, #db8a35 12%, var(--site-paper));
+  stroke: #b76a1e;
+}
+.site-article-diagram .conflict-node-result rect {
+  fill: color-mix(in srgb, #4b766c 10%, var(--site-paper));
+  stroke: #4b766c;
+}
+.site-article-diagram .conflict-line {
+  stroke: #b76a1e;
+  stroke-width: 2;
+  fill: none;
+}
+.site-article-diagram .conflict-line-dashed {
+  stroke: var(--site-muted);
+  stroke-dasharray: 5 5;
+}
+.site-article-diagram .conflict-caption {
+  fill: var(--site-muted);
+  font-size: 11px;
+}
 .site-article-diagram figcaption {
   margin-top: 10px;
   color: var(--site-muted);
