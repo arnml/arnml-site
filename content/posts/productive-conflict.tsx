@@ -2,44 +2,87 @@ import type { ReactNode } from "react";
 import type { Locale } from "@/lib/site/locales";
 import type { Post } from "./ai-is-leverage";
 
-const ConflictFlow = ({ label }: { label: string }) => (
+const conflictDiagramCopy = {
+  es: {
+    title: "Qué tipo de desacuerdo es este?",
+    desc: "Un mapa que muestra cómo el tema del desacuerdo y la seguridad psicológica cambian sus posibles efectos.",
+    work: "sobre el trabajo",
+    person: "sobre la persona",
+    highSafety: "alta seguridad",
+    lowSafety: "baja seguridad",
+    upperLeft: "se pueden examinar supuestos",
+    upperRight: "reparar la relación",
+    lowerLeft: "defensividad · silencio",
+    lowerRight: "mayor riesgo de daño",
+    task: "tarea + evidencia",
+    pressure: "presión",
+    note: "la claridad es condicional, no automática",
+  },
+  en: {
+    title: "What kind of disagreement is this?",
+    desc: "A map showing how the subject of disagreement and psychological safety change its possible effects.",
+    work: "about the work",
+    person: "about the person",
+    highSafety: "high safety",
+    lowSafety: "low safety",
+    upperLeft: "assumptions can be examined",
+    upperRight: "relationship repair",
+    lowerLeft: "defensiveness · silence",
+    lowerRight: "higher risk of harm",
+    task: "task + evidence",
+    pressure: "pressure",
+    note: "clarity is conditional, not automatic",
+  },
+  pt: {
+    title: "Que tipo de discordância é esta?",
+    desc: "Um mapa que mostra como o tema da discordância e a segurança psicológica mudam seus possíveis efeitos.",
+    work: "sobre o trabalho",
+    person: "sobre a pessoa",
+    highSafety: "alta segurança",
+    lowSafety: "baixa segurança",
+    upperLeft: "suposições podem ser examinadas",
+    upperRight: "reparar a relação",
+    lowerLeft: "defensividade · silêncio",
+    lowerRight: "maior risco de dano",
+    task: "tarefa + evidência",
+    pressure: "pressão",
+    note: "clareza é condicional, não automática",
+  },
+} as const;
+
+const ConflictFlow = ({ label, locale }: { label: string; locale: Locale }) => {
+  const copy = conflictDiagramCopy[locale];
+
+  return (
   <figure className="site-article-diagram conflict-diagram" aria-label={label}>
-    <svg viewBox="0 0 720 270" role="img" aria-labelledby="conflict-flow-title conflict-flow-desc">
-      <title id="conflict-flow-title">From silence to productive disagreement</title>
-      <desc id="conflict-flow-desc">
-        A team can hide friction, process disagreement with care, or let conflict become destructive. Productive disagreement leads to clearer decisions.
-      </desc>
-      <defs>
-        <marker id="conflict-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-          <path d="M0,0 L0,6 L7,3 z" fill="currentColor" />
-        </marker>
-      </defs>
-      <path className="conflict-line" d="M172 105 H270" markerEnd="url(#conflict-arrow)" />
-      <path className="conflict-line" d="M450 105 H548" markerEnd="url(#conflict-arrow)" />
-      <path className="conflict-line conflict-line-dashed" d="M360 155 V214 H110 V155" markerEnd="url(#conflict-arrow)" />
-      <g className="conflict-node conflict-node-muted">
-        <rect x="20" y="60" width="152" height="95" rx="4" />
-        <text x="42" y="88">SILENCE</text>
-        <text x="42" y="112">politeness · fear</text>
-        <text x="42" y="132">hidden rework</text>
+    <svg viewBox="0 0 720 340" role="img" aria-labelledby="conflict-map-title conflict-map-desc">
+      <title id="conflict-map-title">{copy.title}</title>
+      <desc id="conflict-map-desc">{copy.desc}</desc>
+      <text className="conflict-map-kicker" x="360" y="22" textAnchor="middle">{copy.title}</text>
+      <line className="conflict-axis" x1="110" y1="65" x2="110" y2="285" />
+      <line className="conflict-axis" x1="110" y1="175" x2="650" y2="175" />
+      <text className="conflict-axis-label" x="110" y="48">{copy.work}</text>
+      <text className="conflict-axis-label" x="650" y="48" textAnchor="end">{copy.person}</text>
+      <text className="conflict-axis-label" x="95" y="70" textAnchor="end">{copy.highSafety}</text>
+      <text className="conflict-axis-label" x="95" y="285" textAnchor="end">{copy.lowSafety}</text>
+      <g className="conflict-quadrant conflict-quadrant-positive">
+        <text x="145" y="112">{copy.upperLeft}</text>
       </g>
-      <g className="conflict-node conflict-node-heat">
-        <rect x="270" y="60" width="180" height="95" rx="4" />
-        <text x="292" y="88">HEALTHY HEAT</text>
-        <text x="292" y="112">specific problem</text>
-        <text x="292" y="132">evidence · care</text>
+      <g className="conflict-quadrant">
+        <text x="395" y="112">{copy.upperRight}</text>
+        <text x="145" y="238">{copy.lowerLeft}</text>
+        <text x="395" y="238">{copy.lowerRight}</text>
       </g>
-      <g className="conflict-node conflict-node-result">
-        <rect x="548" y="60" width="152" height="95" rx="4" />
-        <text x="570" y="88">CLARITY</text>
-        <text x="570" y="112">decision · learning</text>
-        <text x="570" y="132">next step</text>
-      </g>
-      <text className="conflict-caption" x="360" y="252" textAnchor="middle">the goal is not more conflict — it is better information</text>
+      <circle className="conflict-point conflict-point-task" cx="245" cy="125" r="7" />
+      <text className="conflict-point-label" x="260" y="129">{copy.task}</text>
+      <circle className="conflict-point conflict-point-pressure" cx="220" cy="205" r="6" />
+      <text className="conflict-point-label" x="235" y="209">{copy.pressure}</text>
+      <text className="conflict-map-note" x="650" y="320" textAnchor="end">{copy.note}</text>
     </svg>
     <figcaption>{label}</figcaption>
   </figure>
-);
+  );
+};
 
 const Citation = ({ children }: { children: ReactNode }) => (
   <aside className="site-citation">{children}</aside>
@@ -74,7 +117,7 @@ const body: Record<Locale, ReactNode> = {
         <a href="https://www.nytimes.com/2026/08/22/magazine/priya-parker-interview.html">Entrevista de Priya Parker en The New York Times</a>
       </Citation>
 
-      <ConflictFlow label="El desacuerdo útil convierte la fricción en información y decisiones más claras." />
+      <ConflictFlow locale="es" label="Un desacuerdo útil depende de qué se discute y de si las personas pueden cuestionarse con seguridad." />
 
       <h2>Discutir puede mejorar una decisión</h2>
       <p>
@@ -179,7 +222,7 @@ const body: Record<Locale, ReactNode> = {
         <a href="https://www.nytimes.com/2026/08/22/magazine/priya-parker-interview.html">Priya Parker in The New York Times</a>
       </Citation>
 
-      <ConflictFlow label="Productive disagreement turns friction into information and clearer decisions." />
+      <ConflictFlow locale="en" label="A useful disagreement depends on what it concerns and whether people can challenge one another safely." />
 
       <h2>Disagreement can improve a decision</h2>
       <p>
@@ -284,7 +327,7 @@ const body: Record<Locale, ReactNode> = {
         <a href="https://www.nytimes.com/2026/08/22/magazine/priya-parker-interview.html">Priya Parker no The New York Times</a>
       </Citation>
 
-      <ConflictFlow label="A discordância produtiva transforma atrito em informação e decisões mais claras." />
+      <ConflictFlow locale="pt" label="Uma discordância útil depende do tema e de as pessoas poderem questionar umas às outras com segurança." />
 
       <h2>Discordar pode melhorar uma decisão</h2>
       <p>
