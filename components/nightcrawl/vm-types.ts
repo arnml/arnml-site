@@ -1,4 +1,4 @@
-import type { Etapa } from '@/lib/nightcrawl/types'
+import type { Destinatario, Etapa } from '@/lib/nightcrawl/types'
 
 export interface PartnerRowVM {
   id: string
@@ -87,6 +87,7 @@ export interface ClientRowVM {
   tipo: string
   origemTxt: string
   dataTxt: string
+  abrir: () => void
   remover: () => void
 }
 
@@ -108,10 +109,12 @@ export interface TemplateRowVM {
   id: string
   nome: string
   texto: string
+  destinatario: Destinatario
   onNomeChange: (v: string) => void
   onNomeBlur: () => void
   onTextoChange: (v: string) => void
   onTextoBlur: () => void
+  onDestinatarioChange: (v: Destinatario) => void
   salvar: () => void
   remover: () => void
 }

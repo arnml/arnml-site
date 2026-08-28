@@ -74,7 +74,7 @@ export function ClientsView({ cForm, onCFormChange, opcoesOrigem, onSalvar, clie
           </thead>
           <tbody>
             {clientes.map((c) => (
-              <tr key={c.id}>
+              <tr key={c.id} onClick={c.abrir} style={{ cursor: 'pointer' }}>
                 <td style={{ fontFamily: 'var(--nc-font-heading)', fontWeight: 600, fontSize: 16 }}>{c.nome}</td>
                 <td style={{ fontSize: 14 }}>{c.contato}</td>
                 <td style={{ fontSize: 13 }} className="nc-hide-sm">{c.pais}</td>
@@ -82,7 +82,16 @@ export function ClientsView({ cForm, onCFormChange, opcoesOrigem, onSalvar, clie
                 <td style={{ fontSize: 13 }}>{c.origemTxt}</td>
                 <td style={{ fontSize: 13, color: 'var(--nc-color-neutral-700)' }} className="nc-hide-sm">{c.dataTxt}</td>
                 <td>
-                  <button className="nc-btn nc-btn-ghost nc-btn-danger" onClick={c.remover} style={{ fontSize: 12 }}>Excluir</button>
+                  <button
+                    className="nc-btn nc-btn-ghost nc-btn-danger"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      c.remover()
+                    }}
+                    style={{ fontSize: 12 }}
+                  >
+                    Excluir
+                  </button>
                 </td>
               </tr>
             ))}

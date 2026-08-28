@@ -8,7 +8,7 @@ import type {
 } from '@/app/generated/prisma/client'
 import { NcEtapa } from '@/app/generated/prisma/enums'
 import { isoOf } from './utils'
-import type { Cliente, Etapa, Modelo, Registro, Site, Venda } from './types'
+import type { Cliente, Destinatario, Etapa, Modelo, Registro, Site, Venda } from './types'
 import type { Parceiro } from './types'
 
 export const ETAPA_TO_DB: Record<Etapa, NcEtapa> = {
@@ -101,5 +101,6 @@ export function toModelo(row: NcModelo): Modelo {
     id: row.id,
     nome: row.nome,
     texto: row.texto,
+    destinatario: (row.destinatario === 'cliente' ? 'cliente' : 'parceiro') as Destinatario,
   }
 }
