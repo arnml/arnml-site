@@ -1,5 +1,5 @@
 import { DEFAULT_PARCEIRO, type EuInfo } from './config'
-import type { Parceiro } from './types'
+import type { Cliente, Parceiro } from './types'
 
 export function n(v: string | number | undefined): number {
   const x = Number(String(v ?? '').replace(',', '.'))
@@ -81,6 +81,29 @@ export function preencherModelo(texto: string, p: Parceiro, eu: EuInfo, crawlNam
     '{comissao}': String(n(p.comissao) || Number(DEFAULT_PARCEIRO.comissao)),
     '{pedido}': p.pedido || 'o combinado',
     '{cidade}': p.cidade || 'São Paulo',
+    '{meu_nome}': eu.nome || 'Eu',
+    '{nosso_instagram}': eu.instagram || '',
+    '{nosso_whatsapp}': eu.whatsapp || '',
+    '{nosso_site}': eu.site || '',
+    '{crawl}': crawlName || 'Night Crawl',
+  }
+  let out = texto || ''
+  for (const k of Object.keys(mapa)) {
+    out = out.split(k).join(mapa[k])
+  }
+  return out
+}
+
+export function preencherModeloCliente(texto: string, c: Cliente, eu: EuInfo, crawlName: string): string {
+  const mapa: Record<string, string> = {
+    '{nome}': c.nome || '',
+    '{primeiro_nome}': (c.nome || '').split(' ')[0],
+    '{arroba}': '',
+    '{codigo}': '',
+    '{desconto}': '',
+    '{comissao}': '',
+    '{pedido}': '',
+    '{cidade}': c.pais || '',
     '{meu_nome}': eu.nome || 'Eu',
     '{nosso_instagram}': eu.instagram || '',
     '{nosso_whatsapp}': eu.whatsapp || '',

@@ -2,9 +2,9 @@
 
 import { useEffect, useState, useTransition } from 'react'
 import './nightcrawl.css'
-import { ETAPAS, STATUS_SITE, TIPOS_FESTA, type Db, type Etapa, type Parceiro, type View } from '@/lib/nightcrawl/types'
+import { ETAPAS, STATUS_SITE, TIPOS_FESTA, type Db, type Destinatario, type Etapa, type Parceiro, type View } from '@/lib/nightcrawl/types'
 import { DEFAULT_PARCEIRO, EU_INFO } from '@/lib/nightcrawl/config'
-import { addDays, brl, fmtDate, gerarCodigo, n, preencherModelo, waLink } from '@/lib/nightcrawl/utils'
+import { addDays, brl, fmtDate, gerarCodigo, n, preencherModelo, preencherModeloCliente, waLink } from '@/lib/nightcrawl/utils'
 import { codigoParceiro, derivePartner, nomeParceiro, origemTxt, siteStatusCls } from '@/lib/nightcrawl/view-models'
 import {
   adiarParceiro,
@@ -33,6 +33,7 @@ import { ClientsView } from './views/clients-view'
 import { PresenceView } from './views/presence-view'
 import { TemplatesView } from './views/templates-view'
 import { PartnerDetailView } from './views/partner-detail-view'
+import { ClientDetailView } from './views/client-detail-view'
 import { PartnerFormDialog, type PartnerFormState } from './partner-form-dialog'
 import { LogContactDialog, type LogFormState } from './log-contact-dialog'
 import type { FiltroVM, NavItemVM, PartnerRowVM } from './vm-types'
@@ -79,6 +80,11 @@ export function NightCrawlApp({ db, crawlName, city, today, hojeTxt }: NightCraw
   const [buscaFollow, setBuscaFollow] = useState('')
   const [modeloSel, setModeloSel] = useState('m1')
   const [rascunho, setRascunho] = useState<string | null>(null)
+  const [selCliente, setSelCliente] = useState<string | null>(null)
+  const [modeloSelCliente, setModeloSelCliente] = useState('')
+  const [rascunhoCliente, setRascunhoCliente] = useState<string | null>(null)
+  const [copiadoCliente, setCopiadoCliente] = useState(false)
+  const [modeloAba, setModeloAba] = useState<Destinatario>('parceiro')
   const [modal, setModal] = useState<'parceiro' | 'log' | null>(null)
   const [form, setForm] = useState<PartnerFormState>(() => emptyForm(addDays(today, 1)))
   const [log, setLog] = useState<LogFormState>({ tipo: 'Respondeu', texto: '', etapa: 'Novo', proximo: '' })
@@ -291,6 +297,12 @@ export function NightCrawlApp({ db, crawlName, city, today, hojeTxt }: NightCraw
       tipo: c.tipo,
       origemTxt: origemTxt(c.origem, db),
       dataTxt: fmtDate(c.data),
+      abrir: () => {
+        setView('fichaCliente')
+        setSelCliente(c.id)
+        setRascunhoCliente(null)
+        setCopiadoCliente(false)
+      },
       remover: () => runAction(() => deleteCliente({ id: c.id }), 'Cliente excluído', 'Não foi possível excluir'),
     }))
 
@@ -351,6 +363,9 @@ export function NightCrawlApp({ db, crawlName, city, today, hojeTxt }: NightCraw
     id: m.id,
     nome: modeloDrafts[m.id]?.nome ?? m.nome,
     texto: modeloDrafts[m.id]?.texto ?? m.texto,
+    destinatario: m.destinatario,
+    onDestinatarioChange: (v: Destinatario) =>
+      runAction(() => updateModelo({ id: m.id, destinatario: v }), 'Modelo atualizado', 'Não foi possível atualizar'),
     onNomeChange: (v: string) =>
       setModeloDrafts((d) => ({ ...d, [m.id]: { nome: v, texto: d[m.id]?.texto ?? m.texto } })),
     onNomeBlur: () => {
@@ -413,10 +428,13 @@ export function NightCrawlApp({ db, crawlName, city, today, hojeTxt }: NightCraw
     setFichaDraftRaw({ id: selRaw.id, ...next })
   }
 
+  const modelosParceiro = db.modelos.filter((m) => m.destinatario === 'parceiro')
+  const modelosCliente = db.modelos.filter((m) => m.destinatario === 'cliente')
+
   let fichaProps: React.ComponentProps<typeof PartnerDetailView> | null = null
   if (selRaw) {
     const rowSel = buildRow(selRaw)
-    const modelo = db.modelos.find((m) => m.id === modeloSel) || db.modelos[0]
+    const modelo = modelosParceiro.find((m) => m.id === modeloSel) || modelosParceiro[0]
     const mensagem = rascunho !== null ? rascunho : preencherModelo(modelo ? modelo.texto : '', selRaw, EU_INFO, crawlName)
     const tel = selRaw.contatos.map((c) => c.replace(/[^0-9]/g, '')).find((x) => x.length >= 8) || ''
     fichaProps = {
@@ -441,7 +459,7 @@ export function NightCrawlApp({ db, crawlName, city, today, hojeTxt }: NightCraw
         setLog({ tipo: 'Respondeu', texto: '', etapa: selRaw.etapa, proximo: addDays(today, FOLLOW_UP_DAYS) })
       },
       onVoltar: () => setView('parceiros'),
-      abasModelo: db.modelos.map((m2) => ({
+      abasModelo: modelosParceiro.map((m2) => ({
         label: m2.nome,
         active: modeloSel === m2.id,
         go: () => {
@@ -524,6 +542,62 @@ export function NightCrawlApp({ db, crawlName, city, today, hojeTxt }: NightCraw
         runAction(() => deleteParceiro({ id: selRaw.id }), 'Parceiro excluído', 'Não foi possível excluir')
         setView('parceiros')
         setSel(null)
+      },
+    }
+  }
+
+  // ---- ficha (client detail) ----
+  const selClienteRaw = selCliente ? db.clientes.find((c) => c.id === selCliente) || null : null
+
+  let fichaClienteProps: React.ComponentProps<typeof ClientDetailView> | null = null
+  if (selClienteRaw) {
+    const modeloC = modelosCliente.find((m) => m.id === modeloSelCliente) || modelosCliente[0]
+    const mensagemCliente =
+      rascunhoCliente !== null
+        ? rascunhoCliente
+        : preencherModeloCliente(modeloC ? modeloC.texto : '', selClienteRaw, EU_INFO, crawlName)
+    const telCliente = selClienteRaw.contato.replace(/[^0-9]/g, '')
+    fichaClienteProps = {
+      nome: selClienteRaw.nome,
+      contato: selClienteRaw.contato,
+      pais: selClienteRaw.pais,
+      tipo: selClienteRaw.tipo,
+      onVoltar: () => setView('clientes'),
+      abasModelo: modelosCliente.map((m2) => ({
+        label: m2.nome,
+        active: modeloSelCliente ? modeloSelCliente === m2.id : m2.id === modelosCliente[0]?.id,
+        go: () => {
+          setModeloSelCliente(m2.id)
+          setRascunhoCliente(null)
+          setCopiadoCliente(false)
+        },
+      })),
+      semModelos: modelosCliente.length === 0,
+      mensagem: mensagemCliente,
+      onMensagemChange: (v) => {
+        setRascunhoCliente(v)
+        setCopiadoCliente(false)
+      },
+      onRestaurar: () => {
+        setRascunhoCliente(null)
+        setCopiadoCliente(false)
+      },
+      copiarLabel: copiadoCliente ? 'Copiado' : 'Copiar mensagem',
+      onCopiar: () => {
+        navigator.clipboard?.writeText(mensagemCliente).catch(() => {})
+        setCopiadoCliente(true)
+        showAviso('Mensagem copiada')
+      },
+      whatsUrl: waLink(telCliente, mensagemCliente),
+      fatos: [
+        { k: 'Origem', v: origemTxt(selClienteRaw.origem, db) },
+        { k: 'Desde', v: fmtDate(selClienteRaw.data) },
+        { k: 'Notas', v: selClienteRaw.notas || '—' },
+      ],
+      onExcluir: () => {
+        runAction(() => deleteCliente({ id: selClienteRaw.id }), 'Cliente excluído', 'Não foi possível excluir')
+        setView('clientes')
+        setSelCliente(null)
       },
     }
   }
@@ -650,7 +724,10 @@ export function NightCrawlApp({ db, crawlName, city, today, hojeTxt }: NightCraw
     { key: 'clientes', label: 'Clientes', badge: '' },
     { key: 'presenca', label: 'Presença', badge: '' },
     { key: 'modelos', label: 'Modelos', badge: '' },
-  ].map((it) => ({ ...it, active: view === it.key || (it.key === 'parceiros' && view === 'ficha') }))
+  ].map((it) => ({
+    ...it,
+    active: view === it.key || (it.key === 'parceiros' && view === 'ficha') || (it.key === 'clientes' && view === 'fichaCliente'),
+  }))
 
   const filtrosEtapa: FiltroVM[] = [
     { key: 'Todas', label: 'Todas', count: todos.length },
@@ -736,13 +813,20 @@ export function NightCrawlApp({ db, crawlName, city, today, hojeTxt }: NightCraw
         {view === 'modelos' && (
           <TemplatesView
             modelos={modelosVM}
+            aba={modeloAba}
+            onAbaChange={setModeloAba}
             onNovoModelo={() =>
-              runAction(() => createModelo({ nome: 'Novo modelo', texto: 'Oi {primeiro_nome}, ' }), 'Modelo criado', 'Não foi possível criar')
+              runAction(
+                () => createModelo({ nome: 'Novo modelo', texto: 'Oi {primeiro_nome}, ', destinatario: modeloAba }),
+                'Modelo criado',
+                'Não foi possível criar'
+              )
             }
           />
         )}
 
         {view === 'ficha' && fichaProps && <PartnerDetailView {...fichaProps} />}
+        {view === 'fichaCliente' && fichaClienteProps && <ClientDetailView {...fichaClienteProps} />}
       </main>
 
       <PartnerFormDialog

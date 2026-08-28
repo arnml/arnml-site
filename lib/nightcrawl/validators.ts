@@ -74,15 +74,19 @@ export const updateSiteSchema = z.object({
 
 export const deleteSiteSchema = z.object({ id: z.string().min(1) })
 
+const destinatarioSchema = z.enum(['parceiro', 'cliente'])
+
 export const createModeloSchema = z.object({
   nome: z.string().default(''),
   texto: z.string().default(''),
+  destinatario: destinatarioSchema.default('parceiro'),
 })
 
 export const updateModeloSchema = z.object({
   id: z.string().min(1),
   nome: z.string().optional(),
   texto: z.string().optional(),
+  destinatario: destinatarioSchema.optional(),
 })
 
 export const deleteModeloSchema = z.object({ id: z.string().min(1) })

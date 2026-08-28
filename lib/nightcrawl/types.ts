@@ -62,10 +62,13 @@ export interface Site {
   proximaAcao: string
 }
 
+export type Destinatario = 'parceiro' | 'cliente'
+
 export interface Modelo {
   id: string
   nome: string
   texto: string
+  destinatario: Destinatario
 }
 
 export interface Db {
@@ -85,6 +88,12 @@ export type View =
   | 'presenca'
   | 'modelos'
   | 'ficha'
+  | 'fichaCliente'
+
+export const DESTINATARIOS: { value: Destinatario; label: string }[] = [
+  { value: 'parceiro', label: 'Parceiro' },
+  { value: 'cliente', label: 'Cliente' },
+]
 
 export const ETAPAS: Etapa[] = [
   'Novo',

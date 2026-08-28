@@ -103,9 +103,12 @@ model NcSite {
 }
 
 model NcModelo {
-  id    String @id @default(uuid())
-  nome  String @default("")
-  texto String @default("")
+  id           String @id @default(uuid())
+  nome         String @default("")
+  texto        String @default("")
+  // "parceiro" | "cliente" — quem recebe essa mensagem. Modelos criados antes
+  // desse campo existir eram todos para parceiros, daí o default.
+  destinatario String @default("parceiro")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
