@@ -288,7 +288,14 @@ export function NightCrawlApp({ db, crawlName, city, today, hojeTxt }: NightCraw
 
   // ---- clientes ----
   const clientesVM = [...db.clientes]
-    .sort((a, b) => (a.data < b.data ? 1 : -1))
+    .sort((a, b) => {
+      const an = a.nome.trim()
+      const bn = b.nome.trim()
+      if (!an && !bn) return 0
+      if (!an) return 1
+      if (!bn) return -1
+      return an.localeCompare(bn, 'pt-BR', { sensitivity: 'base' })
+    })
     .map((c) => ({
       id: c.id,
       nome: c.nome,
