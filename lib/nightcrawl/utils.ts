@@ -119,6 +119,8 @@ export function preencherModeloCliente(texto: string, c: Cliente, eu: EuInfo, cr
 
 export function waLink(phone: string, message: string): string {
   const digits = phone.replace(/[^0-9]/g, '')
-  if (digits.length < 8) return 'https://wa.me/'
-  return 'https://wa.me/' + digits + '?text=' + encodeURIComponent(message)
+  // wa.me's redirect page has known bugs mangling 4-byte UTF-8 emoji
+  // (outside the BMP); api.whatsapp.com/send handles them correctly.
+  if (digits.length < 8) return 'https://api.whatsapp.com/send?text=' + encodeURIComponent(message)
+  return 'https://api.whatsapp.com/send?phone=' + digits + '&text=' + encodeURIComponent(message)
 }
