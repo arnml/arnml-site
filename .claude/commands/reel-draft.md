@@ -55,6 +55,11 @@ Follow this order every time.
    - Hooks must create curiosity, tension, irony, or recognition.
    - Prefer clean, high-authority framing over punchlines that feel forced.
    - Good hook structure: what people think, what is actually true, and why it matters.
+   - Before writing, identify the obvious consensus angle, then look for the inverted, orthogonal, or uncomfortable truth.
+   - At least 1 hook should feel low-probability but still defensible: surprising, specific, and not the same take everyone else is posting.
+   - Prefer hook patterns like contradiction, unspoken truth, reframe, weird observation, or economic shift.
+   - Write like a sharp text from someone who gets it: contractions, occasional fragments, slight asymmetry, lowercase if it sounds natural.
+   - Ban stale openers and hype filler such as "let's talk about," "the future of," "game-changing," and "here's why it matters."
    - Do not make claims stronger than the source supports.
 
 5. **Write the final script**
@@ -97,6 +102,7 @@ Follow this order every time.
 - empty hype
 - cringe motivational language
 - fake certainty
+- polished AI symmetry
 - edgy for the sake of being edgy
 - overexplaining like a tutorial transcript
 - sounding like a LinkedIn post with line breaks
@@ -119,6 +125,10 @@ Prefer ideas like these:
 - "this is useful if you actually build with it"
 - "the boring part is where the advantage is"
 - "cheaper compute means more reps, and more reps compound"
+- "nobody says this part out loud, but that's the real story"
+- "the market changed here, and most people missed the second-order effect"
+
+If the hooks feel too safe, push one step further toward the contrarian tail while staying faithful to the source.
 
 Good closing question patterns:
 
