@@ -270,6 +270,31 @@ const bodyEn = (
       isn&rsquo;t accepted. This sits on the first rung.
     </p>
     <p>What OpenAI built, and who deserves credit, is next.</p>
+
+    <h2>Ok. What Now?</h2>
+    <p>Strip away the letters. Look at what&rsquo;s underneath.</p>
+    <p>A model. Written in 1822. Patched in 1845. Two hundred years old.</p>
+    <p>
+      It assumes fluid is continuous. No molecules. No grain. Just numbers,
+      smoothly varying, forever.
+    </p>
+    <p>
+      Nobody has ever seen that fluid. It doesn&rsquo;t exist. It&rsquo;s a
+      convenience that happens to work shockingly well.
+    </p>
+    <p>
+      (A) through (D) test the convenience, not the water. Whether the
+      idealization can be pushed into a contradiction on its own terms.
+    </p>
+    <p>Win or lose, no faucet cares.</p>
+    <p>
+      All models are wrong. Some are useful. Navier&ndash;Stokes has been the
+      second kind for two centuries running. This fight is about whether
+      it&rsquo;s also, quietly, the first kind &mdash; and always was.
+    </p>
+    <p>For mathematicians, that question is the whole point.</p>
+    <p>For Sam Altman, it was never the question. It was a valuation event.</p>
+
     <p>
       Read also in{" "}
       <Link href="/es/escritura/why-navier-stokes-actually-matters">
@@ -550,6 +575,36 @@ const bodyEs = (
       primer pelda&ntilde;o.
     </p>
     <p>Lo que OpenAI construy&oacute;, y qui&eacute;n merece el cr&eacute;dito, viene despu&eacute;s.</p>
+
+    <h2>Ok. &iquest;Y ahora qu&eacute;?</h2>
+    <p>Quita las letras. Mira lo que hay debajo.</p>
+    <p>Un modelo. Escrito en 1822. Corregido en 1845. Doscientos a&ntilde;os.</p>
+    <p>
+      Supone que el fluido es continuo. Sin mol&eacute;culas. Sin grano.
+      Solo n&uacute;meros que var&iacute;an suavemente, para siempre.
+    </p>
+    <p>
+      Nadie ha visto jam&aacute;s ese fluido. No existe. Es una conveniencia
+      que resulta funcionar sorprendentemente bien.
+    </p>
+    <p>
+      (A) hasta (D) ponen a prueba la conveniencia, no el agua. Si la
+      idealizaci&oacute;n puede llevarse a una contradicci&oacute;n en sus
+      propios t&eacute;rminos.
+    </p>
+    <p>Gane o pierda, ning&uacute;n grifo se entera.</p>
+    <p>
+      Todos los modelos est&aacute;n equivocados. Algunos son
+      &uacute;tiles. Navier-Stokes ha sido de la segunda clase durante dos
+      siglos. Esta pelea es sobre si tambi&eacute;n es, en silencio, de la
+      primera clase &mdash; y siempre lo fue.
+    </p>
+    <p>Para los matem&aacute;ticos, esa es la pregunta entera.</p>
+    <p>
+      Para Sam Altman, nunca fue la pregunta. Fue un evento de
+      valuaci&oacute;n.
+    </p>
+
     <p>
       Lee tambi&eacute;n en{" "}
       <Link href="/en/writing/why-navier-stokes-actually-matters">
@@ -833,6 +888,38 @@ const bodyPt = (
       aceito. Isso est&aacute; no primeiro degrau.
     </p>
     <p>O que a OpenAI construiu, e quem merece o cr&eacute;dito, vem a seguir.</p>
+
+    <h2>Ok. E agora?</h2>
+    <p>Tire as letras. Olhe o que est&aacute; por baixo.</p>
+    <p>Um modelo. Escrito em 1822. Corrigido em 1845. Duzentos anos.</p>
+    <p>
+      Ele sup&otilde;e que o fluido &eacute; cont&iacute;nuo. Sem
+      mol&eacute;culas. Sem gr&atilde;o. S&oacute; n&uacute;meros variando
+      suavemente, para sempre.
+    </p>
+    <p>
+      Ningu&eacute;m nunca viu esse fluido. Ele n&atilde;o existe.
+      &Eacute; uma conveni&ecirc;ncia que, por acaso, funciona
+      surpreendentemente bem.
+    </p>
+    <p>
+      (A) at&eacute; (D) testam a conveni&ecirc;ncia, n&atilde;o a
+      &aacute;gua. Se a idealiza&ccedil;&atilde;o pode ser levada a uma
+      contradi&ccedil;&atilde;o em seus pr&oacute;prios termos.
+    </p>
+    <p>Ganhe ou perca, nenhuma torneira liga para isso.</p>
+    <p>
+      Todos os modelos est&atilde;o errados. Alguns s&atilde;o
+      &uacute;teis. Navier-Stokes tem sido do segundo tipo por dois
+      s&eacute;culos. Essa briga &eacute; sobre se ele tamb&eacute;m
+      &eacute;, silenciosamente, do primeiro tipo &mdash; e sempre foi.
+    </p>
+    <p>Para os matem&aacute;ticos, essa &eacute; a pergunta inteira.</p>
+    <p>
+      Para Sam Altman, nunca foi a pergunta. Foi um evento de
+      avalia&ccedil;&atilde;o.
+    </p>
+
     <p>
       Leia tamb&eacute;m em{" "}
       <Link href="/en/writing/why-navier-stokes-actually-matters">
