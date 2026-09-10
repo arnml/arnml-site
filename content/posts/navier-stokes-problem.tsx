@@ -237,6 +237,18 @@ const bodyEn = (
       A 3D blow-up could work the same way. Infinite at one point. The
       energy spread over all of space stays completely ordinary.
     </blockquote>
+    <p>
+      But don&rsquo;t relax yet. Viscosity isn&rsquo;t a fixed wall waiting
+      to stop the fluid. It scales with how fast things are already moving.
+      The harder inertia pushes, the harder viscosity pushes back.
+    </p>
+    <p>
+      So the loophole isn&rsquo;t free. Every step the vortex takes toward
+      collapsing, its own opponent gets stronger too. Whether inertia can
+      still win that race, in finite time, against a defense that reacts to
+      the attack, is the actual open question. Not a technicality.
+      Not a footnote. The whole problem, restated.
+    </p>
 
     <h2>Where It Actually Stands</h2>
     <p>
@@ -500,6 +512,20 @@ const bodyEs = (
       en un punto. La energ&iacute;a repartida por todo el espacio se
       mantiene completamente ordinaria.
     </blockquote>
+    <p>
+      Pero no te relajes todav&iacute;a. La viscosidad no es un muro fijo
+      esperando para detener al fluido. Crece con la velocidad que el fluido
+      ya lleva. Mientras m&aacute;s fuerte empuja la inercia, m&aacute;s
+      fuerte empuja de vuelta la viscosidad.
+    </p>
+    <p>
+      Asi que la escapatoria no sale gratis. Cada paso que el v&oacute;rtice
+      da hacia el colapso, su propio oponente tambi&eacute;n se fortalece.
+      Si la inercia puede ganar esa carrera, en tiempo finito, contra una
+      defensa que reacciona al ataque, es la pregunta abierta de verdad. No
+      es un tecnicismo. No es una nota al pie. Es el problema entero,
+      dicho de otra forma.
+    </p>
 
     <h2>D&oacute;nde est&aacute; realmente parado esto</h2>
     <p>
@@ -766,6 +792,22 @@ const bodyPt = (
       em um ponto. A energia espalhada por todo o espa&ccedil;o permanece
       completamente comum.
     </blockquote>
+    <p>
+      Mas n&atilde;o relaxe ainda. A viscosidade n&atilde;o &eacute; uma
+      parede fixa esperando para deter o fluido. Ela cresce com a
+      velocidade que o fluido j&aacute; carrega. Quanto mais forte a
+      in&eacute;rcia empurra, mais forte a viscosidade empurra de volta.
+    </p>
+    <p>
+      Ent&atilde;o a brecha n&atilde;o sai de gra&ccedil;a. A cada passo que
+      o v&oacute;rtice d&aacute; rumo ao colapso, seu pr&oacute;prio
+      advers&aacute;rio tamb&eacute;m fica mais forte. Se a in&eacute;rcia
+      consegue vencer essa corrida, em tempo finito, contra uma
+      defesa que reage ao ataque, essa &eacute; a pergunta em aberto de
+      verdade. N&atilde;o &eacute; um detalhe t&eacute;cnico. N&atilde;o
+      &eacute; uma nota de rodap&eacute;. &Eacute; o problema inteiro,
+      dito de outro jeito.
+    </p>
 
     <h2>Onde isso realmente est&aacute;</h2>
     <p>
