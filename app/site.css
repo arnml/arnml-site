@@ -670,6 +670,41 @@
   font-size: 12px;
   text-align: center;
 }
+.site-page .site-prose a {
+  color: var(--site-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.site-page .site-prose figure {
+  margin: 2.5em 0;
+}
+.site-page .site-prose figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+.site-page .site-prose figure figcaption {
+  margin-top: 10px;
+  color: var(--site-muted);
+  font-family: var(--font-site-sans), system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.site-page .site-prose figure figcaption a {
+  color: var(--site-accent);
+}
+.site-page .site-prose .site-equation {
+  margin: 1.8em 0;
+  padding: 18px 20px;
+  overflow-x: auto;
+  border-left: 3px solid var(--site-accent);
+  background: color-mix(in srgb, var(--site-accent) 5%, transparent);
+}
+.site-page .site-prose .site-equation-inline {
+  padding: 0 2px;
+}
 .site-page .site-about-copy {
   margin-top: 3em;
 }
