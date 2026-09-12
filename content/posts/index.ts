@@ -6,13 +6,14 @@ import { post as optimization } from "./optimize-work";
 import { post as microservices } from "./microservices";
 import { post as softwareDifficulty } from "./why-building-software-is-hard";
 import { post as navierStokes } from "./navier-stokes-problem";
+import { post as hiringByImpact } from "./hiring-devs-by-impact";
 import type { Locale } from "@/lib/site/locales";
 import type { Post } from "./ai-is-leverage";
 
 export const posts: Record<Locale, Post[]> = {
-  en: [navierStokes.en, reliableAgents.en, productiveConflict.en, softwareDifficulty.en, agents.en, shipping.en, optimization.en, microservices.en],
-  es: [navierStokes.es, reliableAgents.es, productiveConflict.es, softwareDifficulty.es, agents.es, shipping.es, optimization.es, microservices.es],
-  pt: [navierStokes.pt, reliableAgents.pt, productiveConflict.pt, softwareDifficulty.pt, agents.pt, shipping.pt, optimization.pt, microservices.pt],
+  en: [hiringByImpact.en, navierStokes.en, reliableAgents.en, productiveConflict.en, softwareDifficulty.en, agents.en, shipping.en, optimization.en, microservices.en],
+  es: [hiringByImpact.es, navierStokes.es, reliableAgents.es, productiveConflict.es, softwareDifficulty.es, agents.es, shipping.es, optimization.es, microservices.es],
+  pt: [hiringByImpact.pt, navierStokes.pt, reliableAgents.pt, productiveConflict.pt, softwareDifficulty.pt, agents.pt, shipping.pt, optimization.pt, microservices.pt],
 };
 
 export function findPost(locale: Locale, slug: string) {
