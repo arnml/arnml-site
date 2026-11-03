@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import "./writing.css";
 import { SectionHeading } from "@/components/site/section-heading";
 import { posts } from "@/content/posts";
 import { siteCopy } from "@/lib/site/content";
@@ -65,30 +66,40 @@ export default async function LocalizedSectionPage({
   const copy = siteCopy[rawLocale];
 
   if (section === "writing") {
+    const writingCopy = {
+      en: { title: "Ideas worth thinking through.", intro: "Essays, experiments, and research on software, AI, and the decisions behind systems that work in the real world.", latest: "Latest thinking", all: "All articles", read: "Read article" },
+      es: { title: "Ideas para pensar a fondo.", intro: "Ensayos, experimentos e investigación sobre software, IA y las decisiones detrás de sistemas que funcionan en el mundo real.", latest: "Lo más reciente", all: "Todos los artículos", read: "Leer artículo" },
+      pt: { title: "Ideias para pensar a fundo.", intro: "Ensaios, experimentos e pesquisas sobre software, IA e as decisões por trás de sistemas que funcionam no mundo real.", latest: "Mais recentes", all: "Todos os artigos", read: "Ler artigo" },
+    }[rawLocale];
+    const [featured, ...remaining] = posts[rawLocale];
     return (
-      <div className="site-shell site-subpage">
-        <SectionHeading eyebrow={copy.nav.writing} title={copy.home.selected} />
-        <p className="site-subpage-intro">
-          Essays, experiments, architecture notes, and research about systems
-          that have to work in the real world.
-        </p>
-        <div className="site-writing-list">
-          {posts[rawLocale].map((post) => (
-            <Link
-              className="site-writing-item"
-              href={sectionPath(rawLocale, "writing", post.slug)}
-              key={post.slug}
-            >
-              <p className="site-date">{post.date}</p>
-              <div>
-                <div className="site-section-label">
-                  {post.tags.join(" · ")}
-                </div>
-                <h2>{post.title}</h2>
-                <p>{post.description}</p>
-              </div>
-            </Link>
-          ))}
+      <div className="motion-writing-page">
+        <div className="writing-shell">
+          <header className="writing-hero">
+            <div className="writing-label">{copy.nav.writing}</div>
+            <h1>{writingCopy.title}</h1>
+            <p>{writingCopy.intro}</p>
+          </header>
+          {featured && (
+            <section className="writing-feature" aria-labelledby="featured-heading">
+              <div className="writing-label" id="featured-heading">{writingCopy.latest}</div>
+              <Link className="writing-feature-card" href={sectionPath(rawLocale, "writing", featured.slug)}>
+                <div className="writing-meta"><span>{featured.tags[0]}</span><time dateTime={featured.date}>{featured.date}</time></div>
+                <div className="writing-feature-body"><div><h2>{featured.title}</h2><p>{featured.description}</p></div><span className="writing-round-arrow" aria-hidden="true">↗</span></div>
+                <span className="writing-read">{writingCopy.read} <span aria-hidden="true">↗</span></span>
+              </Link>
+            </section>
+          )}
+          <section className="writing-archive" aria-labelledby="archive-heading">
+            <div className="writing-archive-heading"><h2 id="archive-heading">{writingCopy.all}</h2><span>{String(remaining.length).padStart(2, "0")}</span></div>
+            <div className="writing-grid">{remaining.map((post) => (
+              <Link className="writing-card" href={sectionPath(rawLocale, "writing", post.slug)} key={post.slug}>
+                <div className="writing-meta"><span>{post.tags[0]}</span><time dateTime={post.date}>{post.date}</time></div>
+                <div className="writing-card-body"><h3>{post.title}</h3><p>{post.description}</p></div>
+                <span className="writing-round-arrow" aria-hidden="true">↗</span>
+              </Link>
+            ))}</div>
+          </section>
         </div>
       </div>
     );
