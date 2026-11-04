@@ -1,9 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { posts } from "@/content/posts";
 import { siteCopy } from "@/lib/site/content";
 import { isLocale, sectionPath } from "@/lib/site/locales";
+import { WhiteboardHero } from "@/components/site/whiteboard-hero";
 import "./home.css";
 
 const homeCopy = {
@@ -71,7 +71,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               <Link className="motion-text-link" href={sectionPath(locale, "writing")}>{home.writingAction} <span aria-hidden="true">↗</span></Link>
             </div>
           </div>
-          <div className="motion-hero-art" aria-hidden="true"><Image src="/images/home-system.svg" width={600} height={600} alt="" priority unoptimized /></div>
+          <div className="motion-hero-art"><WhiteboardHero locale={locale} /></div>
         </section>
         <div className="motion-hero-bottom">{copy.home.eyebrow}</div>
       </div>
