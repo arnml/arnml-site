@@ -1,0 +1,70 @@
+.hero { position: relative; width: 100%; }
+.scene { perspective: 1000px; }
+.art {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform: rotateX(calc(var(--pointer-y, 0) * -5deg)) rotateY(calc(var(--pointer-x, 0) * 7deg));
+  transition: transform .45s ease-out;
+}
+.board {
+  transform: translate(calc(var(--pointer-x, 0) * -5px), calc(var(--pointer-y, 0) * -4px));
+  transition: transform .45s ease-out;
+}
+.person {
+  transform: translate(calc(var(--pointer-x, 0) * 11px), calc(var(--pointer-y, 0) * 8px));
+  transition: transform .45s ease-out;
+}
+.node {
+  transform-origin: var(--center-x) var(--center-y);
+  animation: organize 14s cubic-bezier(.42, 0, .2, 1) infinite both;
+}
+.connection { stroke-dasharray: 1; animation: connect 14s ease-in-out infinite both; }
+.tangles { opacity: 0; animation: untangle 14s ease-in-out infinite both; }
+.breathe { transform-origin: 190px 480px; animation: breathe 6s ease-in-out infinite; }
+.arm { transform-origin: 236px 325px; animation: point 14s ease-in-out infinite; }
+.head { transform-origin: 190px 290px; animation: nod 14s ease-in-out infinite; }
+.eye { transform-box: fill-box; transform-origin: center; animation: blink 5.8s linear infinite; }
+.hero[data-paused="true"] * { animation-play-state: paused; }
+.toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  margin: 0 auto;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #635c70;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.toggle:hover { background: #e8e1ed; color: #23213c; }
+.toggle:focus-visible { outline: 3px solid #b55843; outline-offset: 3px; }
+
+/* Hold the disorder, align the same boxes, draw the edges, then hold the result. */
+@keyframes organize {
+  0%, 15%, 100% { transform: translate(var(--offset-x), var(--offset-y)) rotate(var(--angle)); }
+  42%, 88% { transform: translate(0, 0) rotate(0deg); }
+}
+@keyframes connect {
+  0%, 40%, 100% { stroke-dashoffset: 1; opacity: 0; }
+  43% { stroke-dashoffset: 1; opacity: 1; }
+  60%, 86% { stroke-dashoffset: 0; opacity: 1; }
+  92% { stroke-dashoffset: 0; opacity: 0; }
+}
+@keyframes untangle { 0%, 15%, 100% { opacity: .5; } 32%, 90% { opacity: 0; } }
+@keyframes breathe { 0%, 100% { transform: translateY(0) scaleY(1); } 50% { transform: translateY(-2px) scaleY(1.007); } }
+@keyframes point { 0%, 12%, 100% { transform: rotate(6deg); } 35%, 55% { transform: rotate(-7deg); } 70%, 82% { transform: rotate(-3deg); } }
+@keyframes nod { 0%, 15%, 100% { transform: rotate(0deg); } 38%, 58% { transform: rotate(3deg); } 72% { transform: rotate(1deg); } }
+@keyframes blink { 0%, 45%, 49%, 100% { transform: scaleY(1); } 47% { transform: scaleY(.08); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero * { animation: none !important; transition: none !important; transform: none !important; }
+  .connection { stroke-dashoffset: 0; opacity: 1; }
+  .tangles { opacity: 0; }
+  .toggle { display: none; }
+}
