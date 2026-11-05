@@ -838,3 +838,50 @@
     font-size: clamp(1.25rem, 2vw, 1.5rem);
   }
 }
+
+/* Animated figures for the ray-to-terrain post (components/ray-terrain-figures.tsx). */
+.ray-figure {
+  margin: 2.5em 0;
+}
+.ray-figure-screen {
+  overflow: hidden;
+  border-radius: 10px;
+  background: #0e1320;
+}
+.ray-figure-screen svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  font-family: var(--font-site-sans), system-ui, sans-serif;
+}
+.ray-figure-screen .ray-figure-mono {
+  font-family: var(--font-site-mono), monospace;
+}
+.ray-figure-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px 12px;
+}
+.ray-figure-bar input[type="range"] {
+  flex: 1;
+  min-width: 0;
+  accent-color: #ffd166;
+}
+.ray-figure-button {
+  padding: 4px 12px;
+  border: 1px solid #3a4560;
+  border-radius: 999px;
+  background: transparent;
+  color: #eef1f6;
+  font: 600 13px/1.4 var(--font-site-sans), system-ui, sans-serif;
+  cursor: pointer;
+}
+.ray-figure-button:hover,
+.ray-figure-button:focus-visible {
+  border-color: #ffd166;
+  color: #ffd166;
+}
+.ray-figure-replay {
+  margin-left: auto;
+}
