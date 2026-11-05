@@ -1,3 +1,4 @@
+import { post as rayToTerrain } from "./ray-to-terrain";
 import { post as aiCodingLessons } from "./ai-coding-lessons";
 import { post as agents } from "./ai-is-leverage";
 import { post as reliableAgents } from "./reliable-ai-agents";
@@ -12,9 +13,9 @@ import type { Locale } from "@/lib/site/locales";
 import type { Post } from "./ai-is-leverage";
 
 export const posts: Record<Locale, Post[]> = {
-  en: [aiCodingLessons.en, hiringByImpact.en, navierStokes.en, reliableAgents.en, productiveConflict.en, softwareDifficulty.en, agents.en, shipping.en, optimization.en, microservices.en],
-  es: [aiCodingLessons.es, hiringByImpact.es, navierStokes.es, reliableAgents.es, productiveConflict.es, softwareDifficulty.es, agents.es, shipping.es, optimization.es, microservices.es],
-  pt: [aiCodingLessons.pt, hiringByImpact.pt, navierStokes.pt, reliableAgents.pt, productiveConflict.pt, softwareDifficulty.pt, agents.pt, shipping.pt, optimization.pt, microservices.pt],
+  en: [rayToTerrain.en, aiCodingLessons.en, hiringByImpact.en, navierStokes.en, reliableAgents.en, productiveConflict.en, softwareDifficulty.en, agents.en, shipping.en, optimization.en, microservices.en],
+  es: [rayToTerrain.es, aiCodingLessons.es, hiringByImpact.es, navierStokes.es, reliableAgents.es, productiveConflict.es, softwareDifficulty.es, agents.es, shipping.es, optimization.es, microservices.es],
+  pt: [rayToTerrain.pt, aiCodingLessons.pt, hiringByImpact.pt, navierStokes.pt, reliableAgents.pt, productiveConflict.pt, softwareDifficulty.pt, agents.pt, shipping.pt, optimization.pt, microservices.pt],
 };
 
 export function findPost(locale: Locale, slug: string) {
